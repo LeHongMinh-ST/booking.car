@@ -2,8 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Livewire\Admin\Home\Dashboard;
+use App\Http\Livewire\Admin\Account\AccountIndex;
+use App\Http\Livewire\Admin\Role\RoleIndex;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,10 +22,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
     Route::group(['middleware' => ['admin.auth']], function () {
-        Route::get('/dashboard',Dashboard::class)->name('admin.dashboard');
-
-        //role
-        Route::prefix('account')->name('account.')->name('index')
+        Route::get('/dashboard',Dashboard::class)->name('dashboard');
+        Route::get('/account',AccountIndex::class)->name('account');
+        Route::get('/role',RoleIndex::class)->name('role');
+        Route::get('/product',RoleIndex::class)->name('product');
     });
 });
 

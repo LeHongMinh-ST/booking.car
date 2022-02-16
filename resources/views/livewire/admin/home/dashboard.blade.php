@@ -2568,3 +2568,6 @@
     </div>
     <!--end::Post-->
 </div>
+@section('title')
+    Bảng điều khiển
+@endsection
