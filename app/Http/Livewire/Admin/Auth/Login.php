@@ -14,6 +14,12 @@ class Login extends Component
         return view('livewire.admin.auth.login');
     }
 
+    public function hydrate()
+    {
+        $this->resetErrorBag();
+        $this->resetValidation();
+    }
+
     public function login()
     {
         $this->validate([
