@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Livewire\Admin\Home\Dashboard;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,12 +16,15 @@ use App\Http\Controllers\Admin\DashboardController;
 |
 */
 
-Route::group(['prefix' => 'admin'], function () {
-    Route::get('/login', [LoginController::class, 'showLoginForm'])->name('admin.login');
-    Route::post('/logout', [LoginController::class, 'logout'])->name('admin.logout');
+Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
+    Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
+    Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
     Route::group(['middleware' => ['admin.auth']], function () {
-        Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
+        Route::get('/dashboard',Dashboard::class)->name('admin.dashboard');
+
+        //role
+        Route::prefix('account')->name('account.')->name('index')
     });
 });
 

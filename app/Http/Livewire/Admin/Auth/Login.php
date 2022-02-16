@@ -16,8 +16,8 @@ class Login extends Component
 
     public function hydrate()
     {
-        $this->resetErrorBag();
-        $this->resetValidation();
+            $this->resetErrorBag();
+            $this->resetValidation();
     }
 
     public function login()
