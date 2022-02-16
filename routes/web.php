@@ -5,6 +5,10 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Livewire\Admin\Home\Dashboard;
 use App\Http\Livewire\Admin\Account\AccountIndex;
 use App\Http\Livewire\Admin\Role\RoleIndex;
+use App\Http\Livewire\Admin\Product\ProductIndex;
+use App\Http\Livewire\Admin\Product\ProductCreate;
+use App\Http\Livewire\Admin\Brand\BrandIndex;
+use App\Http\Livewire\Admin\Category\CategoryIndex;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,7 +29,14 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
         Route::get('/dashboard',Dashboard::class)->name('dashboard');
         Route::get('/account',AccountIndex::class)->name('account');
         Route::get('/role',RoleIndex::class)->name('role');
-        Route::get('/product',RoleIndex::class)->name('product');
+        Route::get('/brand',BrandIndex::class)->name('brand');
+        Route::get('/category',CategoryIndex::class)->name('category');
+
+        Route::prefix('product')->group(function () {
+            Route::get('/',ProductIndex::class)->name('product');
+            Route::get('/create',ProductCreate::class)->name('product.create');
+        });
+
     });
 });
 
