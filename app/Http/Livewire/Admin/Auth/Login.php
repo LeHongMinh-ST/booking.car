@@ -17,16 +17,16 @@ class Login extends Component
     public function login()
     {
         $this->validate([
-            'email' => 'required|email',
-            'password' => 'required',
+            'email' => 'required|email|string',
+            'password' => 'required|string',
         ], [], [
             'password' => 'mật khẩu'
         ]);
-        if (!auth()->attempt(['email' => $this->email, 'password' => $this->password])) {
-            $this->addError('email', 'Email hoặc Mật khẩu không chính xác');
+
+        if (auth()->guard('admin')->attempt(['email' => $this->email, 'password' => $this->password])) {
+            return redirect()->intended('admin/dashboard');
         }
-        request()->session()->regenerate();
-        return redirect()->intended(route('admin.dashboard'));
+        $this->addError('email', 'Email hoặc Mật khẩu không chính xác');
     }
 
 }

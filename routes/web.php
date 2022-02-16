@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Admin\DashboardController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,10 +15,12 @@ use App\Http\Controllers\Admin\DashboardController;
 |
 */
 
-Route::prefix('admin')->group( function () {
-    Route::get('login', [LoginController::class, 'showLoginForm'])->name('admin.login');
-    Route::middleware('auth')->group(function () {
-        Route::get('/', [DashboardController::class, 'index'])->name('admin.dashboard');
+Route::group(['prefix' => 'admin'], function () {
+    Route::get('/login', [LoginController::class, 'showLoginForm'])->name('admin.login');
+    Route::post('/logout', [LoginController::class, 'logout'])->name('admin.logout');
+
+    Route::group(['middleware' => ['admin.auth']], function () {
+        Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
     });
 });
 
