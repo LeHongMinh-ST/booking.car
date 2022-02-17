@@ -20,4 +20,12 @@ class Brand extends Model
         'description',
         'is_active'
     ];
+
+    public function scopeSearch($query, $search)
+    {
+        if ($search) {
+            $query->where('name', 'like', '%' . $search . '%');
+        }
+        return $query;
+    }
 }
