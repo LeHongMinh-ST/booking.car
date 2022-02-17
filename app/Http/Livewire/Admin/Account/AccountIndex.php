@@ -36,10 +36,12 @@ class AccountIndex extends Component
         ])->extends('admin.layouts.master')->section('content');
     }
 
-    public function handleFilter()
+    public function resetFilter()
     {
-        $this->roleId = $this->filter['roleId'];
-        $this->status = $this->filter['status'];
+        $this->roleId = '';
+        $this->status = '';
     }
+
+
 
 }

@@ -111,12 +111,13 @@
                                     <label class="form-label fs-5 fw-bold mb-3">Vai trò:</label>
                                     <!--end::Label-->
                                     <!--begin::Input-->
-                                    <select wire:model="filter.roleId" class="form-select form-select-solid fw-bolder">
+                                    <select wire:model="roleId" class="form-select form-select-solid fw-bolder ">
                                         <option value="">Tất cả</option>
                                         @foreach($roles as $role)
                                             <option value="{{$role->id}}">{{$role->name}}</option>
                                         @endforeach
                                     </select>
+
                                     <!--end::Input-->
                                 </div>
 
@@ -125,17 +126,18 @@
                                     <label class="form-label fs-5 fw-bold mb-3">Trạng thái:</label>
                                     <!--end::Label-->
                                     <!--begin::Input-->
-                                    <select wire:model="filter.status" class="form-select form-select-solid">
+                                    <select wire:model="status" class="form-select form-select-solid fw-bolder">
                                         <option value="">Tất cả</option>
                                         <option value="1">Kích hoạt</option>
                                         <option value="0">Khóa</option>
                                     </select>
                                     <!--end::Input-->
                                 </div>
+                                @if($status || $roleId)
                                 <div class="d-flex justify-content-end">
-                                    <button type="reset" class="btn btn-white btn-active-light-primary me-2" data-kt-menu-dismiss="true" data-kt-customer-table-filter="reset">Khôi phục</button>
-                                    <button type="button" wire:click="handleFilter" class="btn btn-primary" data-kt-menu-dismiss="true" data-kt-customer-table-filter="filter">Lọc</button>
+                                    <button type="reset" wire:click="resetFilter" class="btn btn-white btn-active-light-primary me-2" data-kt-menu-dismiss="true" data-kt-customer-table-filter="reset">Khôi phục</button>
                                 </div>
+                                @endif
                                 <!--end::Actions-->
                             </div>
                             <!--end::Content-->
