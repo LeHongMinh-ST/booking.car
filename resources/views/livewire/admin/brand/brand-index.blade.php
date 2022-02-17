@@ -126,6 +126,9 @@
                                 <thead>
                                 <!--begin::Table row-->
                                 <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0" role="row">
+                                    <th style="width: 50px;" >
+                                        STT
+                                    </th>
                                     <th class="min-w-125px" tabindex="0"
                                         style="width: 100px;">Ảnh
                                     </th>
@@ -144,6 +147,9 @@
                                 @foreach($brands as $brand)
                                 <tr class="odd">
                                     <!--begin::Name=-->
+                                    <td>
+                                        {{ $loop->index + 1 + $brands->perPage() * ($brands->currentPage() - 1)   }}
+                                    </td>
                                     <td>
                                         @if($brand->thumbnail)
                                             <img class="image-input-wrapper w-125px h-125px image-input-outline" src="{{ $brand->thumbnail }}" alt="">

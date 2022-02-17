@@ -23,8 +23,8 @@ class RoleSeederTable extends Seeder
             'name' => 'Super Admin',
             'description' => 'Quản trị hệ thống',
         ]);
-        $role->permissions()->attach($permission->_id);
-        $admin = Admin::where('email', 'superadmin@gmail.vn')->first();
+        $role->permissions()->attach($permission->id);
+        $admin = Admin::where('email', 'superadmin@gmail.com')->first();
         if ($admin) {
             $admin->role_id = $role->id;
             $admin->save();

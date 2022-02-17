@@ -6,6 +6,7 @@ use App\Models\Permission;
 use App\Models\Role;
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PermissionUser
 {
@@ -19,7 +20,7 @@ class PermissionUser
     public function handle(Request $request, Closure $next, $codePermission)
     {
         try {
-            $user = Auth::user();
+            $user = Auth::guard('admin')->user();
             $role = Role::find($user->role_id);
             if ($role->permissions) {
                 $isSuperAdmin = $this->hasPermission($role, 'super-admin');
@@ -47,6 +48,8 @@ class PermissionUser
     private function hasPermission($role, $codePermission)
     {
         $idPermission = Permission::where('code', $codePermission)->first();
-        return $role->permissions->contains($idPermission->id);
+        if ($idPermission)
+            return $role->permissions->contains($idPermission->id);
+        return false;
     }
 }
