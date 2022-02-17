@@ -3,10 +3,14 @@
 namespace App\Http\Livewire\Admin\Brand;
 
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class BrandIndex extends Component
 {
-    public $showModal = false;
+    use WithFileUploads;
+
+    public $showCreateModal = false;
+    public $image = '';
 
     public function render()
     {
@@ -17,4 +21,26 @@ class BrandIndex extends Component
     {
 
     }
+
+    public function showCreateModal()
+    {
+        $this->showCreateModal = true;
+    }
+
+    public function closeCreateModal()
+    {
+        $this->showCreateModal = false;
+    }
+
+    public function clearImagePreview()
+    {
+        $this->image = '';
+    }
+
+
+    public function store()
+    {
+        dd($this->image);
+    }
+
 }
