@@ -70,7 +70,7 @@ class PermissionGroupSeeder extends Seeder
         ]);
 
         self::checkIssetBeforeCreate([
-            'name' => 'Quản lý Vai trò',
+            'name' => 'Quản lý vai trò',
             'code' => 'role',
             'description' => 'Quản lý toàn bộ chức năng liên quan đến vai trò'
         ]);

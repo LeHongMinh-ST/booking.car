@@ -6,6 +6,7 @@ use App\Http\Livewire\Admin\Home\Dashboard;
 use App\Http\Livewire\Admin\Account\AccountIndex;
 use App\Http\Livewire\Admin\Role\RoleIndex;
 use App\Http\Livewire\Admin\Role\RoleCreate;
+use App\Http\Livewire\Admin\Role\RoleUpdate;
 use App\Http\Livewire\Admin\Product\ProductIndex;
 use App\Http\Livewire\Admin\Product\ProductCreate;
 use App\Http\Livewire\Admin\Brand\BrandIndex;
@@ -41,6 +42,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
         Route::prefix('role')->group(function () {
             Route::get('/',RoleIndex::class)->middleware('permission:role-index')->name('role');
             Route::get('/create',RoleCreate::class)->middleware('permission:role-create')->name('role.create');
+            Route::get('/{id}/edit',RoleUpdate::class)->middleware('permission:role-update')->name('role.edit');
         });
 
     });

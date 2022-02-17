@@ -19,6 +19,21 @@
             "progressBar": true,
         }
     });
+    @if(\session()->has('success'))
+        toastr.success('{{ \session()->pull('success') }}'),
+        toastr.options = {
+            "closeButton": true,
+            "progressBar": true,
+        }
+    @endif
+
+    @if(\session()->has('error'))
+    toastr.error('{{ \session()->pull('error') }}'),
+        toastr.options = {
+            "closeButton": true,
+            "progressBar": true,
+        }
+    @endif
 </script>
 
 @yield('script')

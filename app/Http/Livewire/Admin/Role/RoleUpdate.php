@@ -4,59 +4,72 @@ namespace App\Http\Livewire\Admin\Role;
 
 use App\Models\GroupPermission;
 use App\Models\Role;
-use Illuminate\Support\Facades\Log;
 use Livewire\Component;
 
-class RoleCreate extends Component
+class RoleUpdate extends Component
 {
     public $permissionChecked = [];
     public $permissionGroupChecked = [];
     public $groups;
     public $name;
     public $description;
+    public $roleId;
 
     public function render()
     {
-        return view('livewire.admin.role.role-create', [
+        return view('livewire.admin.role.role-update', [
             'groups' => $this->groups
         ])->extends('admin.layouts.master')->section('content');
     }
 
-    public function mount()
+    public function mount($id)
     {
+        $role = Role::query()->with('permissions')->find($id);
+        $this->name = $role->name;
+        $this->roleId = $role->id;
+        $this->description = $role->description;
+        $this->permissionChecked = $role->permissions->pluck('id')->toArray();
         $this->groups = GroupPermission::query()->with('permissions')->get();
+        foreach ($this->groups as $group) {
+            if ($this->checkGroupSellectAll($group, $this->permissionChecked)){
+                $this->permissionGroupChecked[] = $group->id;
+            }
+        }
     }
 
-    public function store()
+    public function update()
     {
         $this->validate([
             'name' => 'required|string'
         ]);
 
+        $role = Role::query()->where('id', $this->roleId)->first();
+        $role->update([
+            'name' => $this->name,
+            'description' => $this->description
+        ]);
+        $role->permissions()->detach();
 
-        try {
-            $role = Role::create([
-                'name' => $this->name,
-                'description' => $this->description
-            ]);
+        $role->permissions()->attach($this->permissionChecked);
 
-            $role->permissions()->attach($this->permissionChecked);
+        session()->flash('success', 'Cập nhật thành công');
 
-            session()->flash('success', 'Tạo mới thành công');
-
-            return redirect()->route('admin.role');
-
-        } catch (\Exception $e) {
-            Log::error('Error create role', [
-                'method' => __METHOD__,
-                'message' => $e->getMessage()
-            ]);
-
-            $this->dispatchBrowserEvent('alert',
-                ['type' => 'error', 'message' => 'Tạo mới thất bại!']);
-        }
+        return redirect()->route('admin.role');
     }
 
+    public function checkGroupSellectAll($group, $permissions)
+    {
+        $permissionGroupId = $group->permissions->pluck('id')->toArray();
+
+        if (!count($permissionGroupId) > 0) return false;
+
+        foreach ($permissionGroupId as $id) {
+            if (!in_array($id, $permissions)) {
+                return false;
+            }
+        }
+        return true;
+    }
     public function hydrate()
     {
         $this->resetErrorBag();
@@ -79,4 +92,5 @@ class RoleCreate extends Component
             }
         }
     }
+
 }
