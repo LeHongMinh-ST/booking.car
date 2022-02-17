@@ -152,9 +152,9 @@
                                     </td>
                                     <td>
                                         @if($brand->thumbnail)
-                                            <img class="image-input-wrapper w-125px h-125px image-input-outline" src="{{ $brand->thumbnail }}" alt="">
+                                            <img class="image-input-wrapper w-100px h-100px image-input-outline" src="{{ $brand->thumbnail }}" alt="">
                                         @else
-                                            <img class="image-input-wrapper w-125px h-125px image-input-outline" src="assets/media/avatars/150-2.jpg" alt="">
+                                            <img class="image-input-wrapper w-100px h-100px image-input-outline" src="assets/media/avatars/150-2.jpg" alt="">
                                         @endif
                                     </td>
                                     <!--end::Name=-->

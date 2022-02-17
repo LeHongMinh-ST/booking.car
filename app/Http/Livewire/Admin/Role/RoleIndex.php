@@ -18,7 +18,8 @@ class RoleIndex extends Component
     public $showDeleteModal = false;
     public $hasPermissionDelete = false;
     public $deleteId;
-    protected $listeners = ["alertSuccess"];
+
+
 
     public function render()
     {

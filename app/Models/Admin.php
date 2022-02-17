@@ -51,6 +51,37 @@ class Admin extends Authenticatable
     ];
 
     public function role(){
-        return $this->hasOne(Role::class);
+        return $this->belongsTo(Role::class);
     }
+
+    public function scopeSearch($query, $search)
+    {
+        if ($search) {
+            $query->where('name', 'like', '%' . $search . '%')
+                ->orWhere('email', 'like', '%' . $search . '%')
+                ->orWhere('phone', 'like', '%' . $search . '%');
+        }
+
+        return $query;
+    }
+
+    public function scopeRole($query, $roleId)
+    {
+        if ($roleId) {
+            $query->where('role_id', $roleId);
+        }
+
+        return $query;
+    }
+
+    public function scopeStatus($query, $status)
+    {
+        if ($status) {
+            $query->where('status', $status);
+        }
+
+        return $query;
+    }
+
+
 }
