@@ -18,8 +18,9 @@ class CreateCategoriesTable extends Migration
             $table->string('name')->nullable();
             $table->text('description')->nullable();
             $table->bigInteger('parent_id')->nullable();
+            $table->integer('depth')->nullable();
             $table->tinyInteger('is_active')
-                ->default(\App\Models\Category::IS_ACTIVE['deactivate'])
+                ->default(\App\Models\Category::IS_ACTIVE['active'])
                 ->nullable();
             $table->timestamps();
         });

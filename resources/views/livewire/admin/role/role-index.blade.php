@@ -183,15 +183,17 @@
                                                 class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
                                                 data-kt-menu="true">
                                                 <!--begin::Menu item-->
+                                                @if(checkPermission('role-update'))
                                                 <div class="menu-item px-3">
                                                     <a href="{{ route('admin.role.edit', $role->id) }}" class="menu-link px-3">Sửa</a>
                                                 </div>
+                                                @endif
                                                 <!--end::Menu item-->
                                                 <!--begin::Menu item-->
-                                                @if($hasPermissionDelete)
+                                                @if(checkPermission('role-delete'))
                                                 <div class="menu-item px-3">
-                                                    <a href="#" wire:click="openDeleteModal({{$role->id}})" class="menu-link px-3"
-                                                       data-kt-customer-table-filter="delete_row">Xoá</a>
+                                                    <span wire:click="openDeleteModal({{$role->id}})" class="menu-link px-3"
+                                                       data-kt-customer-table-filter="delete_row">Xoá</span>
                                                 </div>
                                                 @endif
                                                 <!--end::Menu item-->
@@ -233,7 +235,7 @@
             <!--end::Card-->
             <!--begin::Modals-->
             <!--begin::Modal - Customers - Add-->
-            @if($showDeleteModal)
+            @if($showDeleteModal && checkPermission('role-delete'))
                 <div class="modal fade show" id="createModal"
                      style="display: block; padding-right: 5px;"  tabindex="-1"
                      aria-hidden="true">

@@ -23,4 +23,13 @@ class Role extends Model
     public function admin(){
         return $this->belongsTo(Admin::class);
     }
+
+    public function scopeName($query, $search)
+    {
+        if ($search) {
+            $query->where('name', 'like', '%' . $search . '%');
+        }
+
+        return $query;
+    }
 }

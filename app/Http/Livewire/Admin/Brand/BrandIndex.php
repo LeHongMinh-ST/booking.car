@@ -39,10 +39,12 @@ class BrandIndex extends Component
         $this->resetPage();
     }
 
-    public function hydrate()
+    public function updated($propertyName)
     {
-        $this->resetErrorBag();
-        $this->resetValidation();
+        $this->validateOnly($propertyName, [
+            'image' => 'image|nullable',
+            'name' => 'required|string'
+        ]);
     }
 
     public function showCreateModal()

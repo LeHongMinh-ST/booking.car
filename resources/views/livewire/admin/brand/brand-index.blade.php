@@ -29,7 +29,7 @@
                     </li>
                     <!--end::Item-->
                     <!--begin::Item-->
-                    <li class="breadcrumb-item text-muted">Danh sach nhãn hiệu</li>
+                    <li class="breadcrumb-item text-muted">Nhãn hiệu</li>
                     <!--end::Item-->
                 </ul>
                 <!--end::Breadcrumb-->

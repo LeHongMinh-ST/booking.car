@@ -14,10 +14,12 @@ class Login extends Component
         return view('livewire.admin.auth.login');
     }
 
-    public function hydrate()
+    public function updated($propertyName)
     {
-            $this->resetErrorBag();
-            $this->resetValidation();
+        $this->validateOnly($propertyName, [
+            'email' => 'required|email|string',
+            'password' => 'required|string',
+        ]);
     }
 
     public function login()

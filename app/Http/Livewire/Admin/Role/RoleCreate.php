@@ -57,10 +57,11 @@ class RoleCreate extends Component
         }
     }
 
-    public function hydrate()
+    public function updated($propertyName)
     {
-        $this->resetErrorBag();
-        $this->resetValidation();
+        $this->validateOnly($propertyName, [
+            'name' => 'required|string'
+        ]);
     }
 
     public function selectAll($id)

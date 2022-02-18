@@ -16,55 +16,28 @@ class RoleIndex extends Component
 
     public $perPage = 10;
     public $showDeleteModal = false;
-    public $hasPermissionDelete = false;
     public $deleteId;
+    public $search = '';
 
 
 
     public function render()
     {
         return view('livewire.admin.role.role-index', [
-            'roles' => Role::query()->paginate($this->perPage)
+            'roles' => Role::query()->name($this->search)->paginate($this->perPage)
         ])->extends('admin.layouts.master')->section('content');
     }
 
     public function mount()
     {
-        $this->hasPermissionDelete = $this->checkPermissionDelete('role-delete');
     }
 
-    public function checkPermissionDelete($codePermission)
-    {
-        $user = auth()->guard('admin')->user();
-        $role = Role::find($user->role_id);
-        if ($role->permissions) {
-            $isSuperAdmin = $this->hasPermission($role, 'super-admin');
-            $isAdmin = $this->hasPermission($role, 'admin');
-            if ($isSuperAdmin || $isAdmin) {
-                return true;
-            }
-
-            $isPermission = $this->hasPermission($role, $codePermission);
-            if ($isPermission) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private function hasPermission($role, $codePermission)
-    {
-        $idPermission = Permission::where('code', $codePermission)->first();
-        if ($idPermission)
-            return $role->permissions->contains($idPermission->id);
-        return false;
-    }
 
     public function destroy()
     {
-        if (!$this->hasPermissionDelete) {
+        if (!checkPermission('role-delete')) {
             $this->dispatchBrowserEvent('alert',
-                ['type' => 'error', 'message' => 'Xóa thất bại!', 'title' => '403']);
+                ['type' => 'error', 'message' => 'Bạn không có quyền thực hiện chức năng này!!', 'title' => '403']);
         }
 
         try {
