@@ -8,6 +8,7 @@ use App\Http\Livewire\Admin\Role\RoleIndex;
 use App\Http\Livewire\Admin\Role\RoleCreate;
 use App\Http\Livewire\Admin\Role\RoleUpdate;
 use App\Http\Livewire\Admin\Product\ProductIndex;
+use App\Http\Livewire\Admin\Product\ProductDetail;
 use App\Http\Livewire\Admin\Product\ProductCreate;
 use App\Http\Livewire\Admin\Product\ProductUpdate;
 use App\Http\Livewire\Admin\Brand\BrandIndex;
@@ -39,6 +40,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
         Route::prefix('product')->group(function () {
             Route::get('/',ProductIndex::class)->middleware('permission:product-index')->name('product');
             Route::get('/create',ProductCreate::class)->middleware('permission:product-create')->name('product.create');
+            Route::get('/{id}',ProductDetail::class)->middleware('permission:product-index')->name('product.detail');
             Route::get('/{id}/edit',ProductUpdate::class)->middleware('permission:product-update')->name('product.edit');
         });
 

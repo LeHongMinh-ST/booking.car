@@ -80,6 +80,69 @@
                     <!--begin::Card title-->
                     <!--begin::Card toolbar-->
                     <div class="card-toolbar">
+
+                        <button type="button" class="btn btn-light-primary me-3" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end" data-kt-menu-flip="top-end">
+                            <!--begin::Svg Icon | path: icons/stockholm/Text/Filter.svg-->
+                            <span class="svg-icon svg-icon-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                        <rect x="0" y="0" width="24" height="24"></rect>
+                                        <path d="M5,4 L19,4 C19.2761424,4 19.5,4.22385763 19.5,4.5 C19.5,4.60818511 19.4649111,4.71345191 19.4,4.8 L14,12 L14,20.190983 C14,20.4671254 13.7761424,20.690983 13.5,20.690983 C13.4223775,20.690983 13.3458209,20.6729105 13.2763932,20.6381966 L10,19 L10,12 L4.6,4.8 C4.43431458,4.5790861 4.4790861,4.26568542 4.7,4.1 C4.78654809,4.03508894 4.89181489,4 5,4 Z" fill="#000000"></path>
+                                    </g>
+                                </svg>
+                            </span>
+                            <!--end::Svg Icon-->Lọc
+                        </button>
+
+                        <div class="menu menu-sub menu-sub-dropdown w-300px w-md-325px" data-kt-menu="true">
+                            <!--begin::Header-->
+                            <div class="px-7 py-5">
+                                <div class="fs-4 text-dark fw-bolder">Lọc</div>
+                            </div>
+                            <!--end::Header-->
+                            <!--begin::Separator-->
+                            <div class="separator border-gray-200"></div>
+                            <!--end::Separator-->
+                            <!--begin::Content-->
+                            <div class="px-7 py-5">
+                                <!--begin::Input group-->
+                                <div class="mb-10">
+                                    <!--begin::Label-->
+                                    <label class="form-label fs-5 fw-bold mb-3">Trạng thái:</label>
+                                    <!--end::Label-->
+                                    <!--begin::Input-->
+                                    <select wire:model="status" class="form-select form-select-solid">
+                                        <option value="{{ \App\Models\Product::STATUS['normal'] }}">Sẵn sàng</option>
+                                        <option value="{{ \App\Models\Product::STATUS['hired'] }}">Đang cho thuê</option>
+                                        <option value="{{ \App\Models\Product::STATUS['hide'] }}">Ẩn</option>
+                                    </select>
+
+                                    <!--end::Input-->
+                                </div>
+
+                                <div class="mb-10">
+                                    <!--begin::Label-->
+                                    <label class="form-label fs-5 fw-bold mb-3">Nhãn hiệu:</label>
+                                    <!--end::Label-->
+                                    <!--begin::Input-->
+                                    <select wire:model="brandId" class="form-select form-select-solid">
+                                        @foreach($brands as $brand)
+                                        <option value="{{ $brand->id }}">{{ $brand->name }}</option>
+                                        @endforeach
+                                    </select>
+
+                                    <!--end::Input-->
+                                </div>
+
+                                @if($status || $brandId)
+                                        <div class="d-flex justify-content-end">
+                                            <button type="reset" wire:click="resetFilter" class="btn btn-white btn-active-light-primary me-2" data-kt-menu-dismiss="true" data-kt-customer-table-filter="reset">Khôi phục</button>
+                                        </div>
+                                @endif
+                            <!--end::Actions-->
+                            </div>
+                            <!--end::Content-->
+                        </div>
                         <!--begin::Toolbar-->
                         <div class="d-flex justify-content-end" data-kt-customer-table-toolbar="base">
                             <!--begin::Add customer-->
@@ -102,15 +165,6 @@
                         </div>
                         <!--end::Toolbar-->
                         <!--begin::Group actions-->
-                        <div class="d-flex justify-content-end align-items-center d-none"
-                             data-kt-customer-table-toolbar="selected">
-                            <div class="fw-bolder me-5">
-                                <span class="me-2" data-kt-customer-table-select="selected_count"></span>Selected
-                            </div>
-                            <button type="button" class="btn btn-danger"
-                                    data-kt-customer-table-select="delete_selected">Delete Selected
-                            </button>
-                        </div>
                         <!--end::Group actions-->
                     </div>
                     <!--end::Card toolbar-->
@@ -142,13 +196,13 @@
                                     <th class="min-w-125px" tabindex="0"
                                         style="width: 200px;">Nhãn hiệu
                                     </th>
-                                    <th class="min-w-125px" tabindex="0"
+                                    <th class="min-w-100px" tabindex="0"
                                         style="width: 200px;">Màu sắc
                                     </th>
                                     <th class="min-w-125px" tabindex="0"
                                         style="width: 200px;">Loại xe
                                     </th>
-                                    <th class="min-w-125px" tabindex="0"
+                                    <th class="min-w-90px" tabindex="0"
                                         style="width: 200px;">Trạng thái
                                     </th>
                                     <th class="text-end min-w-70px sorting_disabled" rowspan="1" colspan="1"
@@ -169,8 +223,39 @@
                                         <!--end::Name=-->
                                         <!--end::Payment method=-->
                                         <!--begin::Date=-->
-                                        <td>{{ $product->name }}</td>
-                                        <td>{{ $product->description }}</td>
+                                        <td>
+                                            @if($product->thumbnail)
+                                                <img class="image-input-wrapper w-100px h-100px image-input-outline" src="{{ $product->thumbnail }}" alt="">
+                                            @else
+                                                <img class="image-input-wrapper w-100px h-100px image-input-outline" src="{{ asset('admin/assets/img/default-image.jpg') }}" alt="">
+                                            @endif
+                                        </td>
+                                        <td><a href="{{ route('admin.product.detail', $product->id) }}" class="menu-link px-3">{{ $product->name }}</a></td>
+                                        <td>{{ $product->license_plates }}</td>
+                                        <td>{{ $product->brand ? $product->brand->name  : 'Chưa có' }}</td>
+                                        <td>{{ $product->color }}</td>
+                                        <td>
+                                            @forelse($product->categories as $category)
+                                                <span>{{ $category->name }} @if(count($product->categories) > 0 && ($loop->index < count($product->categories)-1)) , @endif</span>
+                                            @empty
+                                                Chưa có
+                                            @endforelse
+                                        </td>
+                                        <td>
+                                            @switch($product->status)
+                                                @case(\App\Models\Product::STATUS['normal'])
+                                                <span class="badge badge-success">Sẵn sàng</span>
+                                                @break
+                                                @case(\App\Models\Product::STATUS['hired'])
+                                                <span class="badge badge-warning">Đang cho thuê</span>
+                                                @break
+                                                @case(\App\Models\Product::STATUS['hide'])
+                                                <span class="badge badge-danger">Ẩn</span>
+                                                @break
+                                            @endswitch
+                                        </td>
+
+
                                         <!--end::Date=-->
                                         <!--begin::Action=-->
                                         <td class="text-end">
@@ -197,6 +282,12 @@
                                             <div
                                                 class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
                                                 data-kt-menu="true">
+
+                                                @if(checkPermission('product-read'))
+                                                    <div class="menu-item px-3">
+                                                        <a href="{{ route('admin.product.detail', $product->id) }}" class="menu-link px-3">Xem chi tiết</a>
+                                                    </div>
+                                                @endif
                                                 <!--begin::Menu item-->
                                                 @if(checkPermission('product-update'))
                                                     <div class="menu-item px-3">
@@ -267,7 +358,7 @@
                             <!--begin::Form-->
                             <div class="modal-header" id="kt_modal_add_customer_header">
                                 <!--begin::Modal title-->
-                                <h2 class="fw-bolder">Xóa sản phẩm!</h2>
+                                <h2 class="fw-bolder">Xóa xe thuê!</h2>
                                 <!--end::Modal title-->
                                 <!--begin::Close-->
                                 <div wire:click="closeModal" id="kt_modal_add_customer_close"

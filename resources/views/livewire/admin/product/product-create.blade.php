@@ -10,7 +10,7 @@
             <!--begin::Page title-->
             <div class="d-flex align-items-center me-3">
                 <!--begin::Title-->
-                <h1 class="d-flex align-items-center text-dark fw-bolder my-1 fs-3">Danh sách vai trò</h1>
+                <h1 class="d-flex align-items-center text-dark fw-bolder my-1 fs-3">Cập nhật xe thuê</h1>
                 <!--end::Title-->
                 <!--begin::Separator-->
                 <span class="h-20px border-gray-200 border-start mx-4"></span>
@@ -292,8 +292,8 @@
                                 <!--begin::Label-->
                                 <!--end::Label-->
                                 <!--begin::Select-->
-                                <select wire:model="brandId" data-control="select2" data-hide-search="true" data-placeholder="Select a Category..." class="form-select form-select-solid">
-                                    <option value="">Chọn Nhãn hiệu</option>
+                                <select wire:model="brandId" class="form-select form-select-solid">
+                                    <option value="">Chọn nhãn hiệu</option>
                                     @foreach($brands as $brand)
                                         <option value="{{ $brand->id }}">{{ $brand->name }}</option>
                                     @endforeach
@@ -345,7 +345,6 @@
                             <!--begin::Carousel-->
                             <div class="fv-row mb-7">
                                 <!--begin::Label-->
-                                <label class="d-block fw-bold fs-6 mb-5">Ảnh</label>
                                 <!--end::Label-->
                                 <!--begin::Image input-->
                                 <div class="image-input image-input-outline" data-kt-image-input="true" style="background-image: url({{ $thumbnail ? $thumbnail->temporaryUrl() : asset('admin/assets/img/default-image.jpg') }})">

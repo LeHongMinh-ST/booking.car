@@ -46,7 +46,28 @@ class Product extends Model
     public function scopeName($query, $search)
     {
         if ($search) {
-            $query->where('name', 'like', '%' . $search . '%');
+            $query->where('name', 'like', '%' . $search . '%')->
+            orWhere('license_plates', 'like', '%' . $search . '%');
+        }
+
+        return $query;
+    }
+
+    public function scopeStatus($query, $status)
+    {
+        if ($status) {
+            $query->where('name', $status);
+        }
+
+        return $query;
+    }
+
+    public function scopeFilterBrand($query, $brandId)
+    {
+        if ($brandId) {
+            $query->whereHas('brands', function ($q) use ($brandId) {
+                $q->where('id', $brandId);
+            });
         }
 
         return $query;

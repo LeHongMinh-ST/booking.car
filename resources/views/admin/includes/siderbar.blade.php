@@ -50,7 +50,7 @@
                     </div>
                 </div>
                 <div class="menu-item">
-                    <a class="menu-link {{ request()->is('admin/product') ? 'active' : '' }}" href="{{ route('admin.product') }}">
+                    <a class="menu-link {{ request()->is('admin/product*') ? 'active' : '' }}" href="{{ route('admin.product') }}">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/stockholm/General/User.svg-->
                             <span class="svg-icon svg-icon-2">

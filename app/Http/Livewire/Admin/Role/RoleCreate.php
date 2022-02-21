@@ -19,6 +19,10 @@ class RoleCreate extends Component
         'name' => 'required|string|max:255',
     ];
 
+    protected $validationAttributes  = [
+        'name' => 'Tên vai trò',
+    ];
+
     public function render()
     {
         return view('livewire.admin.role.role-create', [

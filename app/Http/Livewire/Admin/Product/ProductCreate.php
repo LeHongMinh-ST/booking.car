@@ -23,7 +23,6 @@ class ProductCreate extends Component
     public $brandId;
     public $thumbnail;
     public $otherParameters = [];
-    public $status = 1;
     public $categoryChecked = [];
 
     protected $rules = [
@@ -38,6 +37,7 @@ class ProductCreate extends Component
 
     protected $validationAttributes  = [
         'licensePlates' => 'Biển kiểm soát',
+        'name' => 'Tên xe',
         'price' => 'Giá thuê',
         'km' => 'Km',
         'year' => 'Ngày đăng kí',
@@ -48,13 +48,13 @@ class ProductCreate extends Component
     public function render()
     {
         $brands = Brand::where('is_active', Brand::IS_ACTIVE['active'])->get();
+        $categories = Category::where(['is_active' => Brand::IS_ACTIVE['active'], 'depth' => 0])
+            ->with('children')->get();
 
-        $categories = Category::where(['is_active' => Brand::IS_ACTIVE['active'], 'depth' => 0])->with('children')->get();
         return view('livewire.admin.product.product-create', [
             'brands'=> $brands,
             'categories' => $categories
-        ])
-            ->extends('admin.layouts.master')->section('content');;
+        ])->extends('admin.layouts.master')->section('content');
     }
 
     public function mount()

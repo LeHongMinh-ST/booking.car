@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Admin\Product;
 
+use App\Models\Brand;
 use App\Models\Product;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -15,19 +16,34 @@ class ProductIndex extends Component
     public $perPage = 10;
     public $showDeleteModal = false;
     public $deleteId;
+    public $status = "";
     public $search = '';
+    public $brandId = '';
 
     public function render()
     {
-        $products = Product::query()->name($this->search)->with(['categories', 'brand'])->paginate($this->perPage);
+        $products = Product::query()
+            ->name($this->search)
+            ->filterBrand($this->brandId)
+            ->status($this->status)
+            ->with(['categories', 'brand'])->paginate($this->perPage);
+
+        $brands = Brand::query()->where('is_active', Brand::IS_ACTIVE['active'])->get();
         return view('livewire.admin.product.product-index', [
-            'products' => $products
+            'products' => $products,
+            'brands' => $brands
         ])->extends('admin.layouts.master')->section('content');
     }
 
     public function mount()
     {
 
+    }
+
+    public function resetFilter()
+    {
+        $this->brandId = '';
+        $this->status = '';
     }
 
     public function destroy()
@@ -39,6 +55,7 @@ class ProductIndex extends Component
 
         try {
             Product::query()->where('id', $this->deleteId)->first()->categories()->detach();
+
             Product::destroy($this->deleteId);
             $this->dispatchBrowserEvent('alert',
                 ['type' => 'success', 'message' => 'Xóa thành công!']);

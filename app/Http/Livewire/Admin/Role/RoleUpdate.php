@@ -22,6 +22,14 @@ class RoleUpdate extends Component
         ])->extends('admin.layouts.master')->section('content');
     }
 
+    protected $rules = [
+        'name' => 'required|string|max:255',
+    ];
+
+    protected $validationAttributes  = [
+        'name' => 'Tên vai trò',
+    ];
+
     public function mount($id)
     {
         $role = Role::query()->with('permissions')->find($id);
@@ -39,9 +47,7 @@ class RoleUpdate extends Component
 
     public function update()
     {
-        $this->validate([
-            'name' => 'required|string|max:255',
-        ]);
+        $this->validate();
 
         $role = Role::query()->where('id', $this->roleId)->first();
         $role->update([
@@ -72,9 +78,7 @@ class RoleUpdate extends Component
     }
     public function updated($propertyName)
     {
-        $this->validateOnly($propertyName, [
-            'name' => 'required|string|max:255',
-        ]);
+        $this->validateOnly($propertyName);
     }
 
     public function selectAll($id)

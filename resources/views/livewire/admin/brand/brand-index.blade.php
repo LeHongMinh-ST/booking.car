@@ -444,9 +444,9 @@
                                             <label class="d-block fw-bold fs-6 mb-5">Ảnh</label>
                                             <!--end::Label-->
                                             <!--begin::Image input-->
-                                            <div class="image-input image-input-outline" data-kt-image-input="true" style="background-image: url({{ $image ? $image->temporaryUrl() : ($imageUpdate ?? 'assets/media/avatars/150-2.jpg') }})">
+                                            <div class="image-input image-input-outline" data-kt-image-input="true" style="background-image: url({{ $image ? $image->temporaryUrl() : ($imageUpdate ?? asset('admin/assets/img/default-image.jpg')) }})">
                                                 <!--begin::Preview existing avatar-->
-                                                <div class="image-input-wrapper w-125px h-125px" style="background-image: url({{ $image ? $image->temporaryUrl() : ($imageUpdate ?? 'assets/media/avatars/150-2.jpg') }});"></div>
+                                                <div class="image-input-wrapper w-125px h-125px" style="background-image: url({{ $image ? $image->temporaryUrl() : ($imageUpdate ?? asset('admin/assets/img/default-image.jpg')) }});"></div>
                                                 <!--end::Preview existing avatar-->
                                                 <!--begin::Label-->
                                                 <label id="lfm" class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="" data-bs-original-title="Change avatar">

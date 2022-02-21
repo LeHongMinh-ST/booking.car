@@ -65,7 +65,7 @@ class PermissionGroupSeeder extends Seeder
 
         self::checkIssetBeforeCreate([
             'name' => 'Quản lý tài khoản',
-            'code' => 'customer',
+            'code' => 'account',
             'description' => 'Quản lý toàn bộ chức năng liên quan đến tài khoản'
         ]);
 
