@@ -171,7 +171,7 @@ class CategoryIndex extends Component
                 ['type' => 'success', 'message' => 'Cập nhật thành công!']);
 
         } catch (\Exception $e) {
-            Log::error('Error create category', [
+            Log::error('Error update category', [
                 'method' => __METHOD__,
                 'message' => $e->getMessage()
             ]);

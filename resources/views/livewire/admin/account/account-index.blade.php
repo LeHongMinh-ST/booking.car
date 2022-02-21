@@ -218,7 +218,7 @@
                                             @if($admin->avatar)
                                                 <img class="image-input-wrapper w-100px h-100px image-input-outline" src="{{ $admin->avatar }}" alt="">
                                             @else
-                                                <img class="image-input-wrapper w-100px h-100px image-input-outline" src="assets/media/avatars/150-2.jpg" alt="">
+                                                <img class="image-input-wrapper w-100px h-100px image-input-outline" src="{{asset('admin/assets/img/default-image.jpg')}}" alt="">
                                             @endif
                                         </td>
                                         <!--end::Name=-->

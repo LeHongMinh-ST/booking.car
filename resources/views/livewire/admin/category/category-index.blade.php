@@ -188,18 +188,18 @@
                                                 class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
                                                 data-kt-menu="true">
                                                 <!--begin::Menu item-->
-                                                @if(checkPermission('category-update'))
-                                                    <div class="menu-item px-3">
-                                                        <span wire:click="showUpdateModal({{ $category->id }})" class="menu-link px-3">Sửa</span>
-                                                    </div>
-                                                @endif
-                                            <!--end::Menu item-->
-                                                <!--begin::Menu item-->
-                                                @if(checkPermission('category-delete'))
-                                                    <div class="menu-item px-3">
-                                                        <span  wire:click="openDeleteModal({{ $category->id }})" class="menu-link px-3"
-                                                           data-kt-customer-table-filter="delete_row">Xoá</span>
-                                                    </div>
+                                            @if(checkPermission('category-update'))
+                                                <div class="menu-item px-3">
+                                                    <span wire:click="showUpdateModal({{ $category->id }})" class="menu-link px-3">Sửa</span>
+                                                </div>
+                                            @endif
+                                        <!--end::Menu item-->
+                                            <!--begin::Menu item-->
+                                            @if(checkPermission('category-delete'))
+                                                <div class="menu-item px-3">
+                                                    <span  wire:click="openDeleteModal({{ $category->id }})" class="menu-link px-3"
+                                                       data-kt-customer-table-filter="delete_row">Xoá</span>
+                                                </div>
                                             @endif
                                                 <!--end::Menu item-->
                                             </div>

@@ -40,7 +40,7 @@ class RoleUpdate extends Component
     public function update()
     {
         $this->validate([
-            'name' => 'required|string'
+            'name' => 'required|string|max:255',
         ]);
 
         $role = Role::query()->where('id', $this->roleId)->first();
@@ -73,7 +73,7 @@ class RoleUpdate extends Component
     public function updated($propertyName)
     {
         $this->validateOnly($propertyName, [
-            'name' => 'required|string'
+            'name' => 'required|string|max:255',
         ]);
     }
 

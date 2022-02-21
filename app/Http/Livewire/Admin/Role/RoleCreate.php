@@ -15,6 +15,10 @@ class RoleCreate extends Component
     public $name;
     public $description;
 
+    protected $rules = [
+        'name' => 'required|string|max:255',
+    ];
+
     public function render()
     {
         return view('livewire.admin.role.role-create', [
@@ -29,10 +33,7 @@ class RoleCreate extends Component
 
     public function store()
     {
-        $this->validate([
-            'name' => 'required|string'
-        ]);
-
+        $this->validate();
 
         try {
             $role = Role::create([
@@ -59,9 +60,7 @@ class RoleCreate extends Component
 
     public function updated($propertyName)
     {
-        $this->validateOnly($propertyName, [
-            'name' => 'required|string'
-        ]);
+        $this->validateOnly($propertyName);
     }
 
     public function selectAll($id)

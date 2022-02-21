@@ -37,4 +37,18 @@ class Product extends Model
     {
         return $this->belongsToMany(Category::class, 'category_products');
     }
+
+    public function brand()
+    {
+        return $this->belongsTo(Brand::class);
+    }
+
+    public function scopeName($query, $search)
+    {
+        if ($search) {
+            $query->where('name', 'like', '%' . $search . '%');
+        }
+
+        return $query;
+    }
 }

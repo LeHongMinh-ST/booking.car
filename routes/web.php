@@ -9,8 +9,10 @@ use App\Http\Livewire\Admin\Role\RoleCreate;
 use App\Http\Livewire\Admin\Role\RoleUpdate;
 use App\Http\Livewire\Admin\Product\ProductIndex;
 use App\Http\Livewire\Admin\Product\ProductCreate;
+use App\Http\Livewire\Admin\Product\ProductUpdate;
 use App\Http\Livewire\Admin\Brand\BrandIndex;
 use App\Http\Livewire\Admin\Category\CategoryIndex;
+use UniSharp\LaravelFilemanager\Lfm;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,8 +37,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
         Route::get('/category',CategoryIndex::class)->name('category');
 
         Route::prefix('product')->group(function () {
-            Route::get('/',ProductIndex::class)->name('product');
-            Route::get('/create',ProductCreate::class)->name('product.create');
+            Route::get('/',ProductIndex::class)->middleware('permission:product-index')->name('product');
+            Route::get('/create',ProductCreate::class)->middleware('permission:product-create')->name('product.create');
+            Route::get('/{id}/edit',ProductUpdate::class)->middleware('permission:product-update')->name('product.edit');
         });
 
         Route::prefix('role')->group(function () {
@@ -47,6 +50,11 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
 
     });
 });
+
+Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['admin.auth']], function () {
+   Lfm::routes();
+});
+
 
 Route::get('/', function () {
     return view('welcome');
