@@ -92,7 +92,7 @@ class CategoryIndex extends Component
         $this->selectId = null;
         $this->name = '';
         $this->description = '';
-        $this->parentId = '';
+        $this->parentId = 0;
         $this->status = '';
     }
 
@@ -194,7 +194,7 @@ class CategoryIndex extends Component
             $this->dispatchBrowserEvent('alert',
                 ['type' => 'success', 'message' => 'Xóa thành công!']);
 
-            $this->closeDeleteModal();
+            $this->closeModal();
         } catch (\Exception $e) {
             Log::error('Error delete category', [
                 'method' => __METHOD__,
