@@ -168,7 +168,7 @@
                 </div>
 
                 <div class="menu-item">
-                    <a class="menu-link {{ request()->is('admin/product*') ? 'active' : '' }}" href="{{ route('admin.product') }}">
+                    <a class="menu-link {{ request()->is('admin/post*') ? 'active' : '' }}" href="{{ route('admin.post') }}">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/stockholm/General/User.svg-->
                             <span class="svg-icon svg-icon-primary svg-icon-2x"><!--begin::Svg Icon | path:/var/www/preview.keenthemes.com/metronic/releases/2021-05-14-112058/theme/html/demo2/dist/../src/media/svg/icons/Shopping/Box1.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
