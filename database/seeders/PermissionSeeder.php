@@ -127,6 +127,62 @@ class PermissionSeeder extends Seeder
         ]);
 
         self::checkIssetBeforeCreate([
+            'code' => 'post-index',
+            'name' => 'Xem danh sách danh mục bài viết',
+            'group_code' => 'post',
+            'description' => 'Có quyền xem danh sách danh mục bài viết'
+        ]);
+
+        self::checkIssetBeforeCreate([
+            'code' => 'post-create',
+            'name' => 'Tạo mới bài viết',
+            'group_code' => 'post',
+            'description' => 'Có quyền tạo mới bài viết'
+        ]);
+
+        self::checkIssetBeforeCreate([
+            'code' => 'post-update',
+            'name' => 'Cập nhật bài viết',
+            'group_code' => 'post',
+            'description' => 'Có quyền cập nhật vài viết'
+        ]);
+
+        self::checkIssetBeforeCreate([
+            'code' => 'post-delete',
+            'name' => 'Xoá bài viết',
+            'group_code' => 'post',
+            'description' => 'Có quyền xoá bài viết'
+        ]);
+
+        self::checkIssetBeforeCreate([
+            'code' => 'category-post-index',
+            'name' => 'Xem danh sách danh mục bài viết',
+            'group_code' => 'category-post',
+            'description' => 'Có quyền xem danh sách danh mục bài viết'
+        ]);
+
+        self::checkIssetBeforeCreate([
+            'code' => 'category-post-create',
+            'name' => 'Tạo mới danh mục bài viết',
+            'group_code' => 'category-post',
+            'description' => 'Có quyền tạo mới danh mục bài viết'
+        ]);
+
+        self::checkIssetBeforeCreate([
+            'code' => 'category-post-update',
+            'name' => 'Cập nhật danh mục bài viết',
+            'group_code' => 'category-post',
+            'description' => 'Có quyền cập nhật danh mục vài viết'
+        ]);
+
+        self::checkIssetBeforeCreate([
+            'code' => 'category-post-delete',
+            'name' => 'Xoá                                                                                                                                       danh mục bài viết',
+            'group_code' => 'category-post',
+            'description' => 'Có quyền xoá danh mục bài viết'
+        ]);
+
+        self::checkIssetBeforeCreate([
             'code' => 'brand-index',
             'name' => 'Xem danh sách nhãn hiệu',
             'group_code' => 'brand',
@@ -152,6 +208,132 @@ class PermissionSeeder extends Seeder
             'name' => 'Xoá vai nhãn hiệu',
             'group_code' => 'brand',
             'description' => 'Có quyền xoá nhãn hiệu'
+        ]);
+
+        self::checkIssetBeforeCreate([
+            'code' => 'account-index',
+            'name' => 'Xem danh sách tài khoản',
+            'group_code' => 'account',
+            'description' => 'Có quyền xem danh sách tài khoản'
+        ]);
+
+        self::checkIssetBeforeCreate([
+            'code' => 'account-create',
+            'name' => 'Tạo mới tải khoản',
+            'group_code' => 'account',
+            'description' => 'Có quyền tạo mới tài khoản'
+        ]);
+
+        self::checkIssetBeforeCreate([
+            'code' => 'account-update',
+            'name' => 'Cập nhật tài khoản',
+            'group_code' => 'account',
+            'description' => 'Có quyền cập nhật tài khoản'
+        ]);
+
+        self::checkIssetBeforeCreate([
+            'code' => 'account-delete',
+            'name' => 'Xoá tài khoản',
+            'group_code' => 'account',
+            'description' => 'Có quyền xoá tài khoản'
+        ]);
+
+        self::checkIssetBeforeCreate([
+            'code' => 'order-index',
+            'name' => 'Xem danh sách yêu cầu',
+            'group_code' => 'order',
+            'description' => 'Có quyền xem danh sách yêu cầu'
+        ]);
+
+        self::checkIssetBeforeCreate([
+            'code' => 'order-create',
+            'name' => 'Tạo mới yêu cầu',
+            'group_code' => 'order',
+            'description' => 'Có quyền tạo mới yêu cầu'
+        ]);
+
+        self::checkIssetBeforeCreate([
+            'code' => 'order-update',
+            'name' => 'Cập nhật yêu cầu',
+            'group_code' => 'order',
+            'description' => 'Có quyền cập nhật yêu cầu'
+        ]);
+
+        self::checkIssetBeforeCreate([
+            'code' => 'order-delete',
+            'name' => 'Xoá yêu cầu',
+            'group_code' => 'order',
+            'description' => 'Có quyền xoá yêu cầu'
+        ]);
+
+        self::checkIssetBeforeCreate([
+            'code' => 'contract-index',
+            'name' => 'Xem danh sách hợp đồng',
+            'group_code' => 'contract',
+            'description' => 'Có quyền xem danh sách hợp đồng'
+        ]);
+
+        self::checkIssetBeforeCreate([
+            'code' => 'contract-create',
+            'name' => 'Tạo mới hợp đồng',
+            'group_code' => 'contract',
+            'description' => 'Có quyền tạo mới hợp đồng'
+        ]);
+
+        self::checkIssetBeforeCreate([
+            'code' => 'contract-update',
+            'name' => 'Cập nhật hợp đồng',
+            'group_code' => 'contract',
+            'description' => 'Có quyền cập nhật hợp đồng'
+        ]);
+
+        self::checkIssetBeforeCreate([
+            'code' => 'contract-delete',
+            'name' => 'Xoá hợp đồng',
+            'group_code' => 'contract',
+            'description' => 'Có quyền xoá hợp đồng'
+        ]);
+
+        self::checkIssetBeforeCreate([
+            'code' => 'customer-index',
+            'name' => 'Xem danh sách khách hàng',
+            'group_code' => 'customer',
+            'description' => 'Có quyền xem danh sách khách hàng'
+        ]);
+
+        self::checkIssetBeforeCreate([
+            'code' => 'customer-create',
+            'name' => 'Tạo mới khách hàng',
+            'group_code' => 'customer',
+            'description' => 'Có quyền tạo mới khách hàng'
+        ]);
+
+        self::checkIssetBeforeCreate([
+            'code' => 'customer-update',
+            'name' => 'Cập nhật khách hàng',
+            'group_code' => 'customer',
+            'description' => 'Có quyền cập nhật khách hàng'
+        ]);
+
+        self::checkIssetBeforeCreate([
+            'code' => 'customer-delete',
+            'name' => 'Xoá khách hàng',
+            'group_code' => 'customer',
+            'description' => 'Có quyền xoá khách hàng'
+        ]);
+
+        self::checkIssetBeforeCreate([
+            'code' => 'statistic-revenue',
+            'name' => 'Xem thống kê doanh thu',
+            'group_code' => 'statistic',
+            'description' => 'Có quyền xem thống kê doanh thu'
+        ]);
+
+        self::checkIssetBeforeCreate([
+            'code' => 'statistic-product',
+            'name' => 'Xem thống kê xe',
+            'group_code' => 'statistic',
+            'description' => 'Có quyền xem thống kê xe'
         ]);
 
     }

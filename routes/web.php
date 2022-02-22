@@ -15,6 +15,7 @@ use App\Http\Livewire\Admin\Product\ProductCreate;
 use App\Http\Livewire\Admin\Product\ProductUpdate;
 use App\Http\Livewire\Admin\Brand\BrandIndex;
 use App\Http\Livewire\Admin\Category\CategoryIndex;
+use App\Http\Livewire\Admin\Order\OrderIndex;
 use UniSharp\LaravelFilemanager\Lfm;
 
 /*
@@ -37,6 +38,12 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
         Route::get('/role',RoleIndex::class)->name('role');
         Route::get('/brand',BrandIndex::class)->name('brand');
         Route::get('/category',CategoryIndex::class)->name('category');
+        Route::get('/category-post',CategoryIndex::class)->name('category-post');
+        Route::get('/post',CategoryIndex::class)->name('post');
+        Route::get('/order',OrderIndex::class)->name('order');
+        Route::get('/customer',CategoryIndex::class)->name('customer');
+        Route::get('/statistic/revenue',CategoryIndex::class)->name('statistic.revenue');
+        Route::get('/statistic/product',CategoryIndex::class)->name('statistic.product');
 
         Route::prefix('product')->group(function () {
             Route::get('/',ProductIndex::class)->middleware('permission:product-index')->name('product');

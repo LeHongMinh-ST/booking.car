@@ -40,6 +40,18 @@ class PermissionGroupSeeder extends Seeder
         ]);
 
         self::checkIssetBeforeCreate([
+            'name' => 'Quản lý bài viết',
+            'code' => 'post',
+            'description' => 'Quản lý toàn bộ chức năng liên quan đến bài viết'
+        ]);
+
+        self::checkIssetBeforeCreate([
+            'name' => 'Quản lý danh mục bài viết',
+            'code' => 'category-post',
+            'description' => 'Quản lý toàn bộ chức năng liên quan đến danh mục bài viết'
+        ]);
+
+        self::checkIssetBeforeCreate([
             'name' => 'Quản lý hợp đồng',
             'code' => 'contract',
             'description' => 'Quản lý toàn bộ chức năng liên quan đến hợp đồng'
@@ -74,6 +86,8 @@ class PermissionGroupSeeder extends Seeder
             'code' => 'role',
             'description' => 'Quản lý toàn bộ chức năng liên quan đến vai trò'
         ]);
+
+
     }
 
     public function checkIssetBeforeCreate($data) {

@@ -594,14 +594,18 @@
                                 <div class="menu-content d-flex align-items-center px-3">
                                     <!--begin::Avatar-->
                                     <div class="symbol symbol-50px me-5">
-                                        <img alt="Logo" src="assets/media/avatars/150-2.jpg" />
+                                        @if(auth()->guard('admin')->user()->avatar)
+                                            <img alt="Logo" src="{{ asset(auth()->guard('admin')->user()->avatar) }}" />
+                                        @else
+                                            <img alt="Logo" src="{{ asset('admin/assets/media/avatars/150-2.jpg') }}" />
+                                        @endif
                                     </div>
                                     <!--end::Avatar-->
                                     <!--begin::Username-->
                                     <div class="d-flex flex-column">
-                                        <div class="fw-bolder d-flex align-items-center fs-5">Max Smith
-                                            <span class="badge badge-light-success fw-bolder fs-8 px-2 py-1 ms-2">Pro</span></div>
-                                        <a href="#" class="fw-bold text-muted text-hover-primary fs-7">max@kt.com</a>
+                                        <div class="fw-bolder d-flex align-items-center fs-5">{{ auth()->guard('admin')->user()->name }}
+                                            <span class="badge badge-light-success fw-bolder fs-8 px-2 py-1 ms-2">{{ auth()->guard('admin')->user()->role->name }}</span></div>
+                                        <a href="#" class="fw-bold text-muted text-hover-primary fs-7">{{ auth()->guard('admin')->user()->email }}</a>
                                     </div>
                                     <!--end::Username-->
                                 </div>
@@ -739,7 +743,7 @@
                             <!--end::Menu item-->
                             <!--begin::Menu item-->
                             <div class="menu-item px-5">
-                                <a href="authentication/flows/basic/sign-in.html" class="menu-link px-5">Sign Out</a>
+                                <a href="{{ route('admin.logout') }}" class="menu-link px-5">Đăng xuất</a>
                             </div>
                             <!--end::Menu item-->
                         </div>
