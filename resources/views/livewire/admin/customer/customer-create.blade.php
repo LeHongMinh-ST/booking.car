@@ -1,5 +1,5 @@
 @section('title')
-    Tài khoản - Tạo mới
+    Khách hàng - Tạo mới
 @endsection
 
 <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
@@ -107,7 +107,7 @@
                                 <div class="d-flex flex-column mb-7 fv-row fv-plugins-icon-container">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
-                                        <span>Số điện thoại</span>
+                                        <span class="required">Số điện thoại</span>
                                     </label>
                                     <!--end::Label-->
                                     <input type="text" wire:model="phone" class="form-control form-control-solid" placeholder="">
@@ -116,6 +116,88 @@
                                         <div data-field="name" data-validator="notEmpty" class="fv-help-block">{{ $message }}</div>
                                     </div>
                                     @enderror
+                                </div>
+                                <div class="d-flex flex-column mb-7 fv-row fv-plugins-icon-container">
+                                    <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
+                                        <span class="required">Địa chỉ</span>
+                                    </label>
+                                    <!--end::Label-->
+                                    <input type="text" wire:model="address" class="form-control form-control-solid" placeholder="">
+                                    @error('address')
+                                    <div class="fv-plugins-message-container">
+                                        <div data-field="name" data-validator="notEmpty" class="fv-help-block">{{ $message }}</div>
+                                    </div>
+                                    @enderror
+                                </div>
+
+                                <div class="d-flex flex-column mb-7 fv-row fv-plugins-icon-container">
+                                    <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
+                                        <span class="required">Hộ khẩu thường trú</span>
+                                    </label>
+                                    <!--end::Label-->
+                                    <input type="text" wire:model="permanentResidence" class="form-control form-control-solid" placeholder="">
+                                    @error('permanentResidence')
+                                    <div class="fv-plugins-message-container">
+                                        <div data-field="name" data-validator="notEmpty" class="fv-help-block">{{ $message }}</div>
+                                    </div>
+                                    @enderror
+                                </div>
+
+                                <div class="row mb-5">
+                                    <!--begin::Col-->
+                                    <div class="col-md-6 fv-row fv-plugins-icon-container">
+                                        <!--begin::Label-->
+                                        <label class="required fs-5 fw-bold mb-2">CCCD/CMT</label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <input type="text" wire:model="person_id" class="form-control form-control-solid" placeholder="" name="first-name">
+                                        <!--end::Input-->
+                                        @error('person_id')
+                                        <div class="fv-plugins-message-container">
+                                            <div data-field="name" data-validator="notEmpty" class="fv-help-block">{{ $message }}</div>
+                                        </div>
+                                        @enderror
+                                    </div>
+                                    <!--end::Col-->
+                                    <!--begin::Col-->
+                                    <div class="col-md-6 fv-row fv-plugins-icon-container">
+                                        <!--end::Label-->
+                                        <label class="required fs-5 fw-bold mb-2">Ngày cấp</label>
+                                        <!--end::Label-->
+                                        <!--end::Input-->
+                                        <input type="text" wire:model="personIDDate" class="form-control form-control-solid" placeholder="" name="last-name">
+                                        <!--end::Input-->
+                                        @error('personIDDate')
+                                        <div class="fv-plugins-message-container">
+                                            <div data-field="name" data-validator="notEmpty" class="fv-help-block">{{ $message }}</div>
+                                        </div>
+                                        @enderror
+                                    </div>
+
+                                    <!--end::Col-->
+                                </div>
+
+                                <div class="row mb-5">
+                                    <!--begin::Col-->
+                                    <div class="col fv-row fv-plugins-icon-container">
+                                        <!--begin::Label-->
+                                        <label class="required fs-5 fw-bold mb-2">Nơi cấp</label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <input type="text" wire:model="personIDAddress" class="form-control form-control-solid" placeholder="" name="first-name">
+                                        <!--end::Input-->
+                                        @error('personIDAddress')
+                                        <div class="fv-plugins-message-container">
+                                            <div data-field="name" data-validator="notEmpty" class="fv-help-block">{{ $message }}</div>
+                                        </div>
+                                        @enderror
+                                    </div>
+                                    <!--end::Col-->
+                                    <!--begin::Col-->
+
+                                    <!--end::Col-->
                                 </div>
 
                             </form>
@@ -156,7 +238,7 @@
                                         </button>
                                     </div>
                                     <div class="col">
-                                        <a href="{{ route('admin.account') }}" class="btn btn-warning me-3 w-100">
+                                        <a href="{{ route('admin.customer') }}" class="btn btn-warning me-3 w-100">
                                             <span class="svg-icon svg-icon-primary svg-icon-2"><!--begin::Svg Icon | path:/var/www/preview.keenthemes.com/metronic/releases/2021-05-14-112058/theme/html/demo2/dist/../src/media/svg/icons/Design/Circle.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                                                     <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                                                         <rect x="0" y="0" width="24" height="24"/>
@@ -175,41 +257,6 @@
                     </div>
                     <!--end::Security recent alerts-->
 
-                    <div class="card mb-5 mb-xl-10">
-
-                        <div class="card-header card-header-stretch">
-                            <!--begin::Title-->
-                            <div class="card-title">
-                                <h3 class="m-0 text-gray-900">Vai trò</h3>
-                            </div>
-                            <!--end::Title-->
-                            <!--begin::Toolbar-->
-                            <!--end::Toolbar-->
-                        </div>
-                        <!--begin::Body-->
-                        <div class="card-body pt-5">
-                            <!--begin::Carousel-->
-                            <div class="d-flex flex-column mb-10 fv-row">
-                                <!--begin::Label-->
-                                <!--end::Label-->
-                                <!--begin::Select-->
-                                <select wire:model="roleId" class="form-select form-select-solid">
-                                    <option value="">Chọn vai trò</option>
-                                    @foreach($roles as $role)
-                                    <option value="{{ $role->id }}">{{ $role->name }}</option>
-                                    @endforeach
-                                </select>
-                                <!--end::Select-->
-                                @error('roleId')
-                                <div class="fv-plugins-message-container">
-                                    <div data-field="email" data-validator="notEmpty" class="fv-help-block">{{ $message }}</div>
-                                </div>
-                                @enderror
-                            </div>
-                            <!--end::Carousel-->
-                        </div>
-                        <!--end::Body-->
-                    </div>
 
 
                     <div class="card mb-5 mb-xl-10">
@@ -230,15 +277,15 @@
                                 <!--begin::Label-->
                                 <!--end::Label-->
                                 <!--begin::Image input-->
-                                <div class="image-input image-input-outline" data-kt-image-input="true" style="background-image: url({{ $avatar ? $avatar->temporaryUrl() : asset('admin/assets/img/default-image.jpg') }})">
+                                <div class="image-input image-input-outline" data-kt-image-input="true" style="background-image: url({{ $thumbnail ? $thumbnail->temporaryUrl() : asset('admin/assets/img/default-image.jpg') }})">
                                     <!--begin::Preview existing avatar-->
-                                    <div class="image-input-wrapper w-125px h-125px" style="background-image: url({{ $avatar ? $avatar->temporaryUrl() : asset('admin/assets/img/default-image.jpg') }});"></div>
+                                    <div class="image-input-wrapper w-125px h-125px" style="background-image: url({{ $thumbnail ? $thumbnail->temporaryUrl() : asset('admin/assets/img/default-image.jpg') }});"></div>
                                     <!--end::Preview existing avatar-->
                                     <!--begin::Label-->
                                     <label id="lfm" class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="" data-bs-original-title="Change avatar">
                                         <i class="bi bi-pencil-fill fs-7"></i>
                                         <!--begin::Inputs-->
-                                        <input type="file" wire:model="avatar" id="image" accept=".png, .jpg, .jpeg">
+                                        <input type="file" wire:model="thumbnail" id="image" accept=".png, .jpg, .jpeg">
                                         <input type="hidden" name="avatar_remove">
                                         <!--end::Inputs-->
                                     </label>
@@ -260,11 +307,11 @@
                                 <div class="form-text">
                                     Loại tệp được phép: png, jpg, jpeg.</div>
 
-                                @error('avatar')
-                                <div class="fv-plugins-message-container">
-                                    <div data-field="email" data-validator="notEmpty" class="fv-help-block">{{ $message }}</div>
-                                </div>
-                            @enderror
+                                @error('thumbnail')
+                                    <div class="fv-plugins-message-container">
+                                        <div data-field="email" data-validator="notEmpty" class="fv-help-block">{{ $message }}</div>
+                                    </div>
+                                @enderror
                             <!--end::Hint-->
                             </div>
                             <!--end::Carousel-->

@@ -15,6 +15,9 @@ use App\Http\Livewire\Admin\Product\ProductCreate;
 use App\Http\Livewire\Admin\Product\ProductUpdate;
 use App\Http\Livewire\Admin\Brand\BrandIndex;
 use App\Http\Livewire\Admin\Category\CategoryIndex;
+use App\Http\Livewire\Admin\Customer\CustomerIndex;
+use App\Http\Livewire\Admin\Customer\CustomerCreate;
+use App\Http\Livewire\Admin\Customer\CustomerUpdate;
 use App\Http\Livewire\Admin\Order\OrderIndex;
 use UniSharp\LaravelFilemanager\Lfm;
 
@@ -41,7 +44,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
         Route::get('/category-post',CategoryIndex::class)->name('category-post');
         Route::get('/post',CategoryIndex::class)->name('post');
         Route::get('/order',OrderIndex::class)->name('order');
-        Route::get('/customer',CategoryIndex::class)->name('customer');
         Route::get('/statistic/revenue',CategoryIndex::class)->name('statistic.revenue');
         Route::get('/statistic/product',CategoryIndex::class)->name('statistic.product');
 
@@ -50,6 +52,12 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
             Route::get('/create',ProductCreate::class)->middleware('permission:product-create')->name('product.create');
             Route::get('/{id}',ProductDetail::class)->middleware('permission:product-index')->name('product.detail');
             Route::get('/{id}/edit',ProductUpdate::class)->middleware('permission:product-update')->name('product.edit');
+        });
+
+        Route::prefix('customer')->group(function () {
+            Route::get('/',CustomerIndex::class)->middleware('permission:customer-index')->name('customer');
+            Route::get('/create',CustomerCreate::class)->middleware('permission:customer-create')->name('customer.create');
+            Route::get('/{id}/edit',CustomerUpdate::class)->middleware('permission:customer-update')->name('customer.edit');
         });
 
         Route::prefix('account')->group(function () {

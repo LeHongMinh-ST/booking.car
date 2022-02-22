@@ -1,5 +1,5 @@
 @section('title')
-    Xe thuê - Tạo mới
+   Tài khoản - Cập nhật
 @endsection
 
 <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
@@ -243,9 +243,9 @@
                                 <!--begin::Label-->
                                 <!--end::Label-->
                                 <!--begin::Image input-->
-                                <div class="image-input image-input-outline" data-kt-image-input="true" style="background-image: url({{ $avatar ? $avatar->temporaryUrl() : asset('admin/assets/img/default-image.jpg') }})">
+                                <div class="image-input image-input-outline" data-kt-image-input="true" style="background-image: url({{ $avatar ? $avatar->temporaryUrl() : ($imageUpdate ?? asset('admin/assets/img/default-image.jpg'))}})">
                                     <!--begin::Preview existing avatar-->
-                                    <div class="image-input-wrapper w-125px h-125px" style="background-image: url({{ $avatar ? $avatar->temporaryUrl() : asset('admin/assets/img/default-image.jpg') }});"></div>
+                                    <div class="image-input-wrapper w-125px h-125px" style="background-image: url({{ $avatar ? $avatar->temporaryUrl() : ($imageUpdate ?? asset('admin/assets/img/default-image.jpg'))}});"></div>
                                     <!--end::Preview existing avatar-->
                                     <!--begin::Label-->
                                     <label id="lfm" class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="" data-bs-original-title="Change avatar">

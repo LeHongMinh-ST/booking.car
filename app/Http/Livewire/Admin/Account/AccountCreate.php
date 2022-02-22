@@ -81,7 +81,7 @@ class AccountCreate extends Component
             $image = '';
 
             if ($this->avatar) {
-                $image = '/storage/'. $this->avatar->store('brands', 'public');
+                $image = '/storage/'. $this->avatar->store('product', 'public');
             }
 
             Admin::create([

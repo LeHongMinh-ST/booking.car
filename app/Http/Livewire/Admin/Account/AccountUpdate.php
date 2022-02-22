@@ -97,7 +97,7 @@ class AccountUpdate extends Component
             $image = $this->imageUpdate;
 
             if ($this->avatar) {
-                $image = '/storage/'. $this->avatar->store('brands', 'public');
+                $image = '/storage/'. $this->avatar->store('product', 'public');
             }
 
             Admin::where('id', $this->adminID)->update([

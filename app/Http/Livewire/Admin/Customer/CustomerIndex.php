@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Http\Livewire\Admin\Product;
+namespace App\Http\Livewire\Admin\Customer;
 
-use App\Models\Brand;
-use App\Models\Product;
+use App\Models\Customer;
+use App\Models\User;
 use Illuminate\Support\Facades\Log;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class ProductIndex extends Component
+class CustomerIndex extends Component
 {
     use WithPagination;
 
@@ -16,54 +16,38 @@ class ProductIndex extends Component
 
     public $perPage = 10;
     public $showDeleteModal = false;
-    public $deleteId;
+    public $selectId;
     public $status = "";
     public $search = '';
-    public $brandId = '';
 
     public function render()
     {
-        $products = Product::query()
-            ->name($this->search)
-            ->filterBrand($this->brandId)
-            ->status($this->status)
-            ->with(['categories', 'brand'])->paginate($this->perPage);
+        $customers = Customer::query()
+            ->search($this->search)
+            ->with('user')
+            ->paginate($this->perPage);
 
-        $brands = Brand::query()->where('is_active', Brand::IS_ACTIVE['active'])->get();
-        return view('livewire.admin.product.product-index', [
-            'products' => $products,
-            'brands' => $brands
+        return view('livewire.admin.customer.customer-index', [
+            'customers' => $customers
         ])->extends('admin.layouts.master')->section('content');
-    }
-
-    public function mount()
-    {
-
-    }
-
-    public function resetFilter()
-    {
-        $this->brandId = '';
-        $this->status = '';
     }
 
     public function destroy()
     {
-        if (!checkPermission('product-delete')) {
+        if (!checkPermission('customer-delete')) {
             $this->dispatchBrowserEvent('alert',
                 ['type' => 'error', 'message' => 'Bạn không có quyền thực hiện chức năng này!!', 'title' => '403']);
         }
 
         try {
-            Product::query()->where('id', $this->deleteId)->first()->categories()->detach();
 
-            Product::destroy($this->deleteId);
+            Customer::destroy($this->selectId);
             $this->dispatchBrowserEvent('alert',
                 ['type' => 'success', 'message' => 'Xóa thành công!']);
 
             $this->closeModal();
         } catch (\Exception $e) {
-            Log::error('Error delete product', [
+            Log::error('Error delete customer', [
                 'method' => __METHOD__,
                 'message' => $e->getMessage()
             ]);
@@ -76,13 +60,13 @@ class ProductIndex extends Component
 
     public function openDeleteModal($id)
     {
-        $this->deleteId = $id;
+        $this->selectId = $id;
         $this->showDeleteModal = true;
     }
 
     public function closeModal()
     {
-        $this->deleteId = null;
+        $this->selectId = null;
         $this->showDeleteModal = false;
     }
 }
