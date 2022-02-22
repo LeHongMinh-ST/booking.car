@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Livewire\Admin\Home\Dashboard;
 use App\Http\Livewire\Admin\Account\AccountIndex;
+use App\Http\Livewire\Admin\Account\AccountCreate;
+use App\Http\Livewire\Admin\Account\AccountUpdate;
 use App\Http\Livewire\Admin\Role\RoleIndex;
 use App\Http\Livewire\Admin\Role\RoleCreate;
 use App\Http\Livewire\Admin\Role\RoleUpdate;
@@ -32,7 +34,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
 
     Route::group(['middleware' => ['admin.auth']], function () {
         Route::get('/dashboard',Dashboard::class)->name('dashboard');
-        Route::get('/account',AccountIndex::class)->name('account');
         Route::get('/role',RoleIndex::class)->name('role');
         Route::get('/brand',BrandIndex::class)->name('brand');
         Route::get('/category',CategoryIndex::class)->name('category');
@@ -42,6 +43,12 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
             Route::get('/create',ProductCreate::class)->middleware('permission:product-create')->name('product.create');
             Route::get('/{id}',ProductDetail::class)->middleware('permission:product-index')->name('product.detail');
             Route::get('/{id}/edit',ProductUpdate::class)->middleware('permission:product-update')->name('product.edit');
+        });
+
+        Route::prefix('account')->group(function () {
+            Route::get('/',AccountIndex::class)->middleware('permission:account-index')->name('account');
+            Route::get('/create',AccountCreate::class)->middleware('permission:account-create')->name('account.create');
+            Route::get('/{id}/edit',AccountUpdate::class)->middleware('permission:account-update')->name('account.edit');
         });
 
         Route::prefix('role')->group(function () {

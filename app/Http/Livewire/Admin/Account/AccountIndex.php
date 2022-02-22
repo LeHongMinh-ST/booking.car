@@ -17,6 +17,7 @@ class AccountIndex extends Component
     public $hasPermissionDelete = false;
     public $search = '';
     public $roleId = '';
+    public $adminId = null;
     public $status = '';
 
     public $filter = [
@@ -38,10 +39,45 @@ class AccountIndex extends Component
 
     public function resetFilter()
     {
-        $this->roleId = '';
+        $this->adminId = '';
         $this->status = '';
     }
 
+    public function openDeleteModal($id)
+    {
+        $this->adminId = $id;
+        $this->showDeleteModal = true;
+    }
 
+    public function closeModal()
+    {
+        $this->adminId = null;
+        $this->showDeleteModal = false;
+    }
+
+    public function destroy()
+    {
+        if (!checkPermission('account-delete')) {
+            $this->dispatchBrowserEvent('alert',
+                ['type' => 'error', 'message' => 'Bạn không có quyền thực hiện chức năng này!!', 'title' => '403']);
+        }
+
+        try {
+
+            Admin::destroy($this->adminId);
+            $this->dispatchBrowserEvent('alert',
+                ['type' => 'success', 'message' => 'Xóa thành công!']);
+
+            $this->closeModal();
+        } catch (\Exception $e) {
+            Log::error('Error delete account', [
+                'method' => __METHOD__,
+                'message' => $e->getMessage()
+            ]);
+
+            $this->dispatchBrowserEvent('alert',
+                ['type' => 'error', 'message' => 'Xóa thất bại!']);
+        }
+    }
 
 }

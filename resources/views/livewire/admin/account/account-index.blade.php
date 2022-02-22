@@ -145,7 +145,7 @@
 
                         <div class="d-flex justify-content-end" data-kt-customer-table-toolbar="base">
                             <!--begin::Add customer-->
-                            <a href="{{ route('admin.role.create') }}" type="button" class="btn btn-primary">
+                            <a href="{{ route('admin.account.create') }}" type="button" class="btn btn-primary">
                                 <!--begin::Svg Icon | path: icons/stockholm/Navigation/Plus.svg-->
                                 <span class="svg-icon svg-icon-2">
 													<svg xmlns="http://www.w3.org/2000/svg"
@@ -199,6 +199,9 @@
                                     <th class="min-w-125px" tabindex="0"
                                         style="width: 163.734px;">Vai trò
                                     </th>
+                                    <th class="min-w-125px" tabindex="0"
+                                        style="width: 163.734px;">Trạng thái
+                                    </th>
                                     <th class="text-end min-w-70px sorting_disabled" rowspan="1" colspan="1"
                                         aria-label="Actions" style="width: 118.438px;">Hành động
                                     </th>
@@ -208,7 +211,7 @@
                                 <!--end::Table head-->
                                 <!--begin::Table body-->
                                 <tbody class="fw-bold text-gray-600">
-                                @foreach($admins as $admin)
+                                @forelse($admins as $admin)
                                     <tr class="odd">
                                         <!--begin::Name=-->
                                         <td>
@@ -228,6 +231,16 @@
                                         <td>{{ $admin->email }}</td>
                                         <td>{{ $admin->phone }}</td>
                                         <td>{{ $admin->role->name }}</td>
+                                        <td>
+                                            @switch($admin->status)
+                                                @case(\App\Models\Admin::STATUS['active'])
+                                                <span class="badge badge-success">Hoạt động</span>
+                                                @break
+                                                @case(\App\Models\Admin::STATUS['deactive'])
+                                                <span class="badge badge-danger">Khóa</span>
+                                                @break
+                                            @endswitch
+                                        </td>
                                         <!--end::Date=-->
                                         <!--begin::Action=-->
                                         <td class="text-end">
@@ -254,25 +267,33 @@
                                             <div
                                                 class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
                                                 data-kt-menu="true">
+                                                @if(checkPermission('account-update') )
                                                 <!--begin::Menu item-->
-                                                <div class="menu-item px-3">
-                                                    <a href="{{ route('admin.role.edit', $admin->id) }}" class="menu-link px-3">Sửa</a>
-                                                </div>
+                                                    <div class="menu-item px-3">
+                                                        <a href="{{ route('admin.account.edit', $admin->id) }}" class="menu-link px-3">Sửa</a>
+                                                    </div>
+                                                @endif
                                                 <!--end::Menu item-->
                                                 <!--begin::Menu item-->
-                                                @if($hasPermissionDelete)
+                                                @if(checkPermission('account-delete') &&  $admin->id != auth()->guard('admin')->user()->id)
                                                     <div class="menu-item px-3">
                                                         <a href="#" wire:click="openDeleteModal({{$admin->id}})" class="menu-link px-3"
                                                            data-kt-customer-table-filter="delete_row">Xoá</a>
                                                     </div>
-                                            @endif
+                                                @endif
                                             <!--end::Menu item-->
                                             </div>
                                             <!--end::Menu-->
                                         </td>
                                         <!--end::Action=-->
                                     </tr>
-                                @endforeach
+                                    @empty
+                                        <tr>
+                                            <td colspan="8" style="text-align: center">
+                                                Không có bản ghi nào phù hợp!
+                                            </td>
+                                        </tr>
+                                    @endforelse
                                 </tbody>
                                 <!--end::Table body-->
                             </table>
@@ -316,10 +337,10 @@
                             <!--begin::Form-->
                             <div class="modal-header" id="kt_modal_add_customer_header">
                                 <!--begin::Modal title-->
-                                <h2 class="fw-bolder">Xóa vai trò!</h2>
+                                <h2 class="fw-bolder">Xóa tài khoản!</h2>
                                 <!--end::Modal title-->
                                 <!--begin::Close-->
-                                <div wire:click="closeDeleteModal" id="kt_modal_add_customer_close"
+                                <div wire:click="closeModal" id="kt_modal_add_customer_close"
                                      class="btn btn-icon btn-sm btn-active-icon-primary">
                                     <!--begin::Svg Icon | path: icons/stockholm/Navigation/Close.svg-->
                                     <span class="svg-icon svg-icon-1">
@@ -354,7 +375,7 @@
                                     <span class="indicator-label">Xóa</span>
                                 </button>
 
-                                <button wire:click="closeDeleteModal" type="reset"
+                                <button wire:click="closeModal" type="reset"
                                         id="kt_modal_add_customer_cancel" class="btn btn-white me-3">Huỷ
                                 </button>
                                 <!--end::Button-->

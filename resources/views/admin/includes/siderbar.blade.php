@@ -189,7 +189,7 @@
                     </div>
                 </div>
                 <div class="menu-item">
-                    <a class="menu-link {{ request()->is('admin/account') ? 'active' : '' }}" href="{{ route('admin.account') }}">
+                    <a class="menu-link {{ request()->is('admin/account*') ? 'active' : '' }}" href="{{ route('admin.account') }}">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/stockholm/Design/PenAndRuller.svg-->
                             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
