@@ -41,4 +41,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    const IS_ACTIVE = [
+      'active' => 1,
+      'deactive' => 0
+    ];
+
+    public function customer()
+    {
+        return $this->hasOne(Customer::class);
+    }
 }

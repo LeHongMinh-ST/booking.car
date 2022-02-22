@@ -81,7 +81,7 @@ class ProductCreate extends Component
             $image = '';
 
             if ($this->thumbnail) {
-                $image = '/storage/'. $this->thumbnail->store('brands', 'public');
+                $image = '/storage/'. $this->thumbnail->store('product', 'public');
             }
 
             $role = Product::create([

@@ -1,5 +1,5 @@
 @section('title')
-    Tài khoản
+    Khách hàng
 @endsection
 
 
@@ -11,7 +11,7 @@
             <!--begin::Page title-->
             <div class="d-flex align-items-center me-3">
                 <!--begin::Title-->
-                <h1 class="d-flex align-items-center text-dark fw-bolder my-1 fs-3">Danh sách tài khoản</h1>
+                <h1 class="d-flex align-items-center text-dark fw-bolder my-1 fs-3">Danh sách khách hàng</h1>
                 <!--end::Title-->
                 <!--begin::Separator-->
                 <span class="h-20px border-gray-200 border-start mx-4"></span>
@@ -30,7 +30,7 @@
                     </li>
                     <!--end::Item-->
                     <!--begin::Item-->
-                    <li class="breadcrumb-item text-muted">tài khoản</li>
+                    <li class="breadcrumb-item text-muted">Khách hàng</li>
                     <!--end::Item-->
                 </ul>
                 <!--end::Breadcrumb-->
@@ -91,7 +91,7 @@
                                     </g>
                                 </svg>
                             </span>
-        <!--end::Svg Icon-->Lọc
+                            <!--end::Svg Icon-->Lọc
                         </button>
 
                         <div class="menu menu-sub menu-sub-dropdown w-300px w-md-325px" data-kt-menu="true">
@@ -113,9 +113,6 @@
                                     <!--begin::Input-->
                                     <select wire:model="roleId" class="form-select form-select-solid fw-bolder ">
                                         <option value="">Tất cả</option>
-                                        @foreach($roles as $role)
-                                            <option value="{{$role->id}}">{{$role->name}}</option>
-                                        @endforeach
                                     </select>
 
                                     <!--end::Input-->
@@ -133,19 +130,19 @@
                                     </select>
                                     <!--end::Input-->
                                 </div>
-                                @if($status || $roleId)
-                                <div class="d-flex justify-content-end">
-                                    <button type="reset" wire:click="resetFilter" class="btn btn-white btn-active-light-primary me-2" data-kt-menu-dismiss="true" data-kt-customer-table-filter="reset">Khôi phục</button>
-                                </div>
-                                @endif
-                                <!--end::Actions-->
+                                @if($status)
+                                    <div class="d-flex justify-content-end">
+                                        <button type="reset" wire:click="resetFilter" class="btn btn-white btn-active-light-primary me-2" data-kt-menu-dismiss="true" data-kt-customer-table-filter="reset">Khôi phục</button>
+                                    </div>
+                            @endif
+                            <!--end::Actions-->
                             </div>
                             <!--end::Content-->
                         </div>
 
                         <div class="d-flex justify-content-end" data-kt-customer-table-toolbar="base">
                             <!--begin::Add customer-->
-                            <a href="{{ route('admin.account.create') }}" type="button" class="btn btn-primary">
+                            <a href="{{ route('admin.customer.create') }}" type="button" class="btn btn-primary">
                                 <!--begin::Svg Icon | path: icons/stockholm/Navigation/Plus.svg-->
                                 <span class="svg-icon svg-icon-2">
 													<svg xmlns="http://www.w3.org/2000/svg"
@@ -197,7 +194,7 @@
                                     </th>
 
                                     <th class="min-w-125px" tabindex="0"
-                                        style="width: 163.734px;">Vai trò
+                                        style="width: 163.734px;">Phân loại
                                     </th>
                                     <th class="min-w-125px" tabindex="0"
                                         style="width: 163.734px;">Trạng thái
@@ -211,15 +208,15 @@
                                 <!--end::Table head-->
                                 <!--begin::Table body-->
                                 <tbody class="fw-bold text-gray-600">
-                                @forelse($admins as $admin)
+                                @forelse($customers as $customer)
                                     <tr class="odd">
                                         <!--begin::Name=-->
                                         <td>
-                                            {{ $loop->index + 1 + $admins->perPage() * ($admins->currentPage() - 1)   }}
+                                            {{ $loop->index + 1 + $customers->perPage() * ($customers->currentPage() - 1)   }}
                                         </td>
                                         <td>
-                                            @if($admin->avatar)
-                                                <img class="image-input-wrapper w-100px h-100px image-input-outline" src="{{ $admin->avatar }}" alt="">
+                                            @if($customer->user->thumbnail)
+                                                <img class="image-input-wrapper w-100px h-100px image-input-outline" src="{{ $customer->user->thumbnail }}" alt="">
                                             @else
                                                 <img class="image-input-wrapper w-100px h-100px image-input-outline" src="{{asset('admin/assets/img/default-image.jpg')}}" alt="">
                                             @endif
@@ -227,12 +224,12 @@
                                         <!--end::Name=-->
                                         <!--end::Payment method=-->
                                         <!--begin::Date=-->
-                                        <td>{{ $admin->name }}</td>
-                                        <td>{{ $admin->email }}</td>
-                                        <td>{{ $admin->phone }}</td>
-                                        <td>{{ $admin->role->name }}</td>
+                                        <td>{{ $customer->name }}</td>
+                                        <td>@if($customer->user){{ $customer->user->email }}@endif</td>
+                                        <td>{{ $customer->phone }}</td>
+                                        <td>@if($customer->user) Đã có tài khoản @else Chưa có tài khoản @endif</td>
                                         <td>
-                                            @switch($admin->status)
+                                            @switch($customer->status)
                                                 @case(\App\Models\Admin::STATUS['active'])
                                                 <span class="badge badge-success">Hoạt động</span>
                                                 @break
@@ -267,33 +264,33 @@
                                             <div
                                                 class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
                                                 data-kt-menu="true">
-                                                @if(checkPermission('account-update') )
+                                            @if(checkPermission('account-update') )
                                                 <!--begin::Menu item-->
                                                     <div class="menu-item px-3">
-                                                        <a href="{{ route('admin.account.edit', $admin->id) }}" class="menu-link px-3">Sửa</a>
+                                                        <a href="{{ route('admin.customer.edit', $customer->id) }}" class="menu-link px-3">Sửa</a>
                                                     </div>
-                                                @endif
-                                                <!--end::Menu item-->
+                                            @endif
+                                            <!--end::Menu item-->
                                                 <!--begin::Menu item-->
-                                                @if(checkPermission('account-delete') &&  $admin->id != auth()->guard('admin')->user()->id)
-                                                    <div class="menu-item px-3">
-                                                        <a href="#" wire:click="openDeleteModal({{$admin->id}})" class="menu-link px-3"
-                                                           data-kt-customer-table-filter="delete_row">Xoá</a>
-                                                    </div>
-                                                @endif
+                                            @if(checkPermission('account-delete'))
+                                                <div class="menu-item px-3">
+                                                    <a href="#" wire:click="openDeleteModal({{$customer->id}})" class="menu-link px-3"
+                                                       data-kt-customer-table-filter="delete_row">Xoá</a>
+                                                </div>
+                                            @endif
                                             <!--end::Menu item-->
                                             </div>
                                             <!--end::Menu-->
                                         </td>
                                         <!--end::Action=-->
                                     </tr>
-                                    @empty
-                                        <tr>
-                                            <td colspan="8" style="text-align: center">
-                                                Không có bản ghi nào phù hợp!
-                                            </td>
-                                        </tr>
-                                    @endforelse
+                                @empty
+                                    <tr>
+                                        <td colspan="8" style="text-align: center">
+                                            Không có bản ghi nào phù hợp!
+                                        </td>
+                                    </tr>
+                                @endforelse
                                 </tbody>
                                 <!--end::Table body-->
                             </table>
@@ -314,7 +311,7 @@
                             <div
                                 class="col-sm-12 col-md-7 d-flex align-items-center justify-content-center justify-content-md-end">
                                 <div class="dataTables_paginate paging_simple_numbers" id="kt_customers_table_paginate">
-                                    {{ $admins->links() }}
+                                    {{ $customers->links() }}
                                 </div>
                             </div>
                         </div>
@@ -337,7 +334,7 @@
                             <!--begin::Form-->
                             <div class="modal-header" id="kt_modal_add_customer_header">
                                 <!--begin::Modal title-->
-                                <h2 class="fw-bolder">Xóa tài khoản!</h2>
+                                <h2 class="fw-bolder">Xóa khách hàng!</h2>
                                 <!--end::Modal title-->
                                 <!--begin::Close-->
                                 <div wire:click="closeModal" id="kt_modal_add_customer_close"

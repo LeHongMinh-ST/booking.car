@@ -116,7 +116,7 @@ class ProductUpdate extends Component
             $image = $this->imageUpdate;
 
             if ($this->thumbnail) {
-                $image = '/storage/' . $this->thumbnail->store('brands', 'public');
+                $image = '/storage/' . $this->thumbnail->store('product', 'public');
             }
 
             $product = Product::query()->where('id', $this->productId)->first();
