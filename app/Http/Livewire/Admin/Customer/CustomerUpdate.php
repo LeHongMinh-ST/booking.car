@@ -23,7 +23,6 @@ class CustomerUpdate extends Component
     public $personIDAddress;
     public $personIDDate;
     public $thumbnail;
-    public $imageUpdate;
     public $selectId;
     public $isActive;
     public $userID;
@@ -40,7 +39,6 @@ class CustomerUpdate extends Component
         if ($customer) {
             $this->name = $customer->name;
             $this->phone = $customer->phone;
-            $this->imageUpdate = $customer->user ? $customer->user->thumbnail : '';
             $this->email =  $customer->user ? $customer->user->email : '';
             $this->isActive = $customer->user ? $customer->user->is_active : '';;
             $this->address = $customer->address;
@@ -79,7 +77,6 @@ class CustomerUpdate extends Component
             'address' => 'required|string',
             'personIDAddress' => 'required|string',
             'personIDDate' => 'required|string|date|date_format:d-m-Y',
-            'thumbnail' => 'nullable|image',
         ];
     }
 
@@ -91,7 +88,6 @@ class CustomerUpdate extends Component
         'permanentResidence' => 'Hộ khẩu thường chú',
         'personIDAddress' => 'Nơi cấp',
         'personIDDate' => 'Ngày cấp',
-        'thumbnail' => 'Ảnh đại diện',
     ];
 
     public function updated($propertyName)
@@ -112,12 +108,6 @@ class CustomerUpdate extends Component
 
         try {
 
-            $image = $this->imageUpdate;
-
-            if ($this->thumbnail) {
-                $image = '/storage/' . $this->thumbnail->store('customer', 'public');
-            }
-
             $customer = Customer::query()->where('id', $this->selectId)->first();
 
             $customer->update([
@@ -130,13 +120,21 @@ class CustomerUpdate extends Component
                 'person_id_date' => $this->personIDDate,
             ]);
 
-            $customer->user()->update([
-                'name' => $this->name,
-                'email' => $this->email,
-                'thumbnail' => $image,
-                'password' => Hash::make(env('PASSWORD_USER', 123456789)),
-            ]);
-
+            if ($customer->user) {
+                $customer->user()->update([
+                    'name' => $this->name,
+                    'email' => $this->email,
+                    'is_active' => $this->isActive,
+                ]);
+            } else {
+                if ($this->email) {
+                    $customer->user()->create([
+                        'name' => $this->name,
+                        'email' => $this->email,
+                        'password' => Hash::make(env('PASSWORD_USER', 123456789)),
+                    ]);
+                }
+            }
             session()->flash('success', 'Cập nhật thành công');
 
             DB::commit();

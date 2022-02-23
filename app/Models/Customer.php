@@ -37,4 +37,28 @@ class Customer extends Model
         }
         return $query;
     }
+
+    public function scopeStatus($query, $status)
+    {
+        if ($status) {
+            $query->where('user_id', '<>', null)
+                ->whereHas('user', function ($q) use ($status) {
+                    $q->where('is_active', $status);
+                });
+        }
+        return $query;
+    }
+
+    public function scopeUserId($query, $user)
+    {
+        if ($user == 1) {
+            $query->where('user_id', '<>', null);
+        }
+
+        if ($user == 2) {
+            $query->where('user_id', null);
+        }
+        return $query;
+    }
+
 }

@@ -10,7 +10,7 @@
             <!--begin::Page title-->
             <div class="d-flex align-items-center me-3">
                 <!--begin::Title-->
-                <h1 class="d-flex align-items-center text-dark fw-bolder my-1 fs-3">Cập nhật xe thuê</h1>
+                <h1 class="d-flex align-items-center text-dark fw-bolder my-1 fs-3">Cập nhật tài khoản</h1>
                 <!--end::Title-->
                 <!--begin::Separator-->
                 <span class="h-20px border-gray-200 border-start mx-4"></span>
@@ -29,7 +29,7 @@
                     </li>
 
                     <li class="breadcrumb-item text-muted">
-                        <a href="{{ route('admin.product') }}" class="text-muted text-hover-primary">Xe thuê</a>
+                        <a href="{{ route('admin.product') }}" class="text-muted text-hover-primary">Tài khoản</a>
                     </li>
                     <!--end::Item-->
                     <!--begin::Item-->

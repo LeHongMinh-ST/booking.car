@@ -10,7 +10,7 @@
             <!--begin::Page title-->
             <div class="d-flex align-items-center me-3">
                 <!--begin::Title-->
-                <h1 class="d-flex align-items-center text-dark fw-bolder my-1 fs-3">Cập nhật xe thuê</h1>
+                <h1 class="d-flex align-items-center text-dark fw-bolder my-1 fs-3">Cập nhật khách hàng</h1>
                 <!--end::Title-->
                 <!--begin::Separator-->
                 <span class="h-20px border-gray-200 border-start mx-4"></span>
@@ -29,7 +29,7 @@
                     </li>
 
                     <li class="breadcrumb-item text-muted">
-                        <a href="{{ route('admin.product') }}" class="text-muted text-hover-primary">Xe thuê</a>
+                        <a href="{{ route('admin.customer') }}" class="text-muted text-hover-primary">Khách hàng</a>
                     </li>
                     <!--end::Item-->
                     <!--begin::Item-->
@@ -79,7 +79,7 @@
                                 <div class="d-flex flex-column mb-7 fv-row fv-plugins-icon-container">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
-                                        <span class="required">Tên tài khoản</span>
+                                        <span class="required">Tên khách hàng</span>
                                     </label>
                                     <!--end::Label-->
                                     <input type="text" wire:model="name" class="form-control form-control-solid" placeholder="">
@@ -93,7 +93,7 @@
                                 <div class="d-flex flex-column mb-7 fv-row fv-plugins-icon-container">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
-                                        <span class="required">Email</span>
+                                        <span>Email</span><span style="font-weight: 100;font-size: 12px;font-style: italic;">(Nhập email để tạo tài khoản)</span>
                                     </label>
                                     <!--end::Label-->
                                     <input type="text" wire:model="email" class="form-control form-control-solid" placeholder="">
@@ -259,65 +259,6 @@
 
 
 
-                    <div class="card mb-5 mb-xl-10">
-
-                        <div class="card-header card-header-stretch">
-                            <!--begin::Title-->
-                            <div class="card-title">
-                                <h3 class="m-0 text-gray-900">Ảnh đại diện</h3>
-                            </div>
-                            <!--end::Title-->
-                            <!--begin::Toolbar-->
-                            <!--end::Toolbar-->
-                        </div>
-                        <!--begin::Body-->
-                        <div class="card-body pt-5">
-                            <!--begin::Carousel-->
-                            <div class="fv-row mb-7">
-                                <!--begin::Label-->
-                                <!--end::Label-->
-                                <!--begin::Image input-->
-                                <div class="image-input image-input-outline" data-kt-image-input="true" style="background-image: url({{ $thumbnail ? $thumbnail->temporaryUrl() : asset('admin/assets/img/default-image.jpg') }})">
-                                    <!--begin::Preview existing avatar-->
-                                    <div class="image-input-wrapper w-125px h-125px" style="background-image: url({{ $thumbnail ? $thumbnail->temporaryUrl() : asset('admin/assets/img/default-image.jpg') }});"></div>
-                                    <!--end::Preview existing avatar-->
-                                    <!--begin::Label-->
-                                    <label id="lfm" class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="" data-bs-original-title="Change avatar">
-                                        <i class="bi bi-pencil-fill fs-7"></i>
-                                        <!--begin::Inputs-->
-                                        <input type="file" wire:model="thumbnail" id="image" accept=".png, .jpg, .jpeg">
-                                        <input type="hidden" name="avatar_remove">
-                                        <!--end::Inputs-->
-                                    </label>
-                                    <!--end::Label-->
-                                    <!--begin::Cancel-->
-                                    <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="cancel" data-bs-toggle="tooltip" title="" data-bs-original-title="Cancel avatar">
-																				<i class="bi bi-x fs-2"></i>
-																			</span>
-                                    <!--end::Cancel-->
-                                    <!--begin::Remove-->
-                                    <span wire:click="clearImagePreview" class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="remove" data-bs-toggle="tooltip" title="" data-bs-original-title="Remove avatar">
-																				<i class="bi bi-x fs-2"></i>
-																			</span>
-                                    <!--end::Remove-->
-                                </div>
-
-                                <!--end::Image input-->
-                                <!--begin::Hint-->
-                                <div class="form-text">
-                                    Loại tệp được phép: png, jpg, jpeg.</div>
-
-                                @error('thumbnail')
-                                    <div class="fv-plugins-message-container">
-                                        <div data-field="email" data-validator="notEmpty" class="fv-help-block">{{ $message }}</div>
-                                    </div>
-                                @enderror
-                            <!--end::Hint-->
-                            </div>
-                            <!--end::Carousel-->
-                        </div>
-                        <!--end::Body-->
-                    </div>
                 </div>
             </div>
 

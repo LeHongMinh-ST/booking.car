@@ -179,6 +179,7 @@
                                         </button>
                                     </label>
                                     <!--end::Label-->
+                                    @if(!empty($otherParameters))
                                     @if(count($otherParameters) > 0)
                                         <div class="row">
                                             <div class="col-4">Từ khoá</div>
@@ -207,6 +208,7 @@
 
                                         </div>
                                     @endforeach
+                                    @endif
                                 </div>
 
                                 <div class="d-flex flex-column mb-7 fv-row fv-plugins-icon-container">

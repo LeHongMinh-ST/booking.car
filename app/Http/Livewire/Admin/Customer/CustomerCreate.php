@@ -35,7 +35,7 @@ class CustomerCreate extends Component
         return [
             'name' => 'required|string|max:255',
             'email' => [
-                'required',
+                'nullable',
                 'string',
                 'max:255',
                 'email',
@@ -94,13 +94,18 @@ class CustomerCreate extends Component
                 $image = '/storage/'. $this->thumbnail->store('customer', 'public');
             }
 
-            $user = User::create([
-                'name' => $this->name,
-                'email' => $this->email,
-                'thumbnail' => $image,
-                'password' => Hash::make(env('PASSWORD_USER', 123456789)),
-            ]);
-            $user->customer()->create([
+            $user = null;
+
+            if ($this->email) {
+                $user = User::create([
+                    'name' => $this->name,
+                    'email' => $this->email,
+                    'thumbnail' => $image,
+                    'password' => Hash::make(env('PASSWORD_USER', 123456789)),
+                ]);
+            }
+
+            Customer::create([
                 'name' => $this->name,
                 'phone' => $this->phone,
                 'person_id' => $this->person_id,
@@ -108,6 +113,7 @@ class CustomerCreate extends Component
                 'permanent_residence' => $this->permanentResidence,
                 'person_id_address' => $this->personIDAddress,
                 'person_id_date' => $this->personIDDate,
+                'user_id' => $user ? $user->id : null,
             ]);
 
             session()->flash('success', 'Tạo mới thành công');

@@ -106,21 +106,23 @@
                             <!--begin::Content-->
                             <div class="px-7 py-5">
                                 <!--begin::Input group-->
+
                                 <div class="mb-10">
                                     <!--begin::Label-->
-                                    <label class="form-label fs-5 fw-bold mb-3">Vai trò:</label>
+                                    <label class="form-label fs-5 fw-bold mb-3">Phân loại tài khoản:</label>
                                     <!--end::Label-->
                                     <!--begin::Input-->
-                                    <select wire:model="roleId" class="form-select form-select-solid fw-bolder ">
+                                    <select wire:model="checkUserId" class="form-select form-select-solid fw-bolder">
                                         <option value="">Tất cả</option>
+                                        <option value="1">Đã có tài khoản</option>
+                                        <option value="2">Chưa có tài khoản</option>
                                     </select>
-
                                     <!--end::Input-->
                                 </div>
 
                                 <div class="mb-10">
                                     <!--begin::Label-->
-                                    <label class="form-label fs-5 fw-bold mb-3">Trạng thái:</label>
+                                    <label class="form-label fs-5 fw-bold mb-3">Trạng thái tài khoản:</label>
                                     <!--end::Label-->
                                     <!--begin::Input-->
                                     <select wire:model="status" class="form-select form-select-solid fw-bolder">
@@ -130,7 +132,7 @@
                                     </select>
                                     <!--end::Input-->
                                 </div>
-                                @if($status)
+                                @if($status || $checkUserId)
                                     <div class="d-flex justify-content-end">
                                         <button type="reset" wire:click="resetFilter" class="btn btn-white btn-active-light-primary me-2" data-kt-menu-dismiss="true" data-kt-customer-table-filter="reset">Khôi phục</button>
                                     </div>
@@ -180,11 +182,12 @@
                                     <th style="width: 50px;" >
                                         STT
                                     </th>
-                                    <th class="min-w-125px" tabindex="0"
-                                        style="width: 100px;">Ảnh
-                                    </th>
+
                                     <th class="min-w-125px"
                                         style="width: 163.734px;">Họ và tên
+                                    </th>
+                                    <th class="min-w-125px" tabindex="0"
+                                        style="width: 100px;">CCCD/CMT
                                     </th>
                                     <th class="min-w-125px" tabindex="0"
                                         style="width: 163.734px;">Email
@@ -197,7 +200,7 @@
                                         style="width: 163.734px;">Phân loại
                                     </th>
                                     <th class="min-w-125px" tabindex="0"
-                                        style="width: 163.734px;">Trạng thái
+                                        style="width: 163.734px;">Trạng thái tài khoản
                                     </th>
                                     <th class="text-end min-w-70px sorting_disabled" rowspan="1" colspan="1"
                                         aria-label="Actions" style="width: 118.438px;">Hành động
@@ -214,33 +217,32 @@
                                         <td>
                                             {{ $loop->index + 1 + $customers->perPage() * ($customers->currentPage() - 1)   }}
                                         </td>
-                                        <td>
-                                            @if($customer->user->thumbnail)
-                                                <img class="image-input-wrapper w-100px h-100px image-input-outline" src="{{ $customer->user->thumbnail }}" alt="">
-                                            @else
-                                                <img class="image-input-wrapper w-100px h-100px image-input-outline" src="{{asset('admin/assets/img/default-image.jpg')}}" alt="">
-                                            @endif
-                                        </td>
+
                                         <!--end::Name=-->
                                         <!--end::Payment method=-->
                                         <!--begin::Date=-->
                                         <td>{{ $customer->name }}</td>
+                                        <td>{{ $customer->person_id }}</td>
                                         <td>@if($customer->user){{ $customer->user->email }}@endif</td>
                                         <td>{{ $customer->phone }}</td>
                                         <td>@if($customer->user) Đã có tài khoản @else Chưa có tài khoản @endif</td>
                                         <td>
-                                            @switch($customer->status)
-                                                @case(\App\Models\Admin::STATUS['active'])
-                                                <span class="badge badge-success">Hoạt động</span>
-                                                @break
-                                                @case(\App\Models\Admin::STATUS['deactive'])
-                                                <span class="badge badge-danger">Khóa</span>
-                                                @break
-                                            @endswitch
+                                            @if($customer->user)
+                                                @switch($customer->user->is_active)
+                                                    @case(\App\Models\User::IS_ACTIVE['active'])
+                                                    <span class="badge badge-success">Hoạt động</span>
+                                                    @break
+                                                    @case(\App\Models\User::IS_ACTIVE['deactive'])
+                                                    <span class="badge badge-danger">Khóa</span>
+                                                    @break
+                                                @endswitch
+                                            @else
+                                                <span class="badge badge-warning">Chưa có</span>
+                                            @endif
                                         </td>
                                         <!--end::Date=-->
                                         <!--begin::Action=-->
-                                        <td class="text-end">
+                                        <td>
                                             <a href="#" class="btn btn-sm btn-light btn-active-light-primary"
                                                data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end"
                                                data-kt-menu-flip="top-end">Tuỳ chọn
@@ -264,6 +266,13 @@
                                             <div
                                                 class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
                                                 data-kt-menu="true">
+                                            @if(checkPermission('account-update') && !empty($customer->user))
+                                                <!--begin::Menu item-->
+                                                    <div class="menu-item px-3">
+                                                        <a href="#" wire:click="openResetModal({{$customer->id}})" class="menu-link px-3">Đặt lại mật khẩu</a>
+                                                    </div>
+                                            @endif
+
                                             @if(checkPermission('account-update') )
                                                 <!--begin::Menu item-->
                                                     <div class="menu-item px-3">
@@ -377,6 +386,101 @@
                                 </button>
                                 <!--end::Button-->
                             </div>
+                            <!--end::Form-->
+                        </div>
+                    </div>
+                </div>
+        @endif
+            @if($showResetModal)
+                <div class="modal fade show" id="createModal"
+                     style="display: block; padding-right: 5px;"  tabindex="-1"
+                     aria-hidden="true">
+                    <!--begin::Modal dialog-->
+                    <div class="modal-dialog modal-dialog-centered mw-650px">
+                        <!--begin::Modal content-->
+                        <div class="modal-content">
+                            <!--begin::Form-->
+                            <form class="form fv-plugins-bootstrap5 fv-plugins-framework" wire:submit.prevent="resetPassword">
+                                <!--begin::Modal header-->
+                                <div class="modal-header" id="kt_modal_add_customer_header">
+                                    <!--begin::Modal title-->
+                                    <h2 class="fw-bolder">Đặt lại mật khẩu</h2>
+                                    <!--end::Modal title-->
+                                    <!--begin::Close-->
+                                    <div wire:click="closeModal" id="kt_modal_add_customer_close"
+                                         class="btn btn-icon btn-sm btn-active-icon-primary">
+                                        <!--begin::Svg Icon | path: icons/stockholm/Navigation/Close.svg-->
+                                        <span class="svg-icon svg-icon-1">
+                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                                 xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px"
+                                                 viewBox="0 0 24 24" version="1.1">
+                                                <g transform="translate(12.000000, 12.000000) rotate(-45.000000) translate(-12.000000, -12.000000) translate(4.000000, 4.000000)"
+                                                   fill="#000000">
+                                                    <rect fill="#000000" x="0" y="7" width="16" height="2" rx="1"></rect>
+                                                    <rect fill="#000000" opacity="0.5"
+                                                          transform="translate(8.000000, 8.000000) rotate(-270.000000) translate(-8.000000, -8.000000)"
+                                                          x="0" y="7" width="16" height="2" rx="1"></rect>
+                                                </g>
+                                            </svg>
+                                        </span>
+                                        <!--end::Svg Icon-->
+                                    </div>
+                                    <!--end::Close-->
+                                </div>
+                                <!--end::Modal header-->
+                                <!--begin::Modal body-->
+                                <div class="modal-body py-10 px-lg-17">
+                                    <!--begin::Scroll-->
+                                    <div class="scroll-y me-n7 pe-7" id="kt_modal_add_customer_scroll" data-kt-scroll="true"
+                                         data-kt-scroll-activate="{default: false, lg: true}"
+                                         data-kt-scroll-max-height="auto"
+                                         data-kt-scroll-dependencies="#kt_modal_add_customer_header"
+                                         data-kt-scroll-wrappers="#kt_modal_add_customer_scroll"
+                                         data-kt-scroll-offset="300px">
+                                        <!--begin::Input group-->
+
+                                        <div class="fv-row mb-7 fv-plugins-icon-container">
+                                            <!--begin::Label-->
+                                            <label class="required fs-6 fw-bold mb-2">Mật khẩu mới</label>
+                                            <!--end::Label-->
+                                            <!--begin::Input-->
+                                            <input type="password" wire:model="password" class="form-control form-control-solid">
+                                            @error('password')
+                                            <div class="fv-plugins-message-container">
+                                                <div data-field="name" data-validator="notEmpty" class="fv-help-block">{{ $message }}</div>
+                                            </div>
+                                            @enderror
+                                        </div>
+
+                                        <div class="fv-row mb-7 fv-plugins-icon-container">
+                                            <!--begin::Label-->
+                                            <label class="required fs-6 fw-bold mb-2">Nhập lại mật khẩu</label>
+                                            <!--end::Label-->
+                                            <!--begin::Input-->
+                                            <input type="password" wire:model="password_confirmation" class="form-control form-control-solid">
+                                            @error('password_confirmation')
+                                            <div class="fv-plugins-message-container">
+                                                <div data-field="name" data-validator="notEmpty" class="fv-help-block">{{ $message }}</div>
+                                            </div>
+                                            @enderror
+                                        </div>
+                                        <!--end::Modal body-->
+                                        <!--begin::Modal footer-->
+                                        <div class="modal-footer flex-center">
+                                            <!--begin::Button-->
+                                            <button type="submit" id="kt_modal_add_customer_submit" class="btn btn-primary">
+                                                <span class="indicator-label">Đặt lại</span>
+                                            </button>
+
+                                            <button wire:click="closeModal" type="reset"
+                                                    id="kt_modal_add_customer_cancel" class="btn btn-white me-3">Huỷ
+                                            </button>
+                                            <!--end::Button-->
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--end::Modal footer-->
+                            </form>
                             <!--end::Form-->
                         </div>
                     </div>
