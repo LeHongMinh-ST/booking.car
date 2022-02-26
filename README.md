@@ -5,8 +5,8 @@
 ## Usage
 
 1. Clone project.
-   $ git clone git@st-dse.vnua.edu.vn:minhlh/qlthoikhoabieuphongmay.git
-2. cd 04-Source/code ,Create .env file, copy content from .env.example to .env file and config your database in .env:
+  
+2. Create .env file, copy content from .env.example to .env file and config your database in .env:
 ``` bash
 	DB_CONNECTION=mysql
 	DB_HOST=database_server_ip
@@ -19,7 +19,7 @@
 	PASSWORD_USER = default password
 	PASSWORD_ADMIN = default password
 ```
-3. Run (cd 04-Source/code)
+3. Run
 ``` bash
 	$ composer install
 	$ php artisan key:generate
