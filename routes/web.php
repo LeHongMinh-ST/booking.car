@@ -19,6 +19,7 @@ use App\Http\Livewire\Admin\Customer\CustomerIndex;
 use App\Http\Livewire\Admin\Customer\CustomerCreate;
 use App\Http\Livewire\Admin\Customer\CustomerUpdate;
 use App\Http\Livewire\Admin\Order\OrderIndex;
+use App\Http\Livewire\Client\Home;
 use UniSharp\LaravelFilemanager\Lfm;
 
 /*
@@ -79,7 +80,14 @@ Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['admin.auth']]
    Lfm::routes();
 });
 
-
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/home', function () {
+    return redirect()->route('home');
 });
+Route::get('/', Home::class)->name('home');
+Route::get('/products', Home::class)->name('products');
+Route::get('/product/{slug}', Home::class)->name('product');
+Route::get('/category-post/{slug}', Home::class)->name('category.post');
+Route::get('/post/{slug}', Home::class)->name('post');
+Route::get('/about', Home::class)->name('about');
+Route::get('/contact', Home::class)->name('contact');
+

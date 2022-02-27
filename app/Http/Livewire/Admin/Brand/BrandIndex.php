@@ -3,7 +3,9 @@
 namespace App\Http\Livewire\Admin\Brand;
 
 use App\Models\Brand;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
@@ -118,7 +120,8 @@ class BrandIndex extends Component
                 'name' => $this->name,
                 'description' => $this->description,
                 'thumbnail' => $image,
-                'is_active' => $this->status
+                'is_active' => $this->status,
+                'slug' => Str::slug($this->name . Carbon::now()->toDateTimeString())
             ]);
 
             $this->closeModal();
@@ -155,7 +158,8 @@ class BrandIndex extends Component
             Brand::create([
                 'name' => $this->name,
                 'description' => $this->description,
-                'thumbnail' => $image
+                'thumbnail' => $image,
+                'slug' => Str::slug($this->name . Carbon::now()->toDateTimeString())
             ]);
 
             $this->closeCreateModal();

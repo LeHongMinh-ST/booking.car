@@ -6,6 +6,7 @@ use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
@@ -131,6 +132,7 @@ class ProductUpdate extends Component
                 'license_plates' => $this->licensePlates,
                 'brand_id' => $this->brandId,
                 'status' => $this->status,
+                'slug' => Str::slug($this->name . $this->licensePlates)
             ]);
             $product->categories()->detach();
 

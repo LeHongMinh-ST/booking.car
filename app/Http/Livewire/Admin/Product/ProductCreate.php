@@ -6,6 +6,7 @@ use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
@@ -84,7 +85,7 @@ class ProductCreate extends Component
                 $image = '/storage/'. $this->thumbnail->store('product', 'public');
             }
 
-            $role = Product::create([
+            $product = Product::create([
                 'name' => $this->name,
                 'color' => $this->color,
                 'km' => $this->km,
@@ -94,9 +95,10 @@ class ProductCreate extends Component
                 'other_parameters' => $this->otherParameters,
                 'license_plates' => $this->licensePlates,
                 'brand_id' => $this->brandId,
+                'slug' => Str::slug($this->name . $this->licensePlates)
             ]);
 
-            $role->categories()->attach($this->categoryChecked);
+            $product->categories()->attach($this->categoryChecked);
 
             session()->flash('success', 'Tạo mới thành công');
 
