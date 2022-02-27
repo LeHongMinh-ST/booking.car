@@ -248,7 +248,7 @@
                                     <div class="image-input-wrapper w-125px h-125px" style="background-image: url({{ $avatar ? $avatar->temporaryUrl() : ($imageUpdate ?? asset('admin/assets/img/default-image.jpg'))}});"></div>
                                     <!--end::Preview existing avatar-->
                                     <!--begin::Label-->
-                                    <label id="lfm" class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="" data-bs-original-title="Change avatar">
+                                    <label id="lfm" class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="" data-bs-original-title="Chọn ảnh">
                                         <i class="bi bi-pencil-fill fs-7"></i>
                                         <!--begin::Inputs-->
                                         <input type="file" wire:model="avatar" id="image" accept=".png, .jpg, .jpeg">

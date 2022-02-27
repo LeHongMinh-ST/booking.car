@@ -3,7 +3,9 @@
 namespace App\Http\Livewire\Admin\Category;
 
 use App\Models\Category;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
@@ -119,7 +121,8 @@ class CategoryIndex extends Component
                 'name' => $this->name,
                 'description' => $this->description,
                 'parent_id' => $this->parentId,
-                'depth' => $parent ? $parent->depth + 1 : 0
+                'depth' => $parent ? $parent->depth + 1 : 0,
+                'slug' => Str::slug($this->name . Carbon::now()->toDateTimeString())
             ]);
 
             $this->closeModal();
@@ -162,7 +165,8 @@ class CategoryIndex extends Component
                 'description' => $this->description,
                 'parent_id' => $this->parentId,
                 'is_active' => $this->status,
-                'depth' => $parent ? $parent->depth + 1 : 0
+                'depth' => $parent ? $parent->depth + 1 : 0,
+                'slug' => Str::slug($this->name . Carbon::now()->toDateTimeString())
             ]);
 
             $this->closeModal();

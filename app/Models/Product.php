@@ -26,7 +26,8 @@ class Product extends Model
         'other_parameters',
         'status',
         'brand_id',
-        'thumbnail'
+        'thumbnail',
+        'slug'
     ];
 
     protected $casts = [
