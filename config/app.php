@@ -163,6 +163,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         UniSharp\LaravelFilemanager\LaravelFilemanagerServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
+        MarvinLabs\DiscordLogger\ServiceProvider::class,
         /*
          * Package Service Providers...
          */
