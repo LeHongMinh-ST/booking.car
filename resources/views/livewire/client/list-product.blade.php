@@ -2,12 +2,12 @@
     Danh sách xe thuê
 @endsection
 
-<div id="page_caption" class="hasbg parallax  withtopbar  " style="background-image:url(upload/driver-2.jpg);">
+<div id="page_caption" class="hasbg parallax  withtopbar  " style="background-image:url({{ asset('client/upload/driver-2.jpg') }});">
 
     <div class="page_title_wrapper">
         <div class="page_title_inner">
             <div class="page_title_content">
-                <h1 class="withtopbar">Car List Left Sidebar</h1>
+                <h1 class="withtopbar">Cho thuê xe và xe Limousine cao cấp</h1>
                 <div class="page_tagline">
                     This is sample of page tagline and you can set it up using page option </div>
             </div>
@@ -22,7 +22,7 @@
         <div class="car_search_wrapper">
             <div class="one_fourth themeborder">
                 <select id="brand" name="brand">
-                    <option value="">Any Brand</option>
+                    <option value="">Nhãn hiệu bất kỳ</option>
                     <option value="Audi">Audi</option>
                     <option value="BMW">BMW</option>
                     <option value="Lexus">Lexus</option>
@@ -34,7 +34,7 @@
             </div>
             <div class="one_fourth themeborder">
                 <select id="type" name="type">
-                    <option value="">Any Type</option>
+                    <option value="">Loại xe bất kỳ</option>
                     <option value="Coupe">Coupe</option>
                     <option value="Sedan">Sedan</option>
                     <option value="SUV">SUV</option>
@@ -43,16 +43,16 @@
             </div>
             <div class="one_fourth themeborder">
                 <select id="sort_by" name="sort_by">
-                    <option value="price_low">Price Low to High</option>
-                    <option value="price_high">Price High to Low</option>
-                    <option value="model">Sort By Model</option>
-                    <option value="popular">Sort By Popularity</option>
-                    <option value="review">Sort By Review Score</option>
+                    <option value="price_low">Giá thấp đến cao</option>
+                    <option value="price_high">Giá cao đến thấp</option>
+                    <option value="model">Sắp xếp theo các mẫu</option>
+                    <option value="popular">Sắp xếp theo số người thuê</option>
+                    <option value="review">Sắp xếp theo số điểm</option>
                 </select>
                 <span class="ti-exchange-vertical"></span>
             </div>
             <div class="one_fourth last themeborder">
-                <input id="car_search_btn" type="submit" class="button" value="Search" />
+                <input id="car_search_btn" type="submit" class="button" value="Tìm kiếm" />
             </div>
         </div>
     </form>
@@ -73,7 +73,7 @@
                             <div class="one_half gallery2 classic static filterable portfolio_type themeborder" data-id="post-2">
 
                                 <a class="car_image" href="#">
-                                    <img src="upload/bmw-3-series-sedan-wallpaper-1920x1200-05-700x466.jpg" alt="BMW 3 Series" />
+                                    <img src="{{ asset('client/upload/bmw-3-series-sedan-wallpaper-1920x1200-05-700x466.jpg') }}" alt="BMW 3 Series" />
                                 </a>
 
                                 <div class="portfolio_info_wrapper">
@@ -129,7 +129,7 @@
                             <div class="one_half gallery2 classic static filterable portfolio_type themeborder" data-id="post-3">
 
                                 <a class="car_image" href="#">
-                                    <img src="upload/2015-audi-a3_100460783_h-700x466.jpg" alt="Audi A3" />
+                                    <img src="{{ asset('client/upload/2015-audi-a3_100460783_h-700x466.jpg') }}" alt="Audi A3" />
                                 </a>
 
                                 <div class="portfolio_info_wrapper">
@@ -185,7 +185,7 @@
                             <div class="one_half gallery2 classic static filterable portfolio_type themeborder" data-id="post-4">
 
                                 <a class="car_image" href="#">
-                                    <img src="upload/Audi-A4-Avant-1-700x466.jpg" alt="Audi A4" />
+                                    <img src="{{ asset('client/upload/Audi-A4-Avant-1-700x466.jpg') }}" alt="Audi A4" />
                                 </a>
 
                                 <div class="portfolio_info_wrapper">
@@ -241,7 +241,7 @@
                             <div class="one_half gallery2 classic static filterable portfolio_type themeborder" data-id="post-5">
 
                                 <a class="car_image" href="#">
-                                    <img src="upload/2016-MINI-Cooper-S-Clubman-ALL4-700x466.jpg" alt="MINI Cooper S" />
+                                    <img src="{{ asset('client/upload/2016-MINI-Cooper-S-Clubman-ALL4-700x466.jpg') }}" alt="MINI Cooper S" />
                                 </a>
 
                                 <div class="portfolio_info_wrapper">
@@ -297,7 +297,7 @@
                             <div class="one_half gallery2 classic static filterable portfolio_type themeborder" data-id="post-6">
 
                                 <a class="car_image" href="#">
-                                    <img src="upload/Mercedes-C-Class-Estate-1-700x466.jpg" alt="Mercedes Benz C-Class" />
+                                    <img src="{{ asset('client/upload/Mercedes-C-Class-Estate-1-700x466.jpg') }}" alt="Mercedes Benz C-Class" />
                                 </a>
 
                                 <div class="portfolio_info_wrapper">
@@ -353,7 +353,7 @@
                             <div class="one_half gallery2 classic static filterable portfolio_type themeborder" data-id="post-7">
 
                                 <a class="car_image" href="#">
-                                    <img src="upload/535a980f75319ea470a7306d90ae1524_XL-700x466.jpg" alt="MINI Countryman" />
+                                    <img src="{{ asset('client/upload/535a980f75319ea470a7306d90ae1524_XL-700x466.jpg') }}" alt="MINI Countryman" />
                                 </a>
 
                                 <div class="portfolio_info_wrapper">
@@ -409,7 +409,7 @@
                             <div class="one_half gallery2 classic static filterable portfolio_type themeborder" data-id="post-8">
 
                                 <a class="car_image" href="#">
-                                    <img src="upload/2017-lexus-ls-460-2-700x466.jpg" alt="Lexus LS 460" />
+                                    <img src="{{ asset('client/upload/2017-lexus-ls-460-2-700x466.jpg') }}" alt="Lexus LS 460" />
                                 </a>
 
                                 <div class="portfolio_info_wrapper">
@@ -465,7 +465,7 @@
                             <div class="one_half gallery2 classic static filterable portfolio_type themeborder" data-id="post-9">
 
                                 <a class="car_image" href="#">
-                                    <img src="upload/mercedes-benz-cls-class-shooting-brake-13824-1920x1200-700x466.jpg" alt="Mercedes Benz CLS-Class" />
+                                    <img src="{{ asset('client/upload/mercedes-benz-cls-class-shooting-brake-13824-1920x1200-700x466.jpg') }}" alt="Mercedes Benz CLS-Class" />
                                 </a>
 
                                 <div class="portfolio_info_wrapper">
@@ -521,7 +521,7 @@
                             <div class="one_half gallery2 classic static filterable portfolio_type themeborder" data-id="post-10">
 
                                 <a class="car_image" href="#">
-                                    <img src="upload/2016-Lexus-RX-350-BM-01-700x466.jpg" alt="Lexus RX 350" />
+                                    <img src="{{ asset('client/upload/2016-Lexus-RX-350-BM-01-700x466.jpg') }}" alt="Lexus RX 350" />
                                 </a>
 
                                 <div class="portfolio_info_wrapper">
@@ -577,7 +577,7 @@
                             <div class="one_half gallery2 classic static filterable portfolio_type themeborder" data-id="post-11">
 
                                 <a class="car_image" href="#">
-                                    <img src="upload/2017-Audi-Q7-fornt-three-quarter-03-700x466.jpg" alt="Audi Q5" />
+                                    <img src="{{ asset('client/upload/2017-Audi-Q7-fornt-three-quarter-03-700x466.jpg') }}" alt="Audi Q5" />
                                 </a>
 
                                 <div class="portfolio_info_wrapper">
@@ -633,7 +633,7 @@
                             <div class="one_half gallery2 classic static filterable portfolio_type themeborder" data-id="post-12">
 
                                 <a class="car_image" href="#">
-                                    <img src="upload/2016-Mercedes-Benz-GLE-2-700x466.jpg" alt="Mercedes Benz GLE" />
+                                    <img src="{{ asset('client/upload/2016-Mercedes-Benz-GLE-2-700x466.jpg') }}" alt="Mercedes Benz GLE" />
                                 </a>
 
                                 <div class="portfolio_info_wrapper">
@@ -689,7 +689,7 @@
                             <div class="one_half gallery2 classic static filterable portfolio_type themeborder" data-id="post-13">
 
                                 <a class="car_image" href="#">
-                                    <img src="upload/P14_0596_a4_rgb-1-700x466.jpg" alt="Porsche Cayenne" />
+                                    <img src="{{ asset('client/upload/P14_0596_a4_rgb-1-700x466.jpg') }}" alt="Porsche Cayenne" />
                                 </a>
 
                                 <div class="portfolio_info_wrapper">
@@ -767,19 +767,19 @@
                                 <ul class="posts blog withthumb ">
                                     <li>
                                         <div class="post_circle_thumb">
-                                            <a href="#"><img class="alignleft frame post_thumb" src="upload/traffic-car-vehicle-black-150x150.jpg" alt="" /></a>
+                                            <a href="#"><img class="alignleft frame post_thumb" src="{{ asset('client/upload/traffic-car-vehicle-black-150x150.jpg') }}" alt="" /></a>
                                         </div><a href="#">America Car Rental Offers Lowest Car Rental Rates</a>
                                         <div class="post_attribute">January 5, 2017</div>
                                     </li>
                                     <li>
                                         <div class="post_circle_thumb">
-                                            <a href="#"><img class="alignleft frame post_thumb" src="upload/pexels-photo-245374-150x150.jpeg" alt="" /></a>
+                                            <a href="#"><img class="alignleft frame post_thumb" src="{{ asset('client/upload/pexels-photo-245374-150x150.jpeg') }}" alt="" /></a>
                                         </div><a href="#">How to Enjoy Sightseeing Los Angeles With Car Rentals</a>
                                         <div class="post_attribute">January 4, 2017</div>
                                     </li>
                                     <li>
                                         <div class="post_circle_thumb">
-                                            <a href="#"><img class="alignleft frame post_thumb" src="upload/road-people-street-smartphone-150x150.jpg" alt="" /></a>
+                                            <a href="#"><img class="alignleft frame post_thumb" src="{{ asset('client/upload/road-people-street-smartphone-150x150.jpg') }}" alt="" /></a>
                                         </div><a href="#">Ride Across the Blue Ridge Parkway</a>
                                         <div class="post_attribute">January 3, 2017</div>
                                     </li>

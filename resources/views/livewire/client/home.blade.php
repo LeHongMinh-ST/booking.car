@@ -155,7 +155,7 @@
             </div>
         </div>
     </div>
-    <div class="one withsmallpadding ppb_header_youtube withbg parallax" style="text-align:center;padding:215px 0 215px 0;color:#ffffff;background-image:url({{ asset('client/upload/IMG_3496bfree.jpg') }});background-position: center center;color:#ffffff;">
+    <div class="one withsmallpadding ppb_header_youtube withbg parallax" style="text-align:center;padding:215px 0 215px 0;color:#ffffff;background-image:url({{ asset('client/upload/IMG_3496bfree.jpg') }});background-position: center center;">
         <div class="overlay_background" style="background:#000000;background:rgb(0,0,0,0.5);background:rgba(0,0,0,0.5);"></div>
         <div class="standard_wrapper">
             <div class="page_content_wrapper">

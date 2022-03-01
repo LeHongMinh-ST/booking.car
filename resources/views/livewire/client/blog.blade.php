@@ -1,10 +1,10 @@
 
-<div id="page_caption" class="hasbg parallax  withtopbar  blog_wrapper" style="background-image:url(upload/IMG_3496bfree.jpg);">
+<div id="page_caption" class="hasbg parallax  withtopbar  blog_wrapper" style="background-image:url({{ asset('client/upload/IMG_3496bfree.jpg') }});">
 
     <div class="page_title_wrapper">
         <div class="page_title_inner">
             <div class="page_title_content">
-                <h1 class="withtopbar">Blog Left Sidebar</h1>
+                <h1 class="withtopbar">Bài viết và Mẹo</h1>
                 <div class="page_tagline">
                     This is sample of page tagline and you can set it up using page option </div>
             </div>
@@ -32,7 +32,7 @@
 
                         <div class="post_img small static">
                             <a href="#">
-                                <img src="upload/nw6xremkxkg-nicolai-berntsen-960x636.jpg" alt="What To Do if Your Rental Car Has Met With An Accident" class="" style="width:960px;height:636px;" />
+                                <img src="{{ asset('client/upload/nw6xremkxkg-nicolai-berntsen-960x636.jpg') }}" alt="What To Do if Your Rental Car Has Met With An Accident" class="" style="width:960px;height:636px;" />
                             </a>
                         </div>
 
@@ -64,7 +64,7 @@
 
                         <div class="post_img small static">
                             <a href="#">
-                                <img src="upload/IMG_3496bfree-960x636.jpg" alt="On The Trail of 6 Best Foods in North America" class="" style="width:960px;height:636px;" />
+                                <img src="{{ asset('client/upload/IMG_3496bfree-960x636.jpg') }}" alt="On The Trail of 6 Best Foods in North America" class="" style="width:960px;height:636px;" />
                             </a>
                         </div>
 
@@ -98,7 +98,7 @@
 
                         <div class="post_img small static">
                             <a href="#">
-                                <img src="upload/pexels-photo-2-960x636.jpg" alt="Car Rental Mistakes That Can Cost You Big" class="" style="width:960px;height:636px;" />
+                                <img src="{{ asset('client/upload/pexels-photo-2-960x636.jpg') }}" alt="Car Rental Mistakes That Can Cost You Big" class="" style="width:960px;height:636px;" />
                             </a>
                         </div>
 
@@ -130,7 +130,7 @@
 
                         <div class="post_img small static">
                             <a href="#">
-                                <img src="upload/pexels-photo-198664-960x636.jpeg" alt="Different Car Rental for Different People" class="" style="width:960px;height:636px;" />
+                                <img src="{{ asset('client/upload/pexels-photo-198664-960x636.jpeg') }}" alt="Different Car Rental for Different People" class="" style="width:960px;height:636px;" />
                             </a>
                         </div>
 
@@ -164,7 +164,7 @@
 
                         <div class="post_img small static">
                             <a href="#">
-                                <img src="upload/Audi-A4-Avant-1-960x636.jpg" alt="Should I use car rental or public transportation?" class="" style="width:960px;height:636px;" />
+                                <img src="{{ asset('client/upload/Audi-A4-Avant-1-960x636.jpg') }}" alt="Should I use car rental or public transportation?" class="" style="width:960px;height:636px;" />
                             </a>
                         </div>
 
@@ -196,7 +196,7 @@
 
                         <div class="post_img small static">
                             <a href="#">
-                                <img src="upload/traffic-car-vehicle-black-960x636.jpg" alt="America Car Rental Offers Lowest Car Rental Rates" class="" style="width:960px;height:636px;" />
+                                <img src="{{ asset('client/upload/traffic-car-vehicle-black-960x636.jpg') }}" alt="America Car Rental Offers Lowest Car Rental Rates" class="" style="width:960px;height:636px;" />
                             </a>
                         </div>
 
@@ -230,7 +230,7 @@
 
                         <div class="post_img small static">
                             <a href="#">
-                                <img src="upload/pexels-photo-245374-960x636.jpeg" alt="How to Enjoy Sightseeing Los Angeles With Car Rentals" class="" style="width:960px;height:636px;" />
+                                <img src="{{ asset('client/upload/pexels-photo-245374-960x636.jpeg') }}" alt="How to Enjoy Sightseeing Los Angeles With Car Rentals" class="" style="width:960px;height:636px;" />
                             </a>
                         </div>
 
@@ -262,7 +262,7 @@
 
                         <div class="post_img small static">
                             <a href="#">
-                                <img src="upload/road-people-street-smartphone-960x636.jpg" alt="Ride Across the Blue Ridge Parkway" class="" style="width:960px;height:636px;" />
+                                <img src="{{ asset('client/upload/road-people-street-smartphone-960x636.jpg') }}" alt="Ride Across the Blue Ridge Parkway" class="" style="width:960px;height:636px;" />
                             </a>
                         </div>
 
@@ -327,19 +327,19 @@
                                 <ul class="posts blog withthumb ">
                                     <li>
                                         <div class="post_circle_thumb">
-                                            <a href="#"><img class="alignleft frame post_thumb" src="upload/traffic-car-vehicle-black-150x150.jpg" alt="" /></a>
+                                            <a href="#"><img class="alignleft frame post_thumb" src="{{ asset('client/upload/traffic-car-vehicle-black-150x150.jpg') }}" alt="" /></a>
                                         </div><a href="#">America Car Rental Offers Lowest Car Rental Rates</a>
                                         <div class="post_attribute">January 5, 2017</div>
                                     </li>
                                     <li>
                                         <div class="post_circle_thumb">
-                                            <a href="#"><img class="alignleft frame post_thumb" src="upload/pexels-photo-245374-150x150.jpeg" alt="" /></a>
+                                            <a href="#"><img class="alignleft frame post_thumb" src="{{ asset('client/upload/pexels-photo-245374-150x150.jpeg') }}" alt="" /></a>
                                         </div><a href="#">How to Enjoy Sightseeing Los Angeles With Car Rentals</a>
                                         <div class="post_attribute">January 4, 2017</div>
                                     </li>
                                     <li>
                                         <div class="post_circle_thumb">
-                                            <a href="#"><img class="alignleft frame post_thumb" src="upload/road-people-street-smartphone-150x150.jpg" alt="" /></a>
+                                            <a href="#"><img class="alignleft frame post_thumb" src="{{ asset('client/upload/road-people-street-smartphone-150x150.jpg') }}" alt="" /></a>
                                         </div><a href="#">Ride Across the Blue Ridge Parkway</a>
                                         <div class="post_attribute">January 3, 2017</div>
                                     </li>

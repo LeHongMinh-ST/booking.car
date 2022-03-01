@@ -3,14 +3,15 @@
 @endsection
 
 <div class="ppb_wrapper  ">
-    <div class="one withsmallpadding ppb_header_youtube withbg parallax" data-jarallax-video="https://www.youtube.com/watch?v=Mz5PAKmwAqc" style="text-align:center;padding:305px 0 305px 0;color:#ffffff;">
+    <div class="one withsmallpadding ppb_header_youtube withbg parallax" data-jarallax-video="https://www.youtube.com/watch?v=Mz5PAKmwAqc" style="text-align:center;padding:305px 0 305px 0;color:#ffffff; background-image:url({{ asset('client/upload/evening.jpg') }});background-position: center center;">
         <div class="overlay_background" style="background:#000000;background:rgb(0,0,0,0.5);background:rgba(0,0,0,0.5);"></div>
         <div class="standard_wrapper">
             <div class="page_content_wrapper">
                 <div class="inner">
                     <div style="margin:auto;width:60%">
-                        <h2 class="ppb_title" style="color:#ffffff;">We are Grand Car Rental Best Car Rental WordPress Theme</h2>
-                        <div class="page_tagline" style="color:#ffffff;">Car rental, limousine, and car hire. All in one service.</div>
+                        <h2 class="ppb_title" style="color:#ffffff;">Chúng tôi là GCar rental dịch vụ thuê xe số 1</h2>
+                        <div class="page_tagline" style="color:#ffffff;">
+                            Cho thuê xe hơi, xe limousine, và thuê xe ô tô con. Tất cả trong một dịch vụ.</div>
                     </div>
                 </div>
             </div>
@@ -21,10 +22,10 @@
             <div class="page_content_wrapper">
                 <div class="inner">
                     <div style="margin:auto;width:50%">
-                        <h2 class="ppb_title" style="color:#ffffff;">This adventure isn’t about change but it seems to be an inevitability.</h2>
+                        <h2 class="ppb_title" style="color:#ffffff;">
+                            Cuộc phiêu lưu này không phải là về sự thay đổi mà nó dường như là một điều tất yếu.</h2>
                         <div class="ppb_header_content">
-                            <p>Meh synth Schlitz, tempor duis single-origin coffee ea next level ethnic fingerstache fanny pack nostrud.Photo booth anim 8-bit hella, PBR 3 wolf moon beard Helvetica. Salvia esse nihil, flexitarian Truffaut synth art party deep v chillwave. Seitan High Life reprehenderit consectetur cupidatat kogi. Et leggings fanny pack, elit bespoke vinyl art party Pitchfork selfies master cleanse.</p>
-                            <p> </p>
+                            <p> Meh synth Schlitz, tempor duis cà phê nguồn gốc đơn lẻ ea cấp độ tiếp theo dân tộc fingerstache fanny pack nostrud. Gian hàng ảnh động 8-bit hella, PBR 3 sói mặt trăng râu Helvetica. Salvia esse nihil, flexitarian Truffaut synth art party deep v chillwave. Seitan Cuộc sống Cao cấp reploynderit consectetur cupidatat kogi. Et leggings fanny pack, elit bữa tiệc nghệ thuật vinyl đặt làm riêng Pitchfork selfie làm sạch tổng thể. </p>                            <p> </p>
                             <div class="one_half " style="">
                                 <div class="animate_counter_wrapper">
                                     <div id="15722574381434579802" class="odometer" style="font-size:60px;line-height:60px;">0</div>
@@ -48,40 +49,40 @@
             </div>
         </div>
     </div>
-    <div class="one withsmallpadding ppb_contact_half_bg withbg parallax " style="background-image:url(upload/evening.jpg);background-position: center center;padding:40px 0 40px 0;">
+    <div class="one withsmallpadding ppb_contact_half_bg withbg parallax " style=" background-image:url({{ asset('client/upload/evening.jpg') }});background-position: center center;padding:40px 0 40px 0;">
         <div class="standard_wrapper">
             <div class="page_content_wrapper">
                 <div class="inner">
                     <div class="one_half_bg" style="background:#000000;background:rgb(0,0,0,0.8);background:rgba(0,0,0,0.8);color:#ffffff;" data-stellar-ratio="1.3">
-                        <h2 class="ppb_title" style="color:#ffffff;">Get In Touch With Us</h2>
-                        <div class="page_tagline" style="color:#ffffff;">This is sample of sub title.</div>
+                        <h2 class="ppb_title" style="color:#ffffff;">Liên hệ với chúng tôi</h2>
+                        <div class="page_tagline" style="color:#ffffff;">Đây là mẫu của tiêu đề phụ.</div>
                         <div class="contact_form7_wrapper">
                             <div role="form" class="wpcf7" id="wpcf7-f2465-o1" lang="en-US" dir="ltr">
                                 <div class="screen-reader-response"></div>
                                 <form action="#" method="post" class="wpcf7-form" novalidate="novalidate">
 
                                     <p>
-                                        <label> Your Name*
+                                        <label> Họ và tên*
                                             <br />
                                             <span class="wpcf7-form-control-wrap your-name"><input type="text" name="your-name" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false" /></span> </label>
                                     </p>
                                     <p>
-                                        <label> Your Emai*
+                                        <label> Email*
                                             <br />
                                             <span class="wpcf7-form-control-wrap your-email"><input type="email" name="your-email" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-email wpcf7-validates-as-required wpcf7-validates-as-email" aria-required="true" aria-invalid="false" /></span> </label>
                                     </p>
                                     <p>
-                                        <label> Subject
+                                        <label> Chủ đề
                                             <br />
                                             <span class="wpcf7-form-control-wrap your-subject"><input type="text" name="your-subject" value="" size="40" class="wpcf7-form-control wpcf7-text" aria-invalid="false" /></span> </label>
                                     </p>
                                     <p>
-                                        <label> Your Message
+                                        <label> Nội dung
                                             <br />
                                             <span class="wpcf7-form-control-wrap your-message"><textarea name="your-message" cols="40" rows="10" class="wpcf7-form-control wpcf7-textarea" aria-invalid="false"></textarea></span> </label>
                                     </p>
                                     <p>
-                                        <input type="submit" value="Send" class="wpcf7-form-control wpcf7-submit" />
+                                        <input type="submit" value="Gửi" class="wpcf7-form-control wpcf7-submit" />
                                     </p>
                                     <div class="wpcf7-response-output wpcf7-display-none"></div>
                                 </form>
@@ -98,8 +99,9 @@
         <div class="page_content_wrapper">
             <div class="inner">
                 <div style="margin:auto;width:100%">
-                    <h2 class="ppb_title" style="">Meet Our Team</h2>
-                    <div class="page_tagline" style="">Car rental, limousine, and car hire. All in one service.</div>
+                    <h2 class="ppb_title" style="">Đội ngũ của chúng tôi</h2>
+                    <div class="page_tagline" style="">
+                        Cho thuê xe hơi, xe limousine, và thuê xe ô tô con. Tất cả trong một dịch vụ.</div>
                 </div>
             </div>
         </div>
@@ -193,82 +195,4 @@
         </div>
     </div>
 </div>
-<br class="clear" />
-<div class="car_recently_view">
-
-    <div class="standard_wrapper">
-
-        <h3 class="sub_title">Recently View Cars</h3>
-
-        <div id="portfolio_filter_wrapper" class="gallery grid four_cols portfolio-content section content clearfix" data-columns="4">
-            <div class="element grid classic4_cols animated1">
-
-                <div class="one_fourth gallery4 grid static filterable portfolio_type themeborder" data-id="post-1" style="background-image:url(upload/mercedes-benz-cls-class-shooting-brake-13824-1920x1200-700x466.jpg);">
-                    <a class="car_image" href="#"></a>
-                    <div class="portfolio_info_wrapper">
-                        <div class="car_attribute_wrapper">
-                            <h5>Mercedes Benz CLS-Class</h5>
-                        </div>
-                        <div class="car_attribute_price">
-                            <div class="car_attribute_price_day four_cols">
-                                <span class="single_car_currency">$</span><span class="single_car_price">100</span> <span class="car_unit_day">Per Day</span>
-                            </div>
-                        </div>
-                        <br class="clear" />
-                    </div>
-                </div>
-            </div>
-            <div class="element grid classic4_cols animated2">
-
-                <div class="one_fourth gallery4 grid static filterable portfolio_type themeborder" data-id="post-2" style="background-image:url(upload/P14_0596_a4_rgb-1-700x466.jpg);">
-                    <a class="car_image" href="#"></a>
-                    <div class="portfolio_info_wrapper">
-                        <div class="car_attribute_wrapper">
-                            <h5>Porsche Cayenne</h5>
-                        </div>
-                        <div class="car_attribute_price">
-                            <div class="car_attribute_price_day four_cols">
-                                <span class="single_car_currency">$</span><span class="single_car_price">127</span> <span class="car_unit_day">Per Day</span>
-                            </div>
-                        </div>
-                        <br class="clear" />
-                    </div>
-                </div>
-            </div>
-            <div class="element grid classic4_cols animated3">
-
-                <div class="one_fourth gallery4 grid static filterable portfolio_type themeborder" data-id="post-3" style="background-image:url(upload/2016-Mercedes-Benz-GLE-2-700x466.jpg);">
-                    <a class="car_image" href="#"></a>
-                    <div class="portfolio_info_wrapper">
-                        <div class="car_attribute_wrapper">
-                            <h5>Mercedes Benz GLE</h5>
-                        </div>
-                        <div class="car_attribute_price">
-                            <div class="car_attribute_price_day four_cols">
-                                <span class="single_car_currency">$</span><span class="single_car_price">127</span> <span class="car_unit_day">Per Day</span>
-                            </div>
-                        </div>
-                        <br class="clear" />
-                    </div>
-                </div>
-            </div>
-            <div class="element grid classic4_cols animated4">
-
-                <div class="one_fourth gallery4 grid static filterable portfolio_type themeborder" data-id="post-4" style="background-image:url(upload/Porsche-Boxster-Wheels-8-700x466.jpg);">
-                    <a class="car_image" href="#"></a>
-                    <div class="portfolio_info_wrapper">
-                        <div class="car_attribute_wrapper">
-                            <h5>Porsche Boxster</h5>
-                        </div>
-                        <div class="car_attribute_price">
-                            <div class="car_attribute_price_day four_cols">
-                                <span class="single_car_currency">$</span><span class="single_car_price">180</span> <span class="car_unit_day">Per Day</span>
-                            </div>
-                        </div>
-                        <br class="clear" />
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+@include('client.includes.recently')
