@@ -35,7 +35,7 @@
 
                 <div id="logo_normal" class="logo_container">
                     <div class="logo_align">
-                        <a id="custom_logo" class="logo_wrapper hidden" href="index.html">
+                        <a id="custom_logo" class="logo_wrapper hidden" href="{{ route('home') }}">
                             <img src="{{ asset('client/images/logo@2x_white.png') }}" alt="" width="175" height="24" />
                         </a>
                     </div>
@@ -43,7 +43,7 @@
 
                 <div id="logo_transparent" class="logo_container">
                     <div class="logo_align">
-                        <a id="custom_logo_transparent" class="logo_wrapper default" href="index.html">
+                        <a id="custom_logo_transparent" class="logo_wrapper default" href="{{ route('home') }}">
                             <img src="{{ asset('client/images/logo@2x_white.png') }}" alt="" width="175" height="24" />
                         </a>
                     </div>
@@ -58,8 +58,9 @@
                                     <ul id="main_menu" class="nav">
                                         <li class="menu-item {{ request()->is('/') ? 'current-menu-item' : '' }}  menu-item-has-children"><a href="{{ route('home') }}">Trang chủ</a></li>
                                         <li class="menu-item {{ request()->is('/about') ? 'current-menu-item' : '' }} menu-item-has-children"><a href="{{ route('about') }}">Giới thiệu</a></li>
-                                        <li class="menu-item menu-item-has-children"><a href="{{ route('home') }}">Dịch vụ</a></li>
-                                        <li class="menu-item menu-item-has-children arrow"><a href="#">Danh mục xe</a>
+                                        <li class="menu-item  {{ request()->is('/service') ? 'current-menu-item' : '' }} menu-item-has-children"><a href="{{ route('service') }}">Dịch vụ</a></li>
+                                        <li class="menu-item  {{ request()->is('/products') ? 'current-menu-item' : '' }} menu-item-has-children"><a href="{{ route('products') }}">Thuê xe</a></li>
+                                        <li class="menu-item  {{ request()->is('/about') ? 'current-menu-item' : '' }} menu-item-has-children arrow"><a href="#">Danh mục xe</a>
                                             <ul class="sub-menu">
                                                 <li class="menu-item menu-item-has-children arrow"><a href="car-list-right-sidebar.html">Car List Sidebar</a>
                                                     <ul class="sub-menu">
@@ -177,8 +178,8 @@
                                                 </li>
                                             </ul>
                                         </li>
-                                        <li class="menu-item menu-item-has-children"><a href="{{ route('home') }}">Bài viết</a></li>
-                                        <li class="menu-item menu-item-has-children"><a href="{{ route('home') }}">Liên hệ</a></li>
+                                        <li class="menu-item {{ request()->is('/blog') ? 'current-menu-item' : '' }} menu-item-has-children"><a href="{{ route('blog') }}">Bài viết</a></li>
+                                        <li class="menu-item  {{ request()->is('/contact') ? 'current-menu-item' : '' }} menu-item-has-children"><a href="{{ route('contact') }}">Liên hệ</a></li>
 
                                     </ul>
                                 </div>

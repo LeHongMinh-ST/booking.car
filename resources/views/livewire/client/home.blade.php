@@ -118,8 +118,9 @@
             <div class="page_content_wrapper">
                 <div class="inner">
                     <div style="margin:auto;width:100%">
-                        <h2 class="ppb_title" style="">Find Car by Type</h2>
-                        <div class="page_tagline" style="">We offer professional car rental &amp; limousine services in our range of high-end vehicles</div>
+                        <h2 class="ppb_title" style="">Tìm Xe theo Loại xe</h2>
+                        <div class="page_tagline" style="">
+                            Chúng tôi cung cấp dịch vụ cho thuê xe hơi & xe limousine chuyên nghiệp với nhiều loại xe cao cấp của chúng tôi</div>
                     </div>
                 </div>
             </div>
@@ -130,21 +131,21 @@
             <div class="standard_wrapper">
                 <div id="1572257266780950625" class="portfolio_filter_wrapper gallery grid portrait three_cols" data-columns="3">
                     <div class="element grid classic3_cols animated1">
-                        <div class="one_third gallery3 grid static filterable portfolio_type themeborder" style="background-image:url(upload/15C1119_043-1280x849.jpg);">
+                        <div class="one_third gallery3 grid static filterable portfolio_type themeborder" style="background-image:url({{ asset('client/upload/15C1119_043-1280x849.jpg') }});">
                             <a class="car_image" href="#"></a>
                             <div class="portfolio_info_wrapper">
                                 <h3>Coupe</h3></div>
                         </div>
                     </div>
                     <div class="element grid classic3_cols animated2">
-                        <div class="one_third gallery3 grid static filterable portfolio_type themeborder" style="background-image:url(upload/2017-lexus-ls-460-2.jpg);">
+                        <div class="one_third gallery3 grid static filterable portfolio_type themeborder" style="background-image:url({{ asset('client/upload/2017-lexus-ls-460-2.jpg') }});">
                             <a class="car_image" href="#"></a>
                             <div class="portfolio_info_wrapper">
                                 <h3>Sedan</h3></div>
                         </div>
                     </div>
                     <div class="element grid classic3_cols animated3">
-                        <div class="one_third gallery3 grid static filterable portfolio_type themeborder" style="background-image:url(upload/2015-BMW-X3-Facelift-5.jpg);">
+                        <div class="one_third gallery3 grid static filterable portfolio_type themeborder" style="background-image:url({{ asset('client/upload/2015-BMW-X3-Facelift-5.jpg') }});">
                             <a class="car_image" href="#"></a>
                             <div class="portfolio_info_wrapper">
                                 <h3>SUV</h3></div>
@@ -154,18 +155,17 @@
             </div>
         </div>
     </div>
-    <div class="one withsmallpadding ppb_header_youtube withbg parallax" data-jarallax-video="https://www.youtube.com/watch?v=k2dqhxW0SEU" style="text-align:center;padding:215px 0 215px 0;color:#ffffff;background-image:url({{ asset('client/upload/IMG_3496bfree.jpg') }});background-position: center center;color:#ffffff;">
+    <div class="one withsmallpadding ppb_header_youtube withbg parallax" style="text-align:center;padding:215px 0 215px 0;color:#ffffff;background-image:url({{ asset('client/upload/IMG_3496bfree.jpg') }});background-position: center center;color:#ffffff;">
         <div class="overlay_background" style="background:#000000;background:rgb(0,0,0,0.5);background:rgba(0,0,0,0.5);"></div>
         <div class="standard_wrapper">
             <div class="page_content_wrapper">
                 <div class="inner">
                     <div style="margin:auto;width:100%">
-                        <h2 class="ppb_title" style="color:#ffffff;">Our Fleet, Your Fleet</h2>
-                        <div class="page_tagline" style="color:#ffffff;">We know the difference is in the details and that’s why our car rental services, in the tourism
-                            <br /> and business industry, stand out for their quality and good taste, to offer you an unique experience</div>
+                        <h2 class="ppb_title" style="color:#ffffff;">Đội ngũ của chúng tôi, Đội ngũ của bạn</h2>
+                        <div class="page_tagline" style="color:#ffffff;">Chúng tôi biết sự khác biệt là ở các chi tiết và đó là lý do tại sao dịch vụ cho thuê xe hơi của chúng tôi, trong ngành du lịch
+                            <br /> và ngành kinh doanh, nổi bật về chất lượng và hương vị tốt, để mang đến cho bạn trải nghiệm độc đáo</div>
                         <div class="ppb_header_content">
-                            <p><span style="font-size: 32px;">Call Now (54)-344-4533-4</span></p>
-                            <p><a class="button" href="contact-us.html">Request a Quote</a></p>
+                            <p><span style="font-size: 32px;">Gọi Ngay (+84)35 599 9555</span></p>
                         </div>
                     </div>
                 </div>
@@ -177,8 +177,8 @@
             <div class="page_content_wrapper">
                 <div class="inner">
                     <div style="margin:auto;width:100%">
-                        <h2 class="ppb_title" style="color:#ffffff;">Why Choose Us</h2>
-                        <div class="page_tagline" style="color:#ffffff;">Explore our first class limousine &amp; car rental services</div>
+                        <h2 class="ppb_title" style="color:#ffffff;">Tại sao chọn chúng tôi ?</h2>
+                        <div class="page_tagline" style="color:#ffffff;">Khám phá dịch vụ thuê xe &amp; xe limousine hạng nhất của chúng tô</div>
                     </div>
                 </div>
             </div>
@@ -191,16 +191,17 @@
                     <div style="margin:auto;width:100%">
 
                         <div class="one_third " style=""><span class="ti-car" style="display: block; font-size: 50px; margin-bottom: 20px;"> </span>
-                            <h4 style="color: #fff;">Variety of Car Brands</h4>
+                            <h4 style="color: #fff;">Nhiều nhãn hiệu xe hơi</h4>
                             <p>Lorem ipsum dolor sit amet, consectadipiscing elit. Aenean commodo ligula eget dolor.</p>
                         </div>
                         <div class="one_third " style="">
                             <span class="ti-face-smile" style="display: block; font-size: 50px; margin-bottom: 20px;"> </span>
-                            <h4 style="color: #fff;">Best Rate Guarantee</h4>
+                            <h4 style="color: #fff;">Đảm bảo giá tốt nhất</h4>
                             <p>Lorem ipsum dolor sit amet, consectadipiscing elit. Aenean commodo ligula eget dolor.</p>
                         </div>
                         <div class="one_third last " style=""><span class="ti-heart" style="display: block; font-size: 50px; margin-bottom: 20px;"> </span>
-                            <h4 style="color: #fff;">Awesome Customer Support</h4>
+                            <h4 style="color: #fff;">
+                                Hỗ trợ khách hàng tuyệt vời</h4>
                             <p>Lorem ipsum dolor sit amet, consectadipiscing elit. Aenean commodo ligula eget dolor.</p>
                         </div>
                         <p>
@@ -216,8 +217,8 @@
             <div class="page_content_wrapper">
                 <div class="inner">
                     <div style="margin:auto;width:100%">
-                        <h2 class="ppb_title" style="">Articles &amp; Tips</h2>
-                        <div class="page_tagline" style="">Explore some of the best tips from around the world</div>
+                        <h2 class="ppb_title" style="">Bài viết &amp; Mẹo</h2>
+                        <div class="page_tagline" style="">Khám phá một số mẹo hay nhất từ khắp nơi trên thế giới</div>
                     </div>
                 </div>
             </div>
@@ -233,7 +234,7 @@
                                 <div class="post_wrapper grid_layout">
                                     <div class="post_img small static">
                                         <a href="#">
-                                            <img src="upload/nw6xremkxkg-nicolai-berntsen-960x636.jpg" alt="What To Do if Your Rental Car Has Met With An Accident" class="" />
+                                            <img src="{{ asset('client/upload/nw6xremkxkg-nicolai-berntsen-960x636.jpg') }}" alt="What To Do if Your Rental Car Has Met With An Accident" class="" />
                                         </a>
                                     </div>
                                     <div class="post_header_wrapper">
@@ -247,7 +248,7 @@
                                         </div>
                                         <p>Meh synth Schlitz, tempor duis single-origin coffee ea next level ethnic fingerstache...
                                         <div class="post_button_wrapper">
-                                            <a class="readmore" href="#">Read More<span class="ti-angle-right"></span></a>
+                                            <a class="readmore" href="#">Đọc thêm<span class="ti-angle-right"></span></a>
                                         </div>
                                     </div>
                                 </div>
@@ -256,7 +257,7 @@
                                 <div class="post_wrapper grid_layout">
                                     <div class="post_img small static">
                                         <a href="#">
-                                            <img src="upload/IMG_3496bfree-960x636.jpg" alt="On The Trail of 6 Best Foods in North America" class="" />
+                                            <img src="{{ asset('client/upload/IMG_3496bfree-960x636.jpg') }}" alt="On The Trail of 6 Best Foods in North America" class="" />
                                         </a>
                                     </div>
                                     <div class="post_header_wrapper">
@@ -270,7 +271,7 @@
                                         </div>
                                         <p>Meh synth Schlitz, tempor duis single-origin coffee ea next level ethnic fingerstache...
                                         <div class="post_button_wrapper">
-                                            <a class="readmore" href="#">Read More<span class="ti-angle-right"></span></a>
+                                            <a class="readmore" href="#">Đọc thêm<span class="ti-angle-right"></span></a>
                                         </div>
                                     </div>
                                 </div>
@@ -279,7 +280,7 @@
                                 <div class="post_wrapper grid_layout">
                                     <div class="post_img small static">
                                         <a href="#">
-                                            <img src="upload/pexels-photo-2-960x636.jpg" alt="Car Rental Mistakes That Can Cost You Big" class="" />
+                                            <img src="{{ asset('client/upload/pexels-photo-2-960x636.jpg') }}" alt="Car Rental Mistakes That Can Cost You Big" class="" />
                                         </a>
                                     </div>
                                     <div class="post_header_wrapper">
@@ -293,7 +294,7 @@
                                         </div>
                                         <p>Meh synth Schlitz, tempor duis single-origin coffee ea next level ethnic fingerstache...
                                         <div class="post_button_wrapper">
-                                            <a class="readmore" href="#">Read More<span class="ti-angle-right"></span></a>
+                                            <a class="readmore" href="#">Đọc thêm<span class="ti-angle-right"></span></a>
                                         </div>
                                     </div>
                                 </div>

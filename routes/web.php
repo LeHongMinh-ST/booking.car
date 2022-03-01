@@ -20,6 +20,15 @@ use App\Http\Livewire\Admin\Role\RoleIndex;
 use App\Http\Livewire\Admin\Role\RoleUpdate;
 use App\Http\Livewire\Client\Home;
 use App\Http\Livewire\Client\About;
+use App\Http\Livewire\Client\Service;
+use App\Http\Livewire\Client\Contact;
+use App\Http\Livewire\Client\Product;
+use App\Http\Livewire\Client\ListProduct;
+use App\Http\Livewire\Client\ListProductByBrand;
+use App\Http\Livewire\Client\ListProductByCategory;
+use App\Http\Livewire\Client\Blog;
+use App\Http\Livewire\Client\Post;
+use App\Http\Livewire\Client\CategoryPost;
 use Illuminate\Support\Facades\Route;
 use UniSharp\LaravelFilemanager\Lfm;
 
@@ -85,10 +94,14 @@ Route::get('/home', function () {
     return redirect()->route('home');
 });
 Route::get('/', Home::class)->name('home');
-Route::get('/products', Home::class)->name('products');
-Route::get('/product/{slug}', Home::class)->name('product');
-Route::get('/category-post/{slug}', Home::class)->name('category.post');
-Route::get('/post/{slug}', Home::class)->name('post');
+Route::get('/products', ListProduct::class)->name('products');
+Route::get('/product/{slug}', Product::class)->name('product');
+Route::get('/category/{slug}', ListProductByCategory::class)->name('product-by-category');
+Route::get('/brand/{slug}', ListProductByBrand::class)->name('product-by-brand');
+Route::get('/category-post/{slug}', CategoryPost::class)->name('category.post');
+Route::get('/posts', Blog::class)->name('blog');
+Route::get('/post/{slug}', Post::class)->name('post');
 Route::get('/about', About::class)->name('about');
-Route::get('/contact', Home::class)->name('contact');
+Route::get('/service', Service::class)->name('service');
+Route::get('/contact', Contact::class)->name('contact');
 

@@ -39,10 +39,10 @@
     <div class="footer_bar_wrapper ">
         <div class="menu-footer-menu-container">
             <ul id="footer_menu" class="footer_nav">
-                <li class="menu-item"><a href="about-us.html">Trang chủ</a></li>
-                <li class="menu-item"><a href="home-4-limousine-service.html">Giới thiệu</a></li>
-                <li class="menu-item"><a href="home-4-limousine-service.html">Dịch vụ</a></li>
-                <li class="menu-item"><a href="contact-us.html">Liên hệ</a></li>
+                <li class="menu-item"><a href="{{ route('home') }}">Trang chủ</a></li>
+                <li class="menu-item"><a href="{{ route('about') }}">Giới thiệu</a></li>
+                <li class="menu-item"><a href="{{ route('service') }}">Dịch vụ</a></li>
+                <li class="menu-item"><a href="{{ route('contact') }}">Liên hệ</a></li>
             </ul>
         </div>
         <div id="copyright">© Copyright VNUA</div>
