@@ -3,6 +3,7 @@
 <script src="{{ asset('admin/assets/plugins/global/plugins.bundle.js') }}"></script>
 <script src="{{ asset('admin/assets/js/scripts.bundle.js') }}"></script>
 <script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
+<script src="//cdn.ckeditor.com/4.17.2/full/ckeditor.js"></script>
 <!--end::Global Javascript Bundle-->
 <!--begin::Page Custom Javascript(used by this page)-->
 
@@ -37,9 +38,10 @@
         }
     @endif
 </script>
-
-@yield('script')
-
 <script>
     // $('#lfm').filemanager('image')
+    CKEDITOR.replace( 'editor' );
 </script>
+@yield('script')
+
+

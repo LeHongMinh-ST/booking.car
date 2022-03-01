@@ -208,10 +208,12 @@
                                                            data-kt-customer-table-filter="delete_row">Xoá</span>
                                                 </div>
                                         @endif
+
                                             <!--end::Menu item-->
                                         </div>
                                         <!--end::Menu-->
                                     </td>
+
                                     <!--end::Action=-->
                                 </tr>
                                 @empty

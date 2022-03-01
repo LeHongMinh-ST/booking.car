@@ -57,7 +57,7 @@
                                 <div class="menu-main-menu-container">
                                     <ul id="main_menu" class="nav">
                                         <li class="menu-item {{ request()->is('/') ? 'current-menu-item' : '' }}  menu-item-has-children"><a href="{{ route('home') }}">Trang chủ</a></li>
-                                        <li class="menu-item menu-item-has-children"><a href="{{ route('home') }}">Giới thiệu</a></li>
+                                        <li class="menu-item {{ request()->is('/about') ? 'current-menu-item' : '' }} menu-item-has-children"><a href="{{ route('about') }}">Giới thiệu</a></li>
                                         <li class="menu-item menu-item-has-children"><a href="{{ route('home') }}">Dịch vụ</a></li>
                                         <li class="menu-item menu-item-has-children arrow"><a href="#">Danh mục xe</a>
                                             <ul class="sub-menu">

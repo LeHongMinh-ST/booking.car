@@ -215,7 +215,7 @@
                                         <span>Mô tả</span>
                                     </label>
                                     <!--end::Label-->
-                                    <textarea  wire:model="description" class="form-control form-control-solid" rows="5" placeholder="" ></textarea>
+                                    <textarea  wire:model="description" id="editor" class="form-control form-control-solid" rows="5" placeholder="" ></textarea>
                                 </div><!--end::Tab content-->
                             </form>
                             <!--begin::Tab content-->
