@@ -1,25 +1,26 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
-use App\Http\Livewire\Admin\Home\Dashboard;
-use App\Http\Livewire\Admin\Account\AccountIndex;
 use App\Http\Livewire\Admin\Account\AccountCreate;
+use App\Http\Livewire\Admin\Account\AccountIndex;
 use App\Http\Livewire\Admin\Account\AccountUpdate;
-use App\Http\Livewire\Admin\Role\RoleIndex;
-use App\Http\Livewire\Admin\Role\RoleCreate;
-use App\Http\Livewire\Admin\Role\RoleUpdate;
-use App\Http\Livewire\Admin\Product\ProductIndex;
-use App\Http\Livewire\Admin\Product\ProductDetail;
-use App\Http\Livewire\Admin\Product\ProductCreate;
-use App\Http\Livewire\Admin\Product\ProductUpdate;
 use App\Http\Livewire\Admin\Brand\BrandIndex;
 use App\Http\Livewire\Admin\Category\CategoryIndex;
-use App\Http\Livewire\Admin\Customer\CustomerIndex;
 use App\Http\Livewire\Admin\Customer\CustomerCreate;
+use App\Http\Livewire\Admin\Customer\CustomerIndex;
 use App\Http\Livewire\Admin\Customer\CustomerUpdate;
+use App\Http\Livewire\Admin\Home\Dashboard;
 use App\Http\Livewire\Admin\Order\OrderIndex;
+use App\Http\Livewire\Admin\Product\ProductCreate;
+use App\Http\Livewire\Admin\Product\ProductDetail;
+use App\Http\Livewire\Admin\Product\ProductIndex;
+use App\Http\Livewire\Admin\Product\ProductUpdate;
+use App\Http\Livewire\Admin\Role\RoleCreate;
+use App\Http\Livewire\Admin\Role\RoleIndex;
+use App\Http\Livewire\Admin\Role\RoleUpdate;
 use App\Http\Livewire\Client\Home;
+use App\Http\Livewire\Client\About;
+use Illuminate\Support\Facades\Route;
 use UniSharp\LaravelFilemanager\Lfm;
 
 /*
@@ -88,6 +89,6 @@ Route::get('/products', Home::class)->name('products');
 Route::get('/product/{slug}', Home::class)->name('product');
 Route::get('/category-post/{slug}', Home::class)->name('category.post');
 Route::get('/post/{slug}', Home::class)->name('post');
-Route::get('/about', Home::class)->name('about');
+Route::get('/about', About::class)->name('about');
 Route::get('/contact', Home::class)->name('contact');
 
