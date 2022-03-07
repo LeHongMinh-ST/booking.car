@@ -25,7 +25,7 @@ class ProductCreate extends Component
     public $thumbnail;
     public $otherParameters = [];
     public $categoryChecked = [];
-
+    protected $listeners = ['changeThumbnail' => 'changeThumbnail'];
     protected $rules = [
         'name' => 'required|string|max:255',
         'color' => 'required|string|max:255',
@@ -33,7 +33,6 @@ class ProductCreate extends Component
         'km' => 'required|string|max:255',
         'year' => 'required|date|date_format:d-m-Y',
         'price' => 'required|integer|min:0',
-        'thumbnail' => 'image|nullable',
     ];
 
     protected $validationAttributes  = [
@@ -66,6 +65,11 @@ class ProductCreate extends Component
     public function updated($propertyName)
     {
         $this->validateOnly($propertyName);
+    }
+
+    public function changeThumbnail($value)
+    {
+        $this->thumbnail = $value;
     }
 
     public function store()

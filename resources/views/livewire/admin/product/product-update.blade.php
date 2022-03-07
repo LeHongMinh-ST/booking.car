@@ -107,7 +107,7 @@
                                 <div class="d-flex flex-column mb-7 fv-row fv-plugins-icon-container">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
-                                        <span class="required">Giá thuê/h</span>
+                                        <span class="required">Giá thuê/ngày</span>
                                     </label>
                                     <!--end::Label-->
                                     <input type="text" wire:model="price" class="form-control form-control-solid" placeholder="">

@@ -18,17 +18,17 @@ use App\Http\Livewire\Admin\Product\ProductUpdate;
 use App\Http\Livewire\Admin\Role\RoleCreate;
 use App\Http\Livewire\Admin\Role\RoleIndex;
 use App\Http\Livewire\Admin\Role\RoleUpdate;
-use App\Http\Livewire\Client\Home;
 use App\Http\Livewire\Client\About;
-use App\Http\Livewire\Client\Service;
+use App\Http\Livewire\Client\Blog;
+use App\Http\Livewire\Client\CategoryPost;
 use App\Http\Livewire\Client\Contact;
-use App\Http\Livewire\Client\Product;
+use App\Http\Livewire\Client\Home;
 use App\Http\Livewire\Client\ListProduct;
 use App\Http\Livewire\Client\ListProductByBrand;
 use App\Http\Livewire\Client\ListProductByCategory;
-use App\Http\Livewire\Client\Blog;
 use App\Http\Livewire\Client\Post;
-use App\Http\Livewire\Client\CategoryPost;
+use App\Http\Livewire\Client\Product;
+use App\Http\Livewire\Client\Service;
 use Illuminate\Support\Facades\Route;
 use UniSharp\LaravelFilemanager\Lfm;
 
@@ -73,27 +73,28 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
 
         Route::prefix('account')->group(function () {
             Route::get('/',AccountIndex::class)->middleware('permission:account-index')->name('account');
-            Route::get('/create',AccountCreate::class)->middleware('permission:account-create')->name('account.create');
-            Route::get('/{id}/edit',AccountUpdate::class)->middleware('permission:account-update')->name('account.edit');
+            Route::get('/create', AccountCreate::class)->middleware('permission:account-create')->name('account.create');
+            Route::get('/{id}/edit', AccountUpdate::class)->middleware('permission:account-update')->name('account.edit');
         });
 
         Route::prefix('role')->group(function () {
-            Route::get('/',RoleIndex::class)->middleware('permission:role-index')->name('role');
-            Route::get('/create',RoleCreate::class)->middleware('permission:role-create')->name('role.create');
-            Route::get('/{id}/edit',RoleUpdate::class)->middleware('permission:role-update')->name('role.edit');
+            Route::get('/', RoleIndex::class)->middleware('permission:role-index')->name('role');
+            Route::get('/create', RoleCreate::class)->middleware('permission:role-create')->name('role.create');
+            Route::get('/{id}/edit', RoleUpdate::class)->middleware('permission:role-update')->name('role.edit');
         });
+
 
     });
 });
-
-Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['admin.auth']], function () {
-   Lfm::routes();
+Route::group(['prefix' => 'laravel-filemanager'], function () {
+    Lfm::routes();
 });
 
 Route::get('/home', function () {
     return redirect()->route('home');
 });
 Route::get('/', Home::class)->name('home');
+//Route::get('/login', Home::class)->name('login');
 Route::get('/products', ListProduct::class)->name('products');
 Route::get('/product/{slug}', Product::class)->name('product');
 Route::get('/category/{slug}', ListProductByCategory::class)->name('product-by-category');

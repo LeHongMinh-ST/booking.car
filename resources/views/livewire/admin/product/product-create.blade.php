@@ -61,7 +61,7 @@
 
                 <div class="col-xxl-8">
                     <!--begin::Security summary-->
-                    <div class="card card-xxl-stretch mb-5 mb-xl-10">
+                    <div class="card mb-5 mb-xl-10">
                         <!--begin::Header-->
                         <div class="card-header card-header-stretch">
                             <!--begin::Title-->
@@ -107,7 +107,7 @@
                                 <div class="d-flex flex-column mb-7 fv-row fv-plugins-icon-container">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
-                                        <span class="required">Giá thuê/h</span>
+                                        <span class="required">Giá thuê/ngày<span>
                                     </label>
                                     <!--end::Label-->
                                     <input type="text" wire:model="price" class="form-control form-control-solid" placeholder="">
@@ -215,8 +215,44 @@
                                         <span>Mô tả</span>
                                     </label>
                                     <!--end::Label-->
-                                    <textarea  wire:model="description" id="editor" class="form-control form-control-solid" rows="5" placeholder="" ></textarea>
+                                    <textarea  wire:model="description"  id="editor" class="form-control form-control-solid" rows="5">
+
+                                    </textarea>
                                 </div><!--end::Tab content-->
+                            </form>
+                            <!--begin::Tab content-->
+                        </div>
+                        <!--end::Body-->
+                    </div>
+                    <div class="card mb-5 mb-xl-10">
+                        <!--begin::Header-->
+                        <div class="card-header card-header-stretch">
+                            <!--begin::Title-->
+                            <div class="card-title">
+                                <h3 class="m-0 text-gray-900">Thư viện ảnh</h3>
+                            </div>
+                            <!--end::Title-->
+                            <!--begin::Toolbar-->
+                            <!--end::Toolbar-->
+                        </div>
+                        <!--end::Header-->
+                        <!--begin::Body-->
+                        <div class="modal-body mx-5 mx-xl-15 my-7">
+                            <form class="form fv-plugins-bootstrap5 fv-plugins-framework">
+                                <div class="d-flex flex-column mb-7 fv-row fv-plugins-icon-container">
+                                    <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
+                                        <span class="required">Tên xe</span>
+                                    </label>
+                                    <!--end::Label-->
+                                    <input type="text" wire:model="name" class="form-control form-control-solid" placeholder="">
+                                    @error('name')
+                                    <div class="fv-plugins-message-container">
+                                        <div data-field="name" data-validator="notEmpty" class="fv-help-block">{{ $message }}</div>
+                                    </div>
+                                    @enderror
+                                </div>
+
                             </form>
                             <!--begin::Tab content-->
                         </div>
@@ -347,18 +383,20 @@
                                 <!--begin::Label-->
                                 <!--end::Label-->
                                 <!--begin::Image input-->
-                                <div class="image-input image-input-outline" data-kt-image-input="true" style="background-image: url({{ $thumbnail ? $thumbnail->temporaryUrl() : asset('admin/assets/img/default-image.jpg') }})">
+                                <div class="image-input image-input-outline" data-kt-image-input="true" style="background-image: url({{ $thumbnail ?? asset('admin/assets/img/default-image.jpg') }})">
                                     <!--begin::Preview existing avatar-->
-                                    <div class="image-input-wrapper w-125px h-125px" style="background-image: url({{ $thumbnail ? $thumbnail->temporaryUrl() : asset('admin/assets/img/default-image.jpg') }});"></div>
+                                    <div class="image-input-wrapper w-125px h-125px" style="background-image: url({{ $thumbnail ?? asset('admin/assets/img/default-image.jpg') }});"></div>
                                     <!--end::Preview existing avatar-->
                                     <!--begin::Label-->
-                                    <label id="lfm" class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="" data-bs-original-title="Chọn ảnh">
+                                    <label id="lfm" data-input="image" class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="" data-bs-original-title="Chọn ảnh">
                                         <i class="bi bi-pencil-fill fs-7"></i>
                                         <!--begin::Inputs-->
-                                        <input type="file" wire:model="thumbnail" id="image" accept=".png, .jpg, .jpeg">
+                                        <input type="file"  accept=".png, .jpg, .jpeg">
+                                        <input type="text" value="" hidden id="image">
                                         <input type="hidden" name="avatar_remove">
                                         <!--end::Inputs-->
                                     </label>
+
                                     <!--end::Label-->
                                     <!--begin::Cancel-->
                                     <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="cancel" data-bs-toggle="tooltip" title="" data-bs-original-title="Cancel avatar">
@@ -379,7 +417,7 @@
 
                                 @error('thumbnail')
                                     <div class="fv-plugins-message-container">
-                                        <div data-field="email" data-validator="notEmpty" class="fv-help-block">{{ $message }}</div>
+                                        <div data-field="thumbnail" data-validator="notEmpty" class="fv-help-block">{{ $message }}</div>
                                     </div>
                                 @enderror
                             <!--end::Hint-->
@@ -399,3 +437,12 @@
     <!--end::Post-->
 </div>
 
+@section('script')
+    <script>
+
+        $('#image').change(function (){
+            Livewire.emit('changeThumbnail', this.value)
+
+        })
+    </script>
+@endsection

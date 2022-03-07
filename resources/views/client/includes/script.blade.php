@@ -3,6 +3,7 @@
 <script type='text/javascript' src='{{ asset('client/js/plugins/grandcarrental-custom-post/js/jquery.barrating.js') }}'></script>
 <script type='text/javascript' src='{{ asset('client/js/plugins/revslider/public/assets/js/jquery.themepunch.tools.min.js') }}'></script>
 <script type='text/javascript' src='{{ asset('client/js/plugins/revslider/public/assets/js/jquery.themepunch.revolution.min.js') }}'></script>
+<script src="/vendor/laravel-filemanager/js/script.js"></script>
 <script type="text/javascript">
     function setREVStartSize(e) {
         try {
@@ -114,5 +115,7 @@
     /* <![CDATA[ */
     var mc4wp_forms_config = [];
     /* ]]> */
+
+</script>
 </script>
 @section('script')
