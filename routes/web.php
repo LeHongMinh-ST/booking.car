@@ -48,13 +48,18 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
     Route::group(['middleware' => ['admin.auth']], function () {
+        Route::get('/',function () {
+            return redirect()->route('admin.dashboard');
+        })->name('index');
         Route::get('/dashboard',Dashboard::class)->name('dashboard');
         Route::get('/role',RoleIndex::class)->name('role');
         Route::get('/brand',BrandIndex::class)->name('brand');
-        Route::get('/category',CategoryIndex::class)->name('category');
+        Route::get('/category',CategoryIndex::class)->name('category-product');
+        Route::get('/contract',CategoryIndex::class)->name('contract');
         Route::get('/category-post',CategoryIndex::class)->name('category-post');
         Route::get('/post',CategoryIndex::class)->name('post');
         Route::get('/order',OrderIndex::class)->name('order');
+        Route::get('/contact',OrderIndex::class)->name('contact');
         Route::get('/statistic/revenue',CategoryIndex::class)->name('statistic.revenue');
         Route::get('/statistic/product',CategoryIndex::class)->name('statistic.product');
 

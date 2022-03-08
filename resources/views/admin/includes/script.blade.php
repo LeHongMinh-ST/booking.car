@@ -1,44 +1,85 @@
 @livewireScripts
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="{{ asset('admin/assets/plugins/global/plugins.bundle.js') }}"></script>
-<script src="{{ asset('admin/assets/js/scripts.bundle.js') }}"></script>
-<script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
+<script src="{{ asset('assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js')}}"></script>
+<script src="{{ asset('assets/js/bootstrap.bundle.min.js')}}"></script>
 
-<script src="//cdn.ckeditor.com/4.17.2/full/ckeditor.js"></script>
+<script src="{{ asset('assets/vendors/apexcharts/apexcharts.js')}}"></script>
+<script src="{{ asset('assets/js/pages/dashboard.js')}}"></script>
+<script src="{{ asset('assets/vendors/ckeditor/ckeditor.js') }}"></script>
+<script src="{{ asset('assets/vendors/choices.js/choices.min.js') }}"></script>
+<script src="{{ asset('assets/js/pages/form-element-select.js') }}"></script>
+<script src="{{ asset('assets/js/extensions/sweetalert2.js') }}"></script>
+<script src="{{ asset('assets/vendors/sweetalert2/sweetalert2.all.min.js') }}"></script>
+<script src="{{ asset('assets/vendors/toastify/toastify.js') }}"></script>
+<script src="{{ asset('assets/js/extensions/toastify.js') }}"></script>
+<script src="{{ asset('assets/js/mazer.js')}}"></script>
+
+
 <!--end::Global Javascript Bundle-->
 <!--begin::Page Custom Javascript(used by this page)-->
 
 <script>
     window.addEventListener('alert', event => {
-        toastr[event.detail.type](event.detail.message,
-            event.detail.title ?? ''), toastr.options = {
-            "closeButton": true,
-            "progressBar": true,
-        }
+        console.log(event)
+        Toastify({
+            text: event.detail.message,
+            duration: 3000,
+            close: true,
+            backgroundColor: event.detail.color
+        }).showToast();
     });
+
+    window.addEventListener('delete', event => {
+        console.log(event)
+        Swal.fire({
+            title: 'Cảnh báo!',
+            icon: 'warning',
+            text: "Dữ liệu không thể phục hồi. Bạn có chăc chắn muốn xóa?",
+            showCancelButton: true,
+            confirmButtonText: 'Đồng ý',
+            cancelButtonText: 'Đóng',
+        }).then((result) => {
+            /* Read more about isConfirmed, isDenied below */
+            if (result.isConfirmed) {
+                Livewire.emit(event.detail.emit, event.detail.value)
+            }
+        })
+
+    })
+
     window.livewire.on('alertSuccess', event => {
-        toastr[event.detail.type](event.detail.message,
-            event.detail.title ?? ''), toastr.options = {
-            "closeButton": true,
-            "progressBar": true,
-        }
+        Toastify({
+            text: event.detail.message,
+            duration: 3000,
+            close: true,
+            backgroundColor: 'green'
+        }).showToast();
     });
     @if(\session()->has('success'))
-        toastr.success('{{ \session()->pull('success') }}'),
-        toastr.options = {
-            "closeButton": true,
-            "progressBar": true,
-        }
+    Toastify({
+        text: '{{ \session()->pull('success') }}',
+        duration: 3000,
+        close: true,
+        backgroundColor: 'green'
+    }).showToast();
     @endif
 
     @if(\session()->has('error'))
-    toastr.error('{{ \session()->pull('error') }}'),
-        toastr.options = {
-            "closeButton": true,
-            "progressBar": true,
-        }
+    Toastify({
+        text: '{{ \session()->pull('success') }}',
+        duration: 3000,
+        close: true,
+        backgroundColor: 'red'
+    }).showToast();
     @endif
 </script>
+<script>
+    ClassicEditor
+        .create(document.querySelector('#editor'))
+        .catch(error => {
+            console.error(error);
+        });
+</script>
+
 <script>
     var options = {
         filebrowserImageBrowseUrl: '/laravel-filemanager?type=Images',
@@ -46,7 +87,7 @@
         filebrowserBrowseUrl: '/laravel-filemanager?type=Files',
         filebrowserUploadUrl: '/laravel-filemanager/upload?type=Files&_token='
     };
-    CKEDITOR.replace('editor', options);
+
 
     $('#lfm').filemanager('image')
 </script>

@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Admin\Product;
 
 use App\Models\Brand;
+use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Support\Facades\Log;
 use Livewire\Component;
@@ -14,25 +15,30 @@ class ProductIndex extends Component
 
     protected $paginationTheme = 'bootstrap';
 
+    public $filter = false;
     public $perPage = 10;
-    public $showDeleteModal = false;
     public $deleteId;
     public $status = "";
     public $search = '';
     public $brandId = '';
+    public $categoryId= '';
+    protected $listeners = ['handleDelete' => 'destroy'];
 
     public function render()
     {
         $products = Product::query()
             ->name($this->search)
             ->filterBrand($this->brandId)
+            ->filterCategories($this->categoryId)
             ->status($this->status)
             ->with(['categories', 'brand'])->paginate($this->perPage);
 
         $brands = Brand::query()->where('is_active', Brand::IS_ACTIVE['active'])->get();
+        $categories = Category::query()->where('is_active', Category::IS_ACTIVE['active'])->get();
         return view('livewire.admin.product.product-index', [
             'products' => $products,
-            'brands' => $brands
+            'brands' => $brands,
+            'categories' => $categories
         ])->extends('admin.layouts.master')->section('content');
     }
 
@@ -41,9 +47,15 @@ class ProductIndex extends Component
 
     }
 
+    public function toggleFilter()
+    {
+        $this->filter = !$this->filter;
+    }
+
     public function resetFilter()
     {
         $this->brandId = '';
+        $this->categoryId = '';
         $this->status = '';
     }
 
@@ -59,7 +71,7 @@ class ProductIndex extends Component
 
             Product::destroy($this->deleteId);
             $this->dispatchBrowserEvent('alert',
-                ['type' => 'success', 'message' => 'Xóa thành công!']);
+                ['color' => 'green', 'message' => 'Xóa thành công']);
 
             $this->closeModal();
         } catch (\Exception $e) {
@@ -69,7 +81,7 @@ class ProductIndex extends Component
             ]);
 
             $this->dispatchBrowserEvent('alert',
-                ['type' => 'error', 'message' => 'Xóa thất bại!']);
+                ['color' => 'red', 'message' => 'Xóa thất bại']);
         }
     }
 
@@ -77,7 +89,8 @@ class ProductIndex extends Component
     public function openDeleteModal($id)
     {
         $this->deleteId = $id;
-        $this->showDeleteModal = true;
+        $this->dispatchBrowserEvent('delete',
+            ['emit' => 'handleDelete', 'value' => $id]);
     }
 
     public function closeModal()

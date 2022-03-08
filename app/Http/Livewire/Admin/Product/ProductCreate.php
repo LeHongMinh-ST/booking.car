@@ -72,6 +72,11 @@ class ProductCreate extends Component
         $this->thumbnail = $value;
     }
 
+    public function test()
+    {
+        dd($this->name);
+    }
+
     public function store()
     {
         if (!checkPermission('product-create')) {

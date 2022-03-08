@@ -1,12 +1,11 @@
-<div class="footer py-4 d-flex flex-lg-column" id="kt_footer">
-    <!--begin::Container-->
-    <div class="container-fluid d-flex flex-column flex-md-row align-items-center justify-content-between">
-        <!--begin::Copyright-->
-        <div class="text-dark order-2 order-md-1">
-            <span class="text-muted fw-bold me-1">2021©</span>
-            <a href="" target="_blank" class="text-gray-800 text-hover-primary">Vnua</a>
+<footer>
+    <div class="footer clearfix mb-0 text-muted">
+        <div class="float-start">
+            <p>2021 &copy; Mazer</p>
         </div>
-        <!--end::Copyright-->
+        <div class="float-end">
+            <p>Crafted with <span class="text-danger"><i class="bi bi-heart"></i></span> by <a
+                    href="http://ahmadsaugi.com">A. Saugi</a></p>
+        </div>
     </div>
-    <!--end::Container-->
-</div>
+</footer>

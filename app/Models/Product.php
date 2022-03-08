@@ -62,7 +62,7 @@ class Product extends Model
     public function scopeStatus($query, $status)
     {
         if ($status) {
-            $query->where('name', $status);
+            $query->where('status', $status);
         }
 
         return $query;
@@ -71,8 +71,19 @@ class Product extends Model
     public function scopeFilterBrand($query, $brandId)
     {
         if ($brandId) {
-            $query->whereHas('brands', function ($q) use ($brandId) {
+            $query->whereHas('brand', function ($q) use ($brandId) {
                 $q->where('id', $brandId);
+            });
+        }
+
+        return $query;
+    }
+
+    public function scopeFilterCategories($query, $categoryId)
+    {
+        if ($categoryId) {
+            $query->whereHas('categories', function ($q) use ($categoryId) {
+                $q->where('categories.id', $categoryId);
             });
         }
 
