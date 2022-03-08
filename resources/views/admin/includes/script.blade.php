@@ -39,8 +39,9 @@
     @endif
 </script>
 <script>
-    // $('#lfm').filemanager('image')
-    CKEDITOR.replace( 'editor' );
+
+    var routePrefix = "/admin/laravel-filemanager";
+    $('#lfm').filemanager('image', {prefix: routePrefix});
 </script>
 @yield('script')
 

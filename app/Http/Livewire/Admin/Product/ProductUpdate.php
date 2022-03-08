@@ -28,7 +28,7 @@ class ProductUpdate extends Component
     public $categoryChecked = [];
     public $productId;
     public $imageUpdate;
-
+    protected $listeners = ['changeImage' => 'updateThumbnail', 'updateDescription' => 'updateDescription'];
     protected $rules = [
         'name' => 'required|string|max:255',
         'color' => 'required|string|max:255',
@@ -36,7 +36,6 @@ class ProductUpdate extends Component
         'km' => 'required|string|max:255',
         'year' => 'required|date|date_format:d-m-Y',
         'price' => 'required|integer|min:0',
-        'thumbnail' => 'image|nullable',
     ];
 
     protected $validationAttributes = [
@@ -45,7 +44,6 @@ class ProductUpdate extends Component
         'price' => 'Giá thuê',
         'km' => 'Km',
         'year' => 'Ngày đăng kí',
-        'thumbnail' => 'Ảnh đại diện',
         'color' => 'Màu sắc',
     ];
 
@@ -85,6 +83,16 @@ class ProductUpdate extends Component
         $this->validateOnly($propertyName);
     }
 
+    public function updateThumbnail($value)
+    {
+        $this->thumbnail = $value;
+    }
+
+    public function updateDescription($value)
+    {
+        $this->description = $value;
+    }
+
     public function clearImagePreview()
     {
         $this->thumbnail = '';
@@ -117,7 +125,7 @@ class ProductUpdate extends Component
             $image = $this->imageUpdate;
 
             if ($this->thumbnail) {
-                $image = '/storage/' . $this->thumbnail->store('product', 'public');
+                $image = $this->thumbnail;
             }
 
             $product = Product::query()->where('id', $this->productId)->first();

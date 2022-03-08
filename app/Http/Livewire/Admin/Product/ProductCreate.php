@@ -12,8 +12,6 @@ use Livewire\WithFileUploads;
 
 class ProductCreate extends Component
 {
-    use WithFileUploads;
-
     public $name;
     public $description;
     public $color;
@@ -25,6 +23,7 @@ class ProductCreate extends Component
     public $thumbnail;
     public $otherParameters = [];
     public $categoryChecked = [];
+    protected $listeners = ['changeImage' => 'updateThumbnail', 'updateDescription' => 'updateDescription'];
 
     protected $rules = [
         'name' => 'required|string|max:255',
@@ -33,7 +32,6 @@ class ProductCreate extends Component
         'km' => 'required|string|max:255',
         'year' => 'required|date|date_format:d-m-Y',
         'price' => 'required|integer|min:0',
-        'thumbnail' => 'image|nullable',
     ];
 
     protected $validationAttributes  = [
@@ -42,7 +40,6 @@ class ProductCreate extends Component
         'price' => 'Giá thuê',
         'km' => 'Km',
         'year' => 'Ngày đăng kí',
-        'thumbnail' => 'Ảnh đại diện',
         'color' => 'Màu sắc',
     ];
 
@@ -68,6 +65,16 @@ class ProductCreate extends Component
         $this->validateOnly($propertyName);
     }
 
+    public function updateThumbnail($value)
+    {
+        $this->thumbnail = $value;
+    }
+
+    public function updateDescription($value)
+    {
+        $this->description = $value;
+    }
+
     public function store()
     {
         if (!checkPermission('product-create')) {
@@ -79,19 +86,13 @@ class ProductCreate extends Component
 
         try {
 
-            $image = '';
-
-            if ($this->thumbnail) {
-                $image = '/storage/'. $this->thumbnail->store('product', 'public');
-            }
-
             $product = Product::create([
                 'name' => $this->name,
                 'color' => $this->color,
                 'km' => $this->km,
                 'year' => $this->year,
                 'price' => $this->price,
-                'thumbnail' => $image,
+                'thumbnail' => $this->thumbnail,
                 'other_parameters' => $this->otherParameters,
                 'license_plates' => $this->licensePlates,
                 'brand_id' => $this->brandId,

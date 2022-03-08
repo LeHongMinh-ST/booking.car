@@ -94,7 +94,7 @@
                             <!--end::Svg Icon-->Lọc
                         </button>
 
-                        <div class="menu menu-sub menu-sub-dropdown w-300px w-md-325px" data-kt-menu="true">
+                        <div class="menu menu-sub menu-sub-dropdown w-300px w-md-325px" data-kt-menu="true" wire:ignore>
                             <!--begin::Header-->
                             <div class="px-7 py-5">
                                 <div class="fs-4 text-dark fw-bolder">Lọc</div>
@@ -279,7 +279,7 @@
 														</span>
                                                 <!--end::Svg Icon--></a>
                                             <!--begin::Menu-->
-                                            <div
+                                            <div wire:ignore
                                                 class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
                                                 data-kt-menu="true">
 
