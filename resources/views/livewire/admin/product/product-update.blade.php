@@ -211,7 +211,7 @@
                                     @endif
                                 </div>
 
-                                <div class="d-flex flex-column mb-7 fv-row fv-plugins-icon-container">
+                                <div class="d-flex flex-column mb-7 fv-row fv-plugins-icon-container" wire:ignore>
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
                                         <span>Mô tả</span>
@@ -380,15 +380,16 @@
                                 <!--begin::Label-->
                                 <!--end::Label-->
                                 <!--begin::Image input-->
-                                <div class="image-input image-input-outline" data-kt-image-input="true" style="background-image: url({{ $thumbnail ? $thumbnail->temporaryUrl() : ($imageUpdate ?? asset('admin/assets/img/default-image.jpg')) }})">
+                                <div class="image-input image-input-outline" data-kt-image-input="true" style="background-image: url({{ $thumbnail ?? ($imageUpdate ?? asset('admin/assets/img/default-image.jpg')) }})">
                                     <!--begin::Preview existing avatar-->
-                                    <div class="image-input-wrapper w-125px h-125px" style="background-image: url({{ $thumbnail ? $thumbnail->temporaryUrl() : ($imageUpdate ?? asset('admin/assets/img/default-image.jpg'))}});"></div>
+                                    <div class="image-input-wrapper w-125px h-125px" style="background-image: url({{ $thumbnail ?? ($imageUpdate ?? asset('admin/assets/img/default-image.jpg'))}});"></div>
                                     <!--end::Preview existing avatar-->
                                     <!--begin::Label-->
-                                    <label id="lfm" class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="" data-bs-original-title="Chọn ảnh">
+                                    <label id="lfm" data-input="image" class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="" data-bs-original-title="Chọn ảnh">
                                         <i class="bi bi-pencil-fill fs-7"></i>
                                         <!--begin::Inputs-->
-                                        <input type="file" wire:model="thumbnail" id="image" accept=".png, .jpg, .jpeg">
+                                        <input type="file" accept=".png, .jpg, .jpeg">
+                                        <input type="text" wire:model="thumbnail" hidden id="image" accept=".png, .jpg, .jpeg">
                                         <input type="hidden" name="avatar_remove">
                                         <!--end::Inputs-->
                                     </label>
@@ -432,3 +433,20 @@
     <!--end::Post-->
 </div>
 
+@section('script')
+    <script>
+        $('#image').change(function () {
+            console.log(this)
+            Livewire.emit('changeImage', this.value)
+        })
+        var options = {
+            filebrowserImageBrowseUrl: '/admin/laravel-filemanager?type=Images',
+            filebrowserImageUploadUrl: '/admin/laravel-filemanager/upload?type=Images&_token=',
+            filebrowserBrowseUrl: '/admin/laravel-filemanager?type=Files',
+            filebrowserUploadUrl: '/admin/laravel-filemanager/upload?type=Files&_token='
+        };
+        CKEDITOR.replace('editor', options).on('change', (e) => {
+            Livewire.emit('updateDescription', e.editor.getData())
+        })
+    </script>
+@endsection
