@@ -44,6 +44,11 @@ class Product extends Model
         return $this->belongsTo(Brand::class);
     }
 
+    public function images()
+    {
+        return $this->hasMany(ProductImage::class);
+    }
+
     public function scopeName($query, $search)
     {
         if ($search) {

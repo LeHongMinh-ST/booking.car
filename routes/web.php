@@ -82,13 +82,13 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
             Route::get('/create',RoleCreate::class)->middleware('permission:role-create')->name('role.create');
             Route::get('/{id}/edit',RoleUpdate::class)->middleware('permission:role-update')->name('role.edit');
         });
-        Route::group(['prefix' => 'laravel-filemanager'], function () {
-            Lfm::routes();
-        });
+
     });
 });
 
-
+Route::group(['prefix' => 'filemanager', 'middleware' => ['admin.auth']], function () {
+    Lfm::routes();
+});
 
 Route::get('/home', function () {
     return redirect()->route('home');

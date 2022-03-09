@@ -19,6 +19,7 @@ class ProductDetail extends Component
     public $otherParameters = [];
     public $status;
     public $productId;
+    public $images;
     public $showDeleteModal = false;
 
     public function render()
@@ -44,6 +45,7 @@ class ProductDetail extends Component
             $this->otherParameters = $product->other_parameters;
             $this->status = $product->status;
             $this->productId  = $product->id;
+            $this->images = $product->images;
         }
     }
 

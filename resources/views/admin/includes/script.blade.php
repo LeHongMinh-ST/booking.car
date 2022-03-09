@@ -40,8 +40,9 @@
 </script>
 <script>
 
-    var routePrefix = "/admin/laravel-filemanager";
+    var routePrefix = "/filemanager";
     $('#lfm').filemanager('image', {prefix: routePrefix});
+    $('#lfms').filemanager('image', {prefix: routePrefix});
 </script>
 @yield('script')
 

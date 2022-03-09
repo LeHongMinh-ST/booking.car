@@ -8,7 +8,6 @@ use App\Models\Product;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Livewire\Component;
-use Livewire\WithFileUploads;
 
 class ProductCreate extends Component
 {
@@ -23,7 +22,13 @@ class ProductCreate extends Component
     public $thumbnail;
     public $otherParameters = [];
     public $categoryChecked = [];
-    protected $listeners = ['changeImage' => 'updateThumbnail', 'updateDescription' => 'updateDescription'];
+    public $images = [];
+
+    protected $listeners = [
+        'changeImage' => 'updateThumbnail',
+        'updateDescription' => 'updateDescription',
+        'changeImages' => 'updateImages'
+    ];
 
     protected $rules = [
         'name' => 'required|string|max:255',
@@ -75,6 +80,22 @@ class ProductCreate extends Component
         $this->description = $value;
     }
 
+    public function updateImages($value)
+    {
+        $this->images = array_merge(explode(',', $value),  $this->images) ;
+    }
+
+    public function deleteAllImage()
+    {
+        $this->images = [];
+    }
+
+
+    public function deleteImage($key)
+    {
+        array_splice($this->images, $key, 1);
+    }
+
     public function store()
     {
         if (!checkPermission('product-create')) {
@@ -85,7 +106,6 @@ class ProductCreate extends Component
         $this->validate();
 
         try {
-
             $product = Product::create([
                 'name' => $this->name,
                 'color' => $this->color,
@@ -99,7 +119,14 @@ class ProductCreate extends Component
                 'slug' => Str::slug($this->name . $this->licensePlates)
             ]);
 
-            $product->categories()->attach($this->categoryChecked);
+            if ($product) {
+                $product->categories()->attach($this->categoryChecked);
+                foreach ($this->images as $image) {
+                    $product->images()->create([
+                        'image_url' => $image
+                    ]);
+                }
+            }
 
             session()->flash('success', 'Tạo mới thành công');
 

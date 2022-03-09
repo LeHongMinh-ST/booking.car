@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Admin\Product;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Livewire\Component;
@@ -28,7 +29,14 @@ class ProductUpdate extends Component
     public $categoryChecked = [];
     public $productId;
     public $imageUpdate;
-    protected $listeners = ['changeImage' => 'updateThumbnail', 'updateDescription' => 'updateDescription'];
+
+    public $images = [];
+
+    protected $listeners = [
+        'changeImage' => 'updateThumbnail',
+        'updateDescription' => 'updateDescription',
+        'changeImages' => 'updateImages'
+    ];
     protected $rules = [
         'name' => 'required|string|max:255',
         'color' => 'required|string|max:255',
@@ -75,7 +83,26 @@ class ProductUpdate extends Component
             $this->status = $product->status;
             $this->productId  = $product->id;
             $this->categoryChecked = $product->categories->pluck('id')->toArray();
+            foreach ($product->images as $image) {
+                $this->images[] = $image->image_url;
+            }
         }
+    }
+
+    public function updateImages($value)
+    {
+        $this->images = array_merge(explode(',', $value),  $this->images) ;
+    }
+
+    public function deleteAllImage()
+    {
+        $this->images = [];
+    }
+
+
+    public function deleteImage($key)
+    {
+        array_splice($this->images, $key, 1);
     }
 
     public function updated($propertyName)
@@ -120,6 +147,7 @@ class ProductUpdate extends Component
 
         $this->validate();
 
+        DB::beginTransaction();
         try {
 
             $image = $this->imageUpdate;
@@ -142,14 +170,30 @@ class ProductUpdate extends Component
                 'status' => $this->status,
                 'slug' => Str::slug($this->name . $this->licensePlates)
             ]);
-            $product->categories()->detach();
+            if ($product) {
+                $product->categories()->detach();
 
-            $product->categories()->attach($this->categoryChecked);
+                $product->categories()->attach($this->categoryChecked);
+
+                $idImages = $product->images()->get()->pluck('id');
+
+                $product->images()->whereIn('id', $idImages)->delete();
+
+                foreach ($this->images as $image) {
+                    $product->images()->create([
+                        'image_url' => $image
+                    ]);
+                }
+            }
+
 
             session()->flash('success', 'Cập nhật thành công');
 
+            DB::commit();
             return redirect()->route('admin.product');
         } catch (\Exception $e) {
+
+            DB::rollBack();
             Log::error('Error update product', [
                 'method' => __METHOD__,
                 'message' => $e->getMessage()

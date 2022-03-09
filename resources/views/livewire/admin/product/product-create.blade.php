@@ -61,7 +61,7 @@
 
                 <div class="col-xxl-8">
                     <!--begin::Security summary-->
-                    <div class="card card-xxl-stretch mb-5 mb-xl-10">
+                    <div class="card mb-5 mb-xl-10">
                         <!--begin::Header-->
                         <div class="card-header card-header-stretch">
                             <!--begin::Title-->
@@ -215,12 +215,58 @@
                                         <span>Mô tả</span>
                                     </label>
                                     <!--end::Label-->
-                                    <textarea  wire:model="description" id="editor" class="form-control form-control-solid" rows="5" placeholder="" >
+                                    <textarea wire:model="description" id="editor"
+                                              class="form-control form-control-solid" rows="5" placeholder="">
                                         {!! $description !!}
                                     </textarea>
                                 </div><!--end::Tab content-->
                             </form>
                             <!--begin::Tab content-->
+                        </div>
+                        <!--end::Body-->
+                    </div>
+                    <div class="card mb-5 mb-xl-10">
+                        <!--begin::Header-->
+                        <div class="card-header">
+                            <!--begin::Title-->
+                            <div class="card-title">
+                                <h3 class="m-0 text-gray-900">Thư viện ảnh</h3>
+                            </div>
+                            <!--end::Title-->
+                            <!--begin::Toolbar-->
+                            <!--end::Toolbar-->
+                        </div>
+                        <!--end::Header-->
+                        <!--begin::Body-->
+                        <div class="card-body">
+                            <div class="card-content">
+                                <div class="img-preview">
+                                    @foreach($images as $key => $image)
+                                        <div class="image-input image-input-outline" data-kt-image-input="true"
+                                             style="background-image: url({{ $image }}); margin-right: 10px">
+                                            <!--begin::Preview existing avatar-->
+                                            <div class="image-input-wrapper w-125px h-125px"
+                                                 style="background-image: url({{ $image }})"></div>
+                                            <!--end::Preview existing avatar-->
+                                            <!--begin::Label-->
+                                            <label wire:click="deleteImage({{ $key }})"
+                                                   class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
+                                                   data-kt-image-input-action="change" data-bs-toggle="tooltip" title=""
+                                                   data-bs-original-title="Chọn ảnh">
+                                                <i class="bi bi-x fs-2"></i>
+                                            </label>
+                                            <!--end::Label-->
+                                            <!--begin::Cancel-->
+                                            <!--end::Remove-->
+                                        </div>
+                                    @endforeach
+                                </div>
+                                <a href="#" id="lfms" data-input="thumbnails">Lựu chọn hình ảnh</a>
+                                @if(count($images) > 0)
+                                    <a href="#" wire:click="deleteAllImage" style="color: #F1416C">Làm mới thư viện</a>
+                                @endif
+                                <input id="thumbnails" class="form-control" hidden type="text" name="filepath">
+                            </div>
                         </div>
                         <!--end::Body-->
                     </div>
@@ -405,8 +451,11 @@
 @section('script')
     <script>
         $('#image').change(function () {
-            console.log(this)
             Livewire.emit('changeImage', this.value)
+        })
+
+        $('#thumbnails').change(function () {
+            Livewire.emit('changeImages', this.value)
         })
         var options = {
             filebrowserImageBrowseUrl: '/admin/laravel-filemanager?type=Images',
