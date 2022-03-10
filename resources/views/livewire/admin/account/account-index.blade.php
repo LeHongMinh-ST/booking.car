@@ -2,6 +2,21 @@
     Tài khoản
 @endsection
 
+@section('script')
+    <script>
+        $('#filterRoleId').change(function () {
+            Livewire.emit('changeFilterRoleId', $(this).val())
+        })
+        $('#filterStatus').change(function () {
+            Livewire.emit('changeFilterStatus', $(this).val())
+        })
+
+        window.addEventListener('clearFilter', () =>{
+            $('#filterRoleId').val(null).trigger('change');
+            $('#filterStatus').val(null).trigger('change');
+        })
+    </script>
+@endsection
 
 <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
     <!--begin::Toolbar-->
@@ -94,7 +109,7 @@
         <!--end::Svg Icon-->Lọc
                         </button>
 
-                        <div class="menu menu-sub menu-sub-dropdown w-300px w-md-325px" data-kt-menu="true">
+                        <div class="menu menu-sub menu-sub-dropdown w-300px w-md-325px" data-kt-menu="true"  wire:ignore>
                             <!--begin::Header-->
                             <div class="px-7 py-5">
                                 <div class="fs-4 text-dark fw-bolder">Lọc</div>
@@ -105,14 +120,40 @@
                             <!--end::Separator-->
                             <!--begin::Content-->
                             <div class="px-7 py-5">
+                                <div class="mb-10"  wire:ignore>
+                                    <!--begin::Label-->
+                                    <label class="form-label fs-5 fw-bold mb-3">Trạng thái:</label>
+                                    <!--end::Label-->
+                                    <!--begin::Input-->
+                                    <select wire:model="status"
+                                            class="form-select form-select-solid"
+                                            data-allow-clear="true"
+                                            id="filterStatus"
+                                            data-control="select2"
+                                            data-hide-search="true"
+                                            data-placeholder="Chọn trạng thái"
+                                    >
+                                        <option value=""></option>
+                                        <option value="1">Hoạt động</option>
+                                        <option value="0">Khóa</option>
+                                    </select>
+
+                                    <!--end::Input-->
+                                </div>
                                 <!--begin::Input group-->
-                                <div class="mb-10">
+                                <div class="mb-10"  wire:ignore>
                                     <!--begin::Label-->
                                     <label class="form-label fs-5 fw-bold mb-3">Vai trò:</label>
                                     <!--end::Label-->
                                     <!--begin::Input-->
-                                    <select wire:model="roleId" class="form-select form-select-solid fw-bolder ">
-                                        <option value="">Tất cả</option>
+                                    <select wire:model="roleId"
+                                            class="form-select form-select-solid fw-bolder"
+                                            data-allow-clear="true"
+                                            id="filterRoleId"
+                                            data-control="select2"
+                                            data-placeholder="Chọn vai trò"
+                                    >
+                                        <option value=""></option>
                                         @foreach($roles as $role)
                                             <option value="{{$role->id}}">{{$role->name}}</option>
                                         @endforeach
@@ -120,24 +161,9 @@
 
                                     <!--end::Input-->
                                 </div>
-
-                                <div class="mb-10">
-                                    <!--begin::Label-->
-                                    <label class="form-label fs-5 fw-bold mb-3">Trạng thái:</label>
-                                    <!--end::Label-->
-                                    <!--begin::Input-->
-                                    <select wire:model="status" class="form-select form-select-solid fw-bolder">
-                                        <option value="">Tất cả</option>
-                                        <option value="1">Kích hoạt</option>
-                                        <option value="0">Khóa</option>
-                                    </select>
-                                    <!--end::Input-->
-                                </div>
-                                @if($status || $roleId)
                                 <div class="d-flex justify-content-end">
                                     <button type="reset" wire:click="resetFilter" class="btn btn-white btn-active-light-primary me-2" data-kt-menu-dismiss="true" data-kt-customer-table-filter="reset">Khôi phục</button>
                                 </div>
-                                @endif
                                 <!--end::Actions-->
                             </div>
                             <!--end::Content-->
@@ -267,7 +293,7 @@
                                             <div
                                                 class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
                                                 data-kt-menu="true">
-                                                @if(checkPermission('account-update') )
+                                                @if(checkPermission('account-update') &&  $admin->id != auth()->guard('admin')->user()->id)
                                                 <!--begin::Menu item-->
                                                     <div class="menu-item px-3">
                                                         <a href="{{ route('admin.account.edit', $admin->id) }}" class="menu-link px-3">Sửa</a>

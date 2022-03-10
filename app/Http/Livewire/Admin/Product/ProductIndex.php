@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Admin\Product;
 
 use App\Models\Brand;
+use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Support\Facades\Log;
 use Livewire\Component;
@@ -20,19 +21,29 @@ class ProductIndex extends Component
     public $status = "";
     public $search = '';
     public $brandId = '';
+    public $categoryIds = [];
+
+    protected $listeners = [
+        'changeFilterCategories' => 'updateCategoryIds',
+        'changeFilterBrand' => 'updateBrandId',
+        'changeFilterStatus' => 'updateStatus',
+    ];
 
     public function render()
     {
         $products = Product::query()
             ->name($this->search)
             ->filterBrand($this->brandId)
+            ->filterCategory($this->categoryIds)
             ->status($this->status)
             ->with(['categories', 'brand'])->paginate($this->perPage);
 
         $brands = Brand::query()->where('is_active', Brand::IS_ACTIVE['active'])->get();
+        $categories = Category::query()->where('is_active', Category::IS_ACTIVE['active'])->get();
         return view('livewire.admin.product.product-index', [
             'products' => $products,
-            'brands' => $brands
+            'brands' => $brands,
+            'categories' => $categories
         ])->extends('admin.layouts.master')->section('content');
     }
 
@@ -41,10 +52,28 @@ class ProductIndex extends Component
 
     }
 
+    public function updateCategoryIds($value)
+    {
+        $this->categoryIds = $value;
+    }
+
+    public function updateBrandId($value)
+    {
+        $this->brandId = $value;
+    }
+
+    public function updateStatus($value)
+    {
+        $this->status = $value;
+    }
+
     public function resetFilter()
     {
         $this->brandId = '';
         $this->status = '';
+        $this->categoryIds = '';
+
+        $this->dispatchBrowserEvent('clearFilter');
     }
 
     public function destroy()

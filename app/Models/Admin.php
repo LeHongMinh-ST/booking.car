@@ -65,18 +65,18 @@ class Admin extends Authenticatable
         return $query;
     }
 
-    public function scopeRole($query, $roleId)
+    public function scopeFilterRole($query, $roleId)
     {
         if ($roleId) {
-            $query->where('role_id', $roleId);
+            $query->where('role_id', (int)$roleId);
         }
 
         return $query;
     }
 
-    public function scopeStatus($query, $status)
+    public function scopeFilterStatus($query, $status)
     {
-        if ($status) {
+        if ($status != "") {
             $query->where('status', $status);
         }
 

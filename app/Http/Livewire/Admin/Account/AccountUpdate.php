@@ -21,6 +21,11 @@ class AccountUpdate extends Component
     public $adminID;
     public $imageUpdate;
 
+    protected $listeners = [
+        'changeRole' => 'updateRoleId',
+        'changeImage' => 'updateThumbnail',
+    ];
+
     public function render()
     {
         $roles = Role::query()->get();
@@ -83,6 +88,16 @@ class AccountUpdate extends Component
         $this->validateOnly($propertyName);
     }
 
+    public function updateThumbnail($value)
+    {
+        $this->avatar = $value;
+    }
+
+    public function updateRoleId($value)
+    {
+        $this->roleId = $value;
+    }
+
     public function update()
     {
         if (!checkPermission('account-update')) {
@@ -97,7 +112,7 @@ class AccountUpdate extends Component
             $image = $this->imageUpdate;
 
             if ($this->avatar) {
-                $image = '/storage/'. $this->avatar->store('product', 'public');
+                $image = $this->avatar;
             }
 
             Admin::where('id', $this->adminID)->update([

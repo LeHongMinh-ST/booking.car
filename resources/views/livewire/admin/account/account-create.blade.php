@@ -2,6 +2,17 @@
     Tài khoản - Tạo mới
 @endsection
 
+@section('script')
+    <script>
+        $('#selectRole').change(function () {
+            Livewire.emit('changeRole', $(this).val())
+        })
+        $('#image').change(function () {
+            Livewire.emit('changeImage', this.value)
+        })
+    </script>
+@endsection
+
 <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
     <!--begin::Toolbar-->
     <div class="toolbar" id="kt_toolbar">
@@ -189,12 +200,18 @@
                         <!--begin::Body-->
                         <div class="card-body pt-5">
                             <!--begin::Carousel-->
-                            <div class="d-flex flex-column mb-10 fv-row">
+                            <div class="d-flex flex-column mb-10 fv-row" wire:ignore>
                                 <!--begin::Label-->
                                 <!--end::Label-->
                                 <!--begin::Select-->
-                                <select wire:model="roleId" class="form-select form-select-solid">
-                                    <option value="">Chọn vai trò</option>
+                                <select wire:model="roleId"
+                                        class="form-select form-select-solid"
+                                        data-allow-clear="true"
+                                        id="selectRole"
+                                        data-control="select2"
+                                        data-placeholder="Chọn vai trò"
+                                >
+                                    <option value=""></option>
                                     @foreach($roles as $role)
                                     <option value="{{ $role->id }}">{{ $role->name }}</option>
                                     @endforeach
@@ -230,15 +247,16 @@
                                 <!--begin::Label-->
                                 <!--end::Label-->
                                 <!--begin::Image input-->
-                                <div class="image-input image-input-outline" data-kt-image-input="true" style="background-image: url({{ $avatar ? $avatar->temporaryUrl() : asset('admin/assets/img/default-image.jpg') }})">
+                                <div class="image-input image-input-outline" data-kt-image-input="true" style="background-image: url({{ $avatar ?? asset('admin/assets/img/default-image.jpg') }})">
                                     <!--begin::Preview existing avatar-->
-                                    <div class="image-input-wrapper w-125px h-125px" style="background-image: url({{ $avatar ? $avatar->temporaryUrl() : asset('admin/assets/img/default-image.jpg') }});"></div>
+                                    <div class="image-input-wrapper w-125px h-125px" style="background-image: url({{ $avatar ?? asset('admin/assets/img/default-image.jpg') }});"></div>
                                     <!--end::Preview existing avatar-->
                                     <!--begin::Label-->
-                                    <label id="lfm" class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="" data-bs-original-title="Chọn ảnh">
+                                    <label id="lfm" data-input="image" class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="" data-bs-original-title="Chọn ảnh">
                                         <i class="bi bi-pencil-fill fs-7"></i>
                                         <!--begin::Inputs-->
-                                        <input type="file" wire:model="avatar" id="image" accept=".png, .jpg, .jpeg">
+                                        <input type="file" accept=".png, .jpg, .jpeg">
+                                        <input type="text" wire:model="avatar" hidden id="image" accept=".png, .jpg, .jpeg">
                                         <input type="hidden" name="avatar_remove">
                                         <!--end::Inputs-->
                                     </label>
@@ -249,7 +267,7 @@
 																			</span>
                                     <!--end::Cancel-->
                                     <!--begin::Remove-->
-                                    <span wire:click="clearImagePreview" class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="remove" data-bs-toggle="tooltip" title="" data-bs-original-title="Remove avatar">
+                                    <span wire:click="clearImagePreview" class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="remove" data-bs-toggle="tooltip" title="" data-bs-original-title="Xóa ảnh">
 																				<i class="bi bi-x fs-2"></i>
 																			</span>
                                     <!--end::Remove-->

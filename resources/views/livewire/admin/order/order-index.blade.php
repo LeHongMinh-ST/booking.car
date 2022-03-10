@@ -10,7 +10,7 @@
             <!--begin::Page title-->
             <div class="d-flex align-items-center me-3">
                 <!--begin::Title-->
-                <h1 class="d-flex align-items-center text-dark fw-bolder my-1 fs-3">Danh sách nhãn hiệu</h1>
+                <h1 class="d-flex align-items-center text-dark fw-bolder my-1 fs-3">Danh sách yêu cầu</h1>
                 <!--end::Title-->
                 <!--begin::Separator-->
                 <span class="h-20px border-gray-200 border-start mx-4"></span>
@@ -29,7 +29,7 @@
                     </li>
                     <!--end::Item-->
                     <!--begin::Item-->
-                    <li class="breadcrumb-item text-muted">Nhãn hiệu</li>
+                    <li class="breadcrumb-item text-muted">Yêu cầu thuê xe</li>
                     <!--end::Item-->
                 </ul>
                 <!--end::Breadcrumb-->

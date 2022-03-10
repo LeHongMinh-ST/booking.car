@@ -17,7 +17,6 @@ class BrandIndex extends Component
 
     protected $paginationTheme = 'bootstrap';
 
-    public $showCreateModal = false;
     public $showUpdateModal = false;
     public $showDeleteModal = false;
     public $image = '';
@@ -28,6 +27,9 @@ class BrandIndex extends Component
     public $selectId;
     public $imageUpdate = '';
     public $status = 1;
+    protected $listeners = [
+        'changeImage' => 'updateImage',
+    ];
 
     public function render()
     {
@@ -39,6 +41,11 @@ class BrandIndex extends Component
     public function mount()
     {
 
+    }
+
+    public function updateImage($value)
+    {
+        $this->image = $value;
     }
 
     public function updatingSearch()
@@ -56,7 +63,7 @@ class BrandIndex extends Component
 
     public function showCreateModal()
     {
-        $this->showCreateModal = true;
+        $this->dispatchBrowserEvent('openCreateModal');
     }
 
     public function showUpdateModal($id)
@@ -71,15 +78,12 @@ class BrandIndex extends Component
             $this->description = $brand->description;
             $this->imageUpdate = $brand->thumbnail;
             $this->status = $brand->is_active;
-            $this->showUpdateModal = true;
+
+            $this->dispatchBrowserEvent('openUpdateModal', [
+                'image' => $this->imageUpdate
+            ]);
         }
 
-    }
-
-    public function closeCreateModal()
-    {
-        $this->clearForm();
-        $this->showCreateModal = false;
     }
 
     public function clearImagePreview()
@@ -90,9 +94,7 @@ class BrandIndex extends Component
     public function closeModal()
     {
         $this->clearForm();
-        $this->showCreateModal = false;
-        $this->showUpdateModal = false;
-        $this->showDeleteModal = false;
+        $this->dispatchBrowserEvent('closeModal');
     }
 
     public function update()
@@ -112,7 +114,7 @@ class BrandIndex extends Component
             $image = $this->imageUpdate;
 
             if ($this->image) {
-                $image = '/storage/'. $this->image->store('brands', 'public');
+                $image = $this->image;
             }
 
 
@@ -152,7 +154,7 @@ class BrandIndex extends Component
             $image = '';
 
             if ($this->image) {
-                $image = '/storage/'. $this->image->store('brands', 'public');
+                $image = $this->image;
             }
 
             Brand::create([
@@ -162,7 +164,7 @@ class BrandIndex extends Component
                 'slug' => Str::slug($this->name . Carbon::now()->toDateTimeString())
             ]);
 
-            $this->closeCreateModal();
+            $this->closeModal();
 
             $this->dispatchBrowserEvent('alert',
                 ['type' => 'success', 'message' => 'Tạo mới thành công!']);
@@ -215,7 +217,7 @@ class BrandIndex extends Component
     public function openDeleteModal($id)
     {
         $this->selectId = $id;
-        $this->showDeleteModal = true;
+        $this->dispatchBrowserEvent('openDeleteModal');
     }
 
 

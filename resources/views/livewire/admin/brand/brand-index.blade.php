@@ -2,6 +2,44 @@
     Nhãn hiệu
 @endsection
 
+@section('script')
+    <script>
+        $('#image').change(function () {
+            $('#imageParent').css('background-image', 'url(' + this.value + ')');
+            $('#imageChild').css('background-image', 'url(' + this.value + ')');
+            Livewire.emit('changeImage', this.value)
+        })
+
+        $('#imageUpdate').change(function () {
+            $('#imageUpdateParent').css('background-image', 'url(' + this.value + ')');
+            $('#imageUpdateChild').css('background-image', 'url(' + this.value + ')');
+            Livewire.emit('changeImage', this.value)
+        })
+
+        window.addEventListener('openCreateModal', event => {
+            $('#createModal').modal('show')
+        })
+
+        window.addEventListener('openUpdateModal', event => {
+            $('#imageUpdateParent').css('background-image', 'url(' + event.detail.image + ')');
+            $('#imageUpdateChild').css('background-image', 'url(' + event.detail.image + ')');
+            $('#updateModal').modal('show')
+        })
+
+        window.addEventListener('openDeleteModal', event => {
+            $('#deleteModal').modal('show')
+        })
+
+        window.addEventListener('closeModal', event => {
+            $('#createModal').modal('hide')
+            $('#updateModal').modal('hide')
+            $('#deleteModal').modal('hide')
+        })
+
+
+    </script>
+@endsection
+
 <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
     <!--begin::Toolbar-->
     <div class="toolbar" id="kt_toolbar">
@@ -255,9 +293,7 @@
             <!--end::Card-->
             <!--begin::Modals-->
             <!--begin::Modal - Customers - Add-->
-            @if($showCreateModal)
-                <div class="modal fade show" id="createModal"
-                      style="display: block; padding-right: 5px;"  tabindex="-1"
+                <div class="modal fade" id="createModal" wire:ignore tabindex="-1"
                      aria-hidden="true">
                     <!--begin::Modal dialog-->
                     <div class="modal-dialog modal-dialog-centered mw-650px">
@@ -271,7 +307,7 @@
                                     <h2 class="fw-bolder">Tạo mới nhãn hiệu</h2>
                                     <!--end::Modal title-->
                                     <!--begin::Close-->
-                                    <div wire:click="closeCreateModal" id="kt_modal_add_customer_close"
+                                    <div wire:click="closeModal" id="kt_modal_add_customer_close"
                                          class="btn btn-icon btn-sm btn-active-icon-primary">
                                         <!--begin::Svg Icon | path: icons/stockholm/Navigation/Close.svg-->
                                         <span class="svg-icon svg-icon-1">
@@ -303,20 +339,21 @@
                                          data-kt-scroll-offset="300px">
                                         <!--begin::Input group-->
 
-                                        <div class="fv-row mb-7">
+                                        <div class="fv-row mb-7" >
                                             <!--begin::Label-->
                                             <label class="d-block fw-bold fs-6 mb-5">Ảnh</label>
                                             <!--end::Label-->
                                             <!--begin::Image input-->
-                                            <div class="image-input image-input-outline" data-kt-image-input="true" style="background-image: url({{ $image ? $image->temporaryUrl() : asset('admin/assets/img/default-image.jpg') }})">
+                                            <div  class="image-input image-input-outline" id="imageParent" data-kt-image-input="true" style="background-image: url({{ $image ? $image : asset('admin/assets/img/default-image.jpg') }})">
                                                 <!--begin::Preview existing avatar-->
-                                                <div class="image-input-wrapper w-125px h-125px" style="background-image: url({{ $image ? $image->temporaryUrl() : asset('admin/assets/img/default-image.jpg') }});"></div>
+                                                <div class="image-input-wrapper w-125px h-125px" id="imageChild" style="background-image: url({{ $image ? $image : asset('admin/assets/img/default-image.jpg') }});"></div>
                                                 <!--end::Preview existing avatar-->
                                                 <!--begin::Label-->
-                                                <label id="lfm" class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="" data-bs-original-title="Chọn ảnh">
+                                                <label id="lfm" data-input="image" class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="" data-bs-original-title="Chọn ảnh">
                                                     <i class="bi bi-pencil-fill fs-7"></i>
                                                     <!--begin::Inputs-->
-                                                    <input type="file" wire:model="image" id="image" accept=".png, .jpg, .jpeg">
+                                                    <input type="file" accept=".png, .jpg, .jpeg">
+                                                    <input type="text" wire:model="image" hidden id="image" accept=".png, .jpg, .jpeg">
                                                     <input type="hidden" name="avatar_remove">
                                                     <!--end::Inputs-->
                                                 </label>
@@ -327,7 +364,7 @@
 																			</span>
                                                 <!--end::Cancel-->
                                                 <!--begin::Remove-->
-                                                <span wire:click="clearImagePreview" class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="remove" data-bs-toggle="tooltip" title="" data-bs-original-title="Remove avatar">
+                                                <span wire:click="clearImagePreview" class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="remove" data-bs-toggle="tooltip" title="" data-bs-original-title="Xóa ảnh">
 																				<i class="bi bi-x fs-2"></i>
 																			</span>
                                                 <!--end::Remove-->
@@ -379,7 +416,7 @@
                                                 <span class="indicator-label">Tạo mới</span>
                                             </button>
 
-                                            <button wire:click="closeCreateModal" type="reset"
+                                            <button wire:click="closeModal" type="reset"
                                                     id="kt_modal_add_customer_cancel" class="btn btn-white me-3">Huỷ
                                             </button>
                                             <!--end::Button-->
@@ -392,10 +429,7 @@
                         </div>
                     </div>
                 </div>
-            @endif
-            @if($showUpdateModal)
-                <div class="modal fade show" id="createModal"
-                      style="display: block; padding-right: 5px;"  tabindex="-1"
+                <div class="modal fade" id="updateModal" wire:ignore tabindex="-1"
                      aria-hidden="true">
                     <!--begin::Modal dialog-->
                     <div class="modal-dialog modal-dialog-centered mw-650px">
@@ -446,15 +480,16 @@
                                             <label class="d-block fw-bold fs-6 mb-5">Ảnh</label>
                                             <!--end::Label-->
                                             <!--begin::Image input-->
-                                            <div class="image-input image-input-outline" data-kt-image-input="true" style="background-image: url({{ $image ? $image->temporaryUrl() : ($imageUpdate ?? asset('admin/assets/img/default-image.jpg')) }})">
+                                            <div class="image-input image-input-outline" id="imageUpdateParent" data-kt-image-input="true" style="background-image: url({{ $image ??($imageUpdate ?? asset('admin/assets/img/default-image.jpg')) }})">
                                                 <!--begin::Preview existing avatar-->
-                                                <div class="image-input-wrapper w-125px h-125px" style="background-image: url({{ $image ? $image->temporaryUrl() : ($imageUpdate ?? asset('admin/assets/img/default-image.jpg')) }});"></div>
+                                                <div class="image-input-wrapper w-125px h-125px" id="imageUpdateChild" style="background-image: url({{ $image ?? ( $imageUpdate ?? asset('admin/assets/img/default-image.jpg')) }});"></div>
                                                 <!--end::Preview existing avatar-->
                                                 <!--begin::Label-->
-                                                <label id="lfm" class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="" data-bs-original-title="Chọn ảnh">
+                                                <label id="lfmUpdate" data-input="imageUpdate" class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="" data-bs-original-title="Chọn ảnh">
                                                     <i class="bi bi-pencil-fill fs-7"></i>
                                                     <!--begin::Inputs-->
-                                                    <input type="file" wire:model="image" id="image" accept=".png, .jpg, .jpeg">
+                                                    <input type="file" accept=".png, .jpg, .jpeg">
+                                                    <input type="text" wire:model="image" hidden id="imageUpdate" accept=".png, .jpg, .jpeg">
                                                     <input type="hidden" name="avatar_remove">
                                                     <!--end::Inputs-->
                                                 </label>
@@ -465,7 +500,7 @@
 																			</span>
                                                 <!--end::Cancel-->
                                                 <!--begin::Remove-->
-                                                <span wire:click="clearImagePreview" class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="remove" data-bs-toggle="tooltip" title="" data-bs-original-title="Remove avatar">
+                                                <span wire:click="clearImagePreview" class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="remove" data-bs-toggle="tooltip" title="" data-bs-original-title="Xóa ảnh">
 																				<i class="bi bi-x fs-2"></i>
 																			</span>
                                                 <!--end::Remove-->
@@ -540,27 +575,24 @@
                         </div>
                     </div>
                 </div>
-            @endif
             <!--end::Modal - Customers - Add-->
             <!--begin::Modal - Adjust Balance-->
-            @if($showDeleteModal)
-                <div class="modal fade show" id="createModal"
-                     style="display: block; padding-right: 5px;"  tabindex="-1"
-                     aria-hidden="true">
-                    <!--begin::Modal dialog-->
-                    <div class="modal-dialog modal-dialog-centered mw-450px">
-                        <!--begin::Modal content-->
-                        <div class="modal-content">
-                            <!--begin::Form-->
-                            <div class="modal-header" id="kt_modal_add_customer_header">
-                                <!--begin::Modal title-->
-                                <h2 class="fw-bolder">Xóa loại xe</h2>
-                                <!--end::Modal title-->
-                                <!--begin::Close-->
-                                <div wire:click="closeModal" id="kt_modal_add_customer_close"
-                                     class="btn btn-icon btn-sm btn-active-icon-primary">
-                                    <!--begin::Svg Icon | path: icons/stockholm/Navigation/Close.svg-->
-                                    <span class="svg-icon svg-icon-1">
+            <div class="modal fade" id="deleteModal" tabindex="-1"
+                 aria-hidden="true">
+                <!--begin::Modal dialog-->
+                <div class="modal-dialog modal-dialog-centered mw-450px">
+                    <!--begin::Modal content-->
+                    <div class="modal-content">
+                        <!--begin::Form-->
+                        <div class="modal-header" id="kt_modal_add_customer_header">
+                            <!--begin::Modal title-->
+                            <h2 class="fw-bolder">Xóa loại xe</h2>
+                            <!--end::Modal title-->
+                            <!--begin::Close-->
+                            <div wire:click="closeModal" id="kt_modal_add_customer_close"
+                                 class="btn btn-icon btn-sm btn-active-icon-primary">
+                                <!--begin::Svg Icon | path: icons/stockholm/Navigation/Close.svg-->
+                                <span class="svg-icon svg-icon-1">
                                             <svg xmlns="http://www.w3.org/2000/svg"
                                                  xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px"
                                                  viewBox="0 0 24 24" version="1.1">
@@ -573,35 +605,34 @@
                                                 </g>
                                             </svg>
                                         </span>
-                                    <!--end::Svg Icon-->
-                                </div>
-                                <!--end::Close-->
+                                <!--end::Svg Icon-->
                             </div>
-                            <!--end::Modal header-->
-                            <!--begin::Modal body-->
-                            <div class="modal-body">
-                                <!--begin::Scroll-->
-                                <div style="font-size: 14px">
-                                    Bạn có chắc chắn muốn tiếp tục. Dữ liệu không thể phục hồi!
-                                </div>
-                            </div>
-
-                            <div class="modal-footer flex-center">
-                                <!--begin::Button-->
-                                <button wire:click="destroy" class="btn btn-danger">
-                                    <span class="indicator-label">Xóa</span>
-                                </button>
-
-                                <button wire:click="closeModal" type="reset"
-                                        id="kt_modal_add_customer_cancel" class="btn btn-white me-3">Huỷ
-                                </button>
-                                <!--end::Button-->
-                            </div>
-                            <!--end::Form-->
+                            <!--end::Close-->
                         </div>
+                        <!--end::Modal header-->
+                        <!--begin::Modal body-->
+                        <div class="modal-body">
+                            <!--begin::Scroll-->
+                            <div style="font-size: 14px">
+                                Bạn có chắc chắn muốn tiếp tục. Dữ liệu không thể phục hồi!
+                            </div>
+                        </div>
+
+                        <div class="modal-footer flex-center">
+                            <!--begin::Button-->
+                            <button wire:click="destroy" class="btn btn-danger">
+                                <span class="indicator-label">Xóa</span>
+                            </button>
+
+                            <button wire:click="closeModal" type="reset"
+                                    id="kt_modal_add_customer_cancel" class="btn btn-white me-3">Huỷ
+                            </button>
+                            <!--end::Button-->
+                        </div>
+                        <!--end::Form-->
                     </div>
                 </div>
-        @endif
+            </div>
             <!--end::Modal - New Card-->
             <!--end::Modals-->
         </div>

@@ -19,12 +19,17 @@ class AccountCreate extends Component
     public $avatar;
     public $roleId;
 
+    protected $listeners = [
+        'changeRole' => 'updateRoleId',
+        'changeImage' => 'updateThumbnail',
+    ];
+
     public function render()
     {
         $roles = Role::query()->get();
 
         return view('livewire.admin.account.account-create', [
-          'roles' => $roles
+            'roles' => $roles
         ])->extends('admin.layouts.master')->section('content');
     }
 
@@ -67,6 +72,16 @@ class AccountCreate extends Component
         $this->validateOnly($propertyName);
     }
 
+    public function updateThumbnail($value)
+    {
+        $this->avatar = $value;
+    }
+
+    public function updateRoleId($value)
+    {
+        $this->roleId = $value;
+    }
+
     public function store()
     {
         if (!checkPermission('account-create')) {
@@ -81,7 +96,7 @@ class AccountCreate extends Component
             $image = '';
 
             if ($this->avatar) {
-                $image = '/storage/'. $this->avatar->store('product', 'public');
+                $image = $this->avatar;
             }
 
             Admin::create([

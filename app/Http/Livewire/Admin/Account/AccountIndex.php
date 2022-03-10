@@ -20,28 +20,43 @@ class AccountIndex extends Component
     public $adminId = null;
     public $status = '';
 
-    public $filter = [
-        'roleId' => '',
-        'status' => '',
+    protected $listeners = [
+        'changeFilterRoleId' => 'updateRoleId',
+        'changeFilterStatus' => 'updateStatus',
     ];
+
 
     public function render()
     {
+        $admins = Admin::query()
+            ->search($this->search)
+            ->filterRole($this->roleId)
+            ->filterstatus($this->status)
+            ->paginate($this->perPage);
+
         return view('livewire.admin.account.account-index', [
-            'admins' => Admin::query()
-                ->search($this->search)
-                ->role($this->roleId)
-                ->status($this->status)
-                ->paginate($this->perPage),
+            'admins' => $admins,
             'roles' => Role::query()->get()
         ])->extends('admin.layouts.master')->section('content');
     }
 
     public function resetFilter()
     {
-        $this->adminId = '';
+        $this->roleId = '';
         $this->status = '';
+        $this->dispatchBrowserEvent('clearFilter');
     }
+
+    public function updateRoleId($roleId)
+    {
+        $this->roleId = $roleId;
+    }
+    public function updateStatus($status)
+    {
+        $this->status = $status;
+    }
+
+
 
     public function openDeleteModal($id)
     {

@@ -2,6 +2,25 @@
     Xe Thuê
 @endsection
 
+@section('script')
+    <script>
+        $('#filterCategories').change(function () {
+            Livewire.emit('changeFilterCategories', $(this).val())
+        })
+        $('#filterBrand').change(function () {
+            Livewire.emit('changeFilterBrand', $(this).val())
+        })
+        $('#filterStatus').change(function () {
+            Livewire.emit('changeFilterStatus', $(this).val())
+        })
+
+        window.addEventListener('clearFilter', () =>{
+            $('#filterCategories').val(null).trigger('change');
+            $('#filterBrand').val(null).trigger('change');
+            $('#filterStatus').val(null).trigger('change');
+        })
+    </script>
+@endsection
 
 <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
     <!--begin::Toolbar-->
@@ -106,12 +125,20 @@
                             <!--begin::Content-->
                             <div class="px-7 py-5">
                                 <!--begin::Input group-->
-                                <div class="mb-10">
+                                <div class="mb-10"  wire:ignore>
                                     <!--begin::Label-->
                                     <label class="form-label fs-5 fw-bold mb-3">Trạng thái:</label>
                                     <!--end::Label-->
                                     <!--begin::Input-->
-                                    <select wire:model="status" class="form-select form-select-solid">
+                                    <select wire:model="status"
+                                            class="form-select form-select-solid"
+                                            data-allow-clear="true"
+                                            id="filterStatus"
+                                            data-control="select2"
+                                            data-hide-search="true"
+                                            data-placeholder="Chọn trạng thái"
+                                    >
+                                        <option value=""></option>
                                         <option value="{{ \App\Models\Product::STATUS['normal'] }}">Sẵn sàng</option>
                                         <option value="{{ \App\Models\Product::STATUS['hired'] }}">Đang cho thuê</option>
                                         <option value="{{ \App\Models\Product::STATUS['hide'] }}">Ẩn</option>
@@ -120,12 +147,17 @@
                                     <!--end::Input-->
                                 </div>
 
-                                <div class="mb-10">
+                                <div class="mb-10"  wire:ignore>
                                     <!--begin::Label-->
                                     <label class="form-label fs-5 fw-bold mb-3">Nhãn hiệu:</label>
                                     <!--end::Label-->
                                     <!--begin::Input-->
-                                    <select wire:model="brandId" class="form-select form-select-solid">
+                                    <select wire:model="brandId" class="form-select form-select-solid"
+                                            data-allow-clear="true"
+                                            id="filterBrand"
+                                            data-control="select2"
+                                            data-placeholder="Chọn nhãn hiệu">
+                                        <option value=""></option>
                                         @foreach($brands as $brand)
                                         <option value="{{ $brand->id }}">{{ $brand->name }}</option>
                                         @endforeach
@@ -134,11 +166,28 @@
                                     <!--end::Input-->
                                 </div>
 
-                                @if($status || $brandId)
-                                        <div class="d-flex justify-content-end">
-                                            <button type="reset" wire:click="resetFilter" class="btn btn-white btn-active-light-primary me-2" data-kt-menu-dismiss="true" data-kt-customer-table-filter="reset">Khôi phục</button>
-                                        </div>
-                                @endif
+                                <div class="mb-10" wire:ignore>
+                                    <!--begin::Label-->
+                                    <label class="form-label fs-5 fw-bold mb-3">Loại xe:</label>
+                                    <!--end::Label-->
+                                    <!--begin::Input-->
+                                    <select wire:model="categoryIds" class="form-select form-select-solid"
+                                            id="filterCategories"
+                                            data-placeholder="Chọn loại xe"
+                                            data-control="select2"
+                                            data-allow-clear="true"
+                                            multiple="multiple">
+                                        @foreach($categories as $category)
+                                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                        @endforeach
+                                    </select>
+
+                                    <!--end::Input-->
+                                </div>
+
+                                <div class="d-flex justify-content-end">
+                                    <button type="reset" wire:click="resetFilter" class="btn btn-white btn-active-light-primary me-2" data-kt-menu-dismiss="true" data-kt-customer-table-filter="reset">Khôi phục</button>
+                                </div>
                             <!--end::Actions-->
                             </div>
                             <!--end::Content-->
