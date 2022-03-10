@@ -213,22 +213,25 @@
                         <!--begin::Body-->
                         <div class="card-body pt-5">
                             <!--begin::Carousel-->
-                            <div class="d-flex flex-column mb-10 fv-row"  wire:ignore>
+                            <div class="d-flex flex-column mb-10 fv-row"  >
                                 <!--begin::Label-->
                                 <!--end::Label-->
                                 <!--begin::Select-->
-                                <select wire:model="roleId" class="form-select form-select-solid"
-                                        class="form-select form-select-solid"
-                                        data-allow-clear="true"
-                                        id="selectRole"
-                                        data-control="select2"
-                                        data-placeholder="Chọn vai trò"
-                                >
-                                    <option value=""></option>
-                                    @foreach($roles as $role)
-                                        <option value="{{ $role->id }}" @if($roleId == $role->id) selected @endif>{{ $role->name }}</option>
-                                    @endforeach
-                                </select>
+                                <div wire:ignore>
+                                    <select wire:model="roleId" class="form-select form-select-solid"
+                                            class="form-select form-select-solid"
+                                            data-allow-clear="true"
+                                            id="selectRole"
+                                            data-control="select2"
+                                            data-placeholder="Chọn vai trò"
+                                    >
+                                        <option value=""></option>
+                                        @foreach($roles as $role)
+                                            <option value="{{ $role->id }}" @if($roleId == $role->id) selected @endif>{{ $role->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
                                 <!--end::Select-->
                                 @error('roleId')
                                 <div class="fv-plugins-message-container">
