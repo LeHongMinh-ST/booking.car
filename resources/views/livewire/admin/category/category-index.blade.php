@@ -1,6 +1,39 @@
 @section('title')
     Loại xe
 @endsection
+@section('script')
+    <script>
+        window.addEventListener('openCreateModal', event => {
+            $('#createModal').modal('show')
+        })
+
+        window.addEventListener('openUpdateModal', event => {
+            $('#selectParentIdUpdate').val(event.detail.parent).trigger('change')
+            $('#updateModal').modal('show')
+        })
+
+        window.addEventListener('openDeleteModal', event => {
+            $('#deleteModal').modal('show')
+        })
+        $('#selectParentId').change(function () {
+            Livewire.emit('changeParentId', $(this).val())
+        })
+        $('#selectParentIdUpdate').change(function () {
+            Livewire.emit('changeParentId', $(this).val())
+        })
+
+
+
+        window.addEventListener('closeModal', event => {
+            $('#createModal').modal('hide')
+            $('#updateModal').modal('hide')
+            $('#deleteModal').modal('hide')
+        })
+
+
+    </script>
+@endsection
+
 
 <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
     <!--begin::Toolbar-->
@@ -101,15 +134,6 @@
                         </div>
                         <!--end::Toolbar-->
                         <!--begin::Group actions-->
-                        <div class="d-flex justify-content-end align-items-center d-none"
-                             data-kt-customer-table-toolbar="selected">
-                            <div class="fw-bolder me-5">
-                                <span class="me-2" data-kt-customer-table-select="selected_count"></span>Selected
-                            </div>
-                            <button type="button" class="btn btn-danger"
-                                    data-kt-customer-table-select="delete_selected">Delete Selected
-                            </button>
-                        </div>
                         <!--end::Group actions-->
                     </div>
                     <!--end::Card toolbar-->
@@ -246,9 +270,8 @@
             <!--end::Card-->
             <!--begin::Modals-->
             <!--begin::Modal - Customers - Add-->
-            @if($showCreateModal)
-                <div class="modal fade show" id="createModal"
-                     style="display: block; padding-right: 5px;"  tabindex="-1"
+                <div class="modal fade" wire:ignore.self id="createModal"
+                     tabindex="-1"
                      aria-hidden="true">
                     <!--begin::Modal dialog-->
                     <div class="modal-dialog modal-dialog-centered mw-650px">
@@ -308,13 +331,18 @@
                                             @enderror
                                         </div>
 
-                                        <div class="d-flex flex-column mb-10 fv-row">
+                                        <div class="d-flex flex-column mb-10 fv-row" wire:ignore>
                                             <!--begin::Label-->
                                             <label class="fs-6 fw-bold mb-2">Danh mục cha</label>
                                             <!--end::Label-->
                                             <!--begin::Select-->
-                                            <select wire:model="parentId" data-control="select2" data-hide-search="true" data-placeholder="Select a Category..." class="form-select form-select-solid">
-                                                <option value="0">Không có</option>
+                                            <select wire:model="parentId"
+                                                    data-control="select2"
+                                                    data-hide-search="true"
+                                                    id="selectParentId"
+                                                    data-placeholder="Chọn danh mục cha"
+                                                    class="form-select form-select-solid">
+                                                <option value=""></option>
                                                 @forelse($parent as $category)
                                                     @include('admin.includes.category-children-option',['$category' => $category])
                                                 @empty
@@ -357,11 +385,8 @@
                         </div>
                     </div>
                 </div>
-        @endif
 
-            @if($showUpdateModal)
-                <div class="modal fade show"
-                     style="display: block; padding-right: 5px;"  tabindex="-1"
+                <div class="modal fade" wire:ignore.self id="updateModal" tabindex="-1"
                      aria-hidden="true">
                     <!--begin::Modal dialog-->
                     <div class="modal-dialog modal-dialog-centered mw-650px">
@@ -421,13 +446,18 @@
                                             @enderror
                                         </div>
 
-                                        <div class="d-flex flex-column mb-10 fv-row">
+                                        <div class="d-flex flex-column mb-10 fv-row" wire:ignore>
                                             <!--begin::Label-->
                                             <label class="fs-6 fw-bold mb-2">Danh mục cha</label>
                                             <!--end::Label-->
                                             <!--begin::Select-->
-                                            <select wire:model="parentId" data-control="select2" data-hide-search="true" data-placeholder="Select a Category..." class="form-select form-select-solid">
-                                                <option value="0">Không có</option>
+                                            <select wire:model="parentId"
+                                                    data-control="select2"
+                                                    data-hide-search="true"
+                                                    id="selectParentIdUpdate"
+                                                    data-placeholder="Chọn danh mục cha"
+                                                    class="form-select form-select-solid">
+                                                <option value=""></option>
                                                 @forelse($parent as $category)
                                                     @include('admin.includes.category-children-option',['$category' => $category, 'parent'=> null])
                                                 @empty
@@ -481,11 +511,9 @@
                         </div>
                     </div>
                 </div>
-            @endif
 
-            @if($showDeleteModal)
-                <div class="modal fade show" id="createModal"
-                     style="display: block; padding-right: 5px;"  tabindex="-1"
+                <div class="modal fade" id="deleteModal"
+                     tabindex="-1"
                      aria-hidden="true">
                     <!--begin::Modal dialog-->
                     <div class="modal-dialog modal-dialog-centered mw-450px">
@@ -541,7 +569,6 @@
                         </div>
                     </div>
                 </div>
-            @endif
         </div>
         <!--end::Container-->
     </div>

@@ -38,6 +38,16 @@ class BrandIndex extends Component
         ])->extends('admin.layouts.master')->section('content');
     }
 
+    protected function rules() {
+        return[
+            'name' => 'required|string|max:255',
+        ];
+    }
+    protected $validationAttributes  = [
+        'name' => 'Tên nhãn hiệu',
+    ];
+
+
     public function mount()
     {
 
@@ -55,10 +65,7 @@ class BrandIndex extends Component
 
     public function updated($propertyName)
     {
-        $this->validateOnly($propertyName, [
-            'image' => 'image|nullable',
-            'name' => 'required|string|max:255',
-        ]);
+        $this->validateOnly($propertyName);
     }
 
     public function showCreateModal()
@@ -79,9 +86,7 @@ class BrandIndex extends Component
             $this->imageUpdate = $brand->thumbnail;
             $this->status = $brand->is_active;
 
-            $this->dispatchBrowserEvent('openUpdateModal', [
-                'image' => $this->imageUpdate
-            ]);
+            $this->dispatchBrowserEvent('openUpdateModal');
         }
 
     }
@@ -104,10 +109,7 @@ class BrandIndex extends Component
                 ['type' => 'error', 'message' => 'Bạn không có quyền thực hiện chức năng này!', 'title' => '403']);
         }
 
-        $this->validate([
-            'image' => 'image|nullable',
-            'name' => 'required|string|max:255',
-        ]);
+        $this->validate();
 
         try {
 
@@ -144,11 +146,12 @@ class BrandIndex extends Component
 
     public function store()
     {
+        if (!checkPermission('brand-create')) {
+            $this->dispatchBrowserEvent('alert',
+                ['type' => 'error', 'message' => 'Bạn không có quyền thực hiện chức năng này!', 'title' => '403']);
+        }
 
-        $this->validate([
-            'image' => 'image|nullable',
-            'name' => 'required|string'
-        ]);
+        $this->validate();
 
         try {
             $image = '';

@@ -5,14 +5,10 @@
 @section('script')
     <script>
         $('#image').change(function () {
-            $('#imageParent').css('background-image', 'url(' + this.value + ')');
-            $('#imageChild').css('background-image', 'url(' + this.value + ')');
             Livewire.emit('changeImage', this.value)
         })
 
         $('#imageUpdate').change(function () {
-            $('#imageUpdateParent').css('background-image', 'url(' + this.value + ')');
-            $('#imageUpdateChild').css('background-image', 'url(' + this.value + ')');
             Livewire.emit('changeImage', this.value)
         })
 
@@ -21,8 +17,6 @@
         })
 
         window.addEventListener('openUpdateModal', event => {
-            $('#imageUpdateParent').css('background-image', 'url(' + event.detail.image + ')');
-            $('#imageUpdateChild').css('background-image', 'url(' + event.detail.image + ')');
             $('#updateModal').modal('show')
         })
 
@@ -293,7 +287,7 @@
             <!--end::Card-->
             <!--begin::Modals-->
             <!--begin::Modal - Customers - Add-->
-                <div class="modal fade" id="createModal" wire:ignore tabindex="-1"
+                <div class="modal fade" id="createModal" wire:ignore.self tabindex="-1"
                      aria-hidden="true">
                     <!--begin::Modal dialog-->
                     <div class="modal-dialog modal-dialog-centered mw-650px">
@@ -429,7 +423,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="modal fade" id="updateModal" wire:ignore tabindex="-1"
+                <div class="modal fade" id="updateModal" wire:ignore.self tabindex="-1"
                      aria-hidden="true">
                     <!--begin::Modal dialog-->
                     <div class="modal-dialog modal-dialog-centered mw-650px">
@@ -480,9 +474,9 @@
                                             <label class="d-block fw-bold fs-6 mb-5">Ảnh</label>
                                             <!--end::Label-->
                                             <!--begin::Image input-->
-                                            <div class="image-input image-input-outline" id="imageUpdateParent" data-kt-image-input="true" style="background-image: url({{ $image ??($imageUpdate ?? asset('admin/assets/img/default-image.jpg')) }})">
+                                            <div class="image-input image-input-outline" id="imageUpdateParent" data-kt-image-input="true" style="background-image: url({{ $image != "" ? $image : ($imageUpdate != "" ? $imageUpdate : asset('admin/assets/img/default-image.jpg')) }})">
                                                 <!--begin::Preview existing avatar-->
-                                                <div class="image-input-wrapper w-125px h-125px" id="imageUpdateChild" style="background-image: url({{ $image ?? ( $imageUpdate ?? asset('admin/assets/img/default-image.jpg')) }});"></div>
+                                                <div class="image-input-wrapper w-125px h-125px" id="imageUpdateChild" style="background-image: url({{ $image != "" ? $image : ( $imageUpdate != "" ? $imageUpdate : asset('admin/assets/img/default-image.jpg')) }});"></div>
                                                 <!--end::Preview existing avatar-->
                                                 <!--begin::Label-->
                                                 <label id="lfmUpdate" data-input="imageUpdate" class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="" data-bs-original-title="Chọn ảnh">

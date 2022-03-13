@@ -17,9 +17,6 @@ class CategoryIndex extends Component
 
     protected $paginationTheme = 'bootstrap';
 
-    public $showCreateModal = false;
-    public $showUpdateModal = false;
-    public $showDeleteModal = false;
     public $name = '';
     public $parentId = 0;
     public $description = '';
@@ -27,7 +24,9 @@ class CategoryIndex extends Component
     public $perPage = 10;
     public $search = '';
     public $selectId;
-
+    protected $listeners = [
+        'changeParentId' => 'updateParentId',
+    ];
     public function render()
     {
         $categories = Category::query()
@@ -51,26 +50,35 @@ class CategoryIndex extends Component
 
     }
 
-    public function updated($propertyName)
+    public function updateParentId($value)
     {
-        $this->validateOnly($propertyName, [
-            'name' => 'required|string'
-        ]);
+        if ($value) {
+            $this->parentId = $value;
+        }
     }
 
-    public function showCreateModal()
-    {
-        $this->clearForm();
-        $this->showCreateModal = true;
+    protected function rules() {
+        return[
+            'name' => 'required|string|max:255',
+        ];
     }
+    protected $validationAttributes  = [
+        'name' => 'Tên loại xe',
+    ];
+
+
+    public function updated($propertyName)
+    {
+        $this->validateOnly($propertyName);
+    }
+
 
     public function closeModal()
     {
         $this->clearForm();
-        $this->showCreateModal = false;
-        $this->showUpdateModal = false;
-        $this->showDeleteModal = false;
+        $this->dispatchBrowserEvent('closeModal');
     }
+
 
     public function showUpdateModal($id)
     {
@@ -84,7 +92,9 @@ class CategoryIndex extends Component
             $this->description = $category->description;
             $this->parentId = $category->parent_id;
             $this->status = $category->is_active;
-            $this->showUpdateModal = true;
+            $this->dispatchBrowserEvent('openUpdateModal', [
+                'parent'=>$this->parentId
+            ]);
         }
 
     }
@@ -98,6 +108,12 @@ class CategoryIndex extends Component
         $this->status = '';
     }
 
+    public function showCreateModal()
+    {
+        $this->clearForm();
+        $this->dispatchBrowserEvent('openCreateModal');
+    }
+
     public function store()
     {
 
@@ -106,9 +122,7 @@ class CategoryIndex extends Component
                 ['type' => 'error', 'message' => 'Bạn không có quyền thực hiện chức năng này!', 'title' => '403']);
         }
 
-        $this->validate([
-            'name' => 'required|string'
-        ]);
+        $this->validate();
 
         try {
             $parent = null;
@@ -149,9 +163,7 @@ class CategoryIndex extends Component
                 ['type' => 'error', 'message' => 'Bạn không có quyền thực hiện chức năng này!', 'title' => '403']);
         }
 
-        $this->validate([
-            'name' => 'required|string'
-        ]);
+        $this->validate();
 
         try {
             $parent = null;
@@ -214,7 +226,7 @@ class CategoryIndex extends Component
     public function openDeleteModal($id)
     {
         $this->selectId = $id;
-        $this->showDeleteModal = true;
+        $this->dispatchBrowserEvent('openDeleteModal');
     }
 
 }

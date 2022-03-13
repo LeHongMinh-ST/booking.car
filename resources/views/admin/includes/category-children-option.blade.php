@@ -5,6 +5,6 @@
 </option>
 @if ($category->children)
     @foreach ($category->children as $childCategory)
-        @include('admin.includes.category-children-option', ['category' => $childCategory,'parent' => $parent])
+        @include('admin.includes.category-children-option', ['category' => $childCategory, 'parent' => $parent])
     @endforeach
 @endif
