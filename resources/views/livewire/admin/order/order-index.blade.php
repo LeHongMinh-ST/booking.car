@@ -1,24 +1,14 @@
 @section('title')
-    Nhãn hiệu
+    Yêu cầu thuê xe
 @endsection
 
 @section('script')
     <script>
-        window.addEventListener('openCreateModal', event => {
-            $('#createModal').modal('show')
-        })
-
-        window.addEventListener('openUpdateModal', event => {
-            $('#updateModal').modal('show')
-        })
-
         window.addEventListener('openDeleteModal', event => {
             $('#deleteModal').modal('show')
         })
 
         window.addEventListener('closeModal', event => {
-            $('#createModal').modal('hide')
-            $('#updateModal').modal('hide')
             $('#deleteModal').modal('hide')
         })
 
@@ -58,7 +48,17 @@
                     "Tháng 12",
                 ],
             },
-        });
+        })
+
+        var options = {
+            filebrowserImageBrowseUrl: '/admin/laravel-filemanager?type=Images',
+            filebrowserImageUploadUrl: '/admin/laravel-filemanager/upload?type=Images&_token=',
+            filebrowserBrowseUrl: '/admin/laravel-filemanager?type=Files',
+            filebrowserUploadUrl: '/admin/laravel-filemanager/upload?type=Files&_token='
+        };
+        CKEDITOR.replace('editor', options).on('change', (e) => {
+            Livewire.emit('updateDescription', e.editor.getData())
+        })
     </script>
 @endsection
 
@@ -142,7 +142,7 @@
                         <!--begin::Toolbar-->
                         <div class="d-flex justify-content-end" data-kt-customer-table-toolbar="base">
                             <!--begin::Add customer-->
-                            <button type="button" class="btn btn-primary" wire:click="showCreateModal">
+                            <a href="{{ route('admin.order.create') }}" type="button" class="btn btn-primary">
                                 <!--begin::Svg Icon | path: icons/stockholm/Navigation/Plus.svg-->
                                 <span class="svg-icon svg-icon-2">
 													<svg xmlns="http://www.w3.org/2000/svg"
@@ -156,7 +156,7 @@
 													</svg>
 												</span>
                                 <!--end::Svg Icon-->Tạo mới
-                            </button>
+                            </a>
                             <!--end::Add customer-->
                         </div>
                         <!--end::Toolbar-->
@@ -429,7 +429,8 @@
                                             <!--begin::Label-->
                                             <label class="required fs-6 fw-bold mb-2">Xe thuê</label>
 
-                                            <select wire:model="brandId" class="form-select form-select-solid"
+                                            <select wire:model="brandId"
+                                                    class="form-select form-select-solid"
                                                     data-allow-clear="true"
                                                     data-control="select2"
                                                     data-placeholder="Chọn nhãn hiệu">
@@ -450,14 +451,14 @@
                                             <!--begin::Input group-->
                                         </div>
 
-                                        <div class="fv-row mb-7 fv-plugins-icon-container">
+                                        <div class="fv-row mb-7 fv-plugins-icon-container" wire:ignore>
                                             <!--begin::Label-->
                                             <label class="fs-6 fw-bold mb-2">
                                                 <span>Mô tả</span>
                                             </label>
                                             <!--end::Label-->
                                             <!--begin::Input-->
-                                            <textarea type="text" wire:model="description" class="form-control form-control-solid" rows="3"></textarea>
+                                            <textarea type="text" id="editor" wire:model="description" class="form-control form-control-solid" rows="3"></textarea>
                                             <!--end::Input-->
                                             <!--end::Input group-->
                                             <!--begin::Input group-->

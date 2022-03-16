@@ -33,30 +33,9 @@ class OrderIndex extends Component
             'products' => $products
         ])->extends('admin.layouts.master')->section('content');
     }
-    protected function rules() {
-        return[
-            'name' => 'required|string|max:255',
-        ];
-    }
-    protected $validationAttributes  = [
-        'name' => 'Tên loại xe',
-    ];
-
-
-    public function showCreateModal()
-    {
-        $this->clearForm();
-        $this->dispatchBrowserEvent('openCreateModal');
-    }
-
-    public function clearForm()
-    {
-
-    }
 
     public function closeModal()
     {
-        $this->clearForm();
         $this->dispatchBrowserEvent('closeModal');
     }
 
@@ -64,10 +43,5 @@ class OrderIndex extends Component
     {
         $this->selectId = $id;
         $this->dispatchBrowserEvent('openDeleteModal');
-    }
-
-    public function store()
-    {
-
     }
 }

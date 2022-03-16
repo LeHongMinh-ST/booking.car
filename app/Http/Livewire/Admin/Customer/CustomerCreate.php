@@ -62,7 +62,7 @@ class CustomerCreate extends Component
     protected $validationAttributes  = [
         'name' => 'Họ và tên',
         'phone' => 'Số điện thoại',
-        'personID' => 'CCCD/CMT',
+        'person_id' => 'CCCD/CMT',
         'address' => 'Địa chỉ',
         'permanentResidence' => 'Hộ khẩu thường chú',
         'personIDAddress' => 'Nơi cấp',

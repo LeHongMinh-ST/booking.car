@@ -11,6 +11,8 @@ use App\Http\Livewire\Admin\Customer\CustomerIndex;
 use App\Http\Livewire\Admin\Customer\CustomerUpdate;
 use App\Http\Livewire\Admin\Home\Dashboard;
 use App\Http\Livewire\Admin\Order\OrderIndex;
+use App\Http\Livewire\Admin\Order\OrderCreate;
+use App\Http\Livewire\Admin\Order\OrderUpdate;
 use App\Http\Livewire\Admin\Product\ProductCreate;
 use App\Http\Livewire\Admin\Product\ProductDetail;
 use App\Http\Livewire\Admin\Product\ProductIndex;
@@ -54,7 +56,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
         Route::get('/category',CategoryIndex::class)->name('category');
         Route::get('/category-post',CategoryIndex::class)->name('category-post');
         Route::get('/post',CategoryIndex::class)->name('post');
-        Route::get('/order',OrderIndex::class)->name('order');
         Route::get('/statistic/revenue',CategoryIndex::class)->name('statistic.revenue');
         Route::get('/statistic/product',CategoryIndex::class)->name('statistic.product');
 
@@ -81,6 +82,12 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
             Route::get('/',RoleIndex::class)->middleware('permission:role-index')->name('role');
             Route::get('/create',RoleCreate::class)->middleware('permission:role-create')->name('role.create');
             Route::get('/{id}/edit',RoleUpdate::class)->middleware('permission:role-update')->name('role.edit');
+        });
+
+        Route::prefix('order')->group(function () {
+            Route::get('/',OrderIndex::class)->middleware('permission:order-index')->name('order');
+            Route::get('/create',OrderCreate::class)->middleware('permission:order-create')->name('order.create');
+            Route::get('/{id}/edit',OrderUpdate::class)->middleware('permission:order-update')->name('order.edit');
         });
 
     });
