@@ -23,6 +23,7 @@ class CreateOrdersTable extends Migration
             $table->bigInteger('customer_id')->nullable();
             $table->bigInteger('product_order_id')->nullable();
             $table->tinyInteger('status')->nullable();
+            $table->text('note')->nullable();
             $table->timestamps();
         });
     }

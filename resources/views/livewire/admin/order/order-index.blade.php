@@ -2,6 +2,66 @@
     Nhãn hiệu
 @endsection
 
+@section('script')
+    <script>
+        window.addEventListener('openCreateModal', event => {
+            $('#createModal').modal('show')
+        })
+
+        window.addEventListener('openUpdateModal', event => {
+            $('#updateModal').modal('show')
+        })
+
+        window.addEventListener('openDeleteModal', event => {
+            $('#deleteModal').modal('show')
+        })
+
+        window.addEventListener('closeModal', event => {
+            $('#createModal').modal('hide')
+            $('#updateModal').modal('hide')
+            $('#deleteModal').modal('hide')
+        })
+
+        $("#orderTime").daterangepicker({
+            timePicker: true,
+            startDate: moment().startOf("hour"),
+            endDate: moment().startOf("hour").add(32, "hour"),
+            locale: {
+                format: "DD/M/YYYY hh:mm A",
+                cancelLabel: 'Thoát',
+                applyLabel: 'Đồng ý',
+                separator: " - ",
+                "fromLabel": "Từ",
+                "toLabel": "Đến",
+                "customRangeLabel": "Custom",
+                "daysOfWeek": [
+                    "CN",
+                    "T2",
+                    "T3",
+                    "T4",
+                    "T5",
+                    "T6",
+                    "T7"
+                ],
+                "monthNames": [
+                    "Tháng 1",
+                    "Tháng 2",
+                    "Tháng 3",
+                    "Tháng 4",
+                    "Tháng 5",
+                    "Tháng 6",
+                    "Tháng 7",
+                    "Tháng 8",
+                    "Tháng 9",
+                    "Tháng 10",
+                    "Tháng 11",
+                    "Tháng 12",
+                ],
+            },
+        });
+    </script>
+@endsection
+
 <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
     <!--begin::Toolbar-->
     <div class="toolbar" id="kt_toolbar">
@@ -255,12 +315,12 @@
             <!--end::Card-->
             <!--begin::Modals-->
             <!--begin::Modal - Customers - Add-->
-            @if($showCreateModal)
-                <div class="modal fade show" id="createModal"
-                     style="display: block; padding-right: 5px;"  tabindex="-1"
+                <div class="modal fade" id="createModal"
+                      tabindex="-1"
+                     wire:ignore.self
                      aria-hidden="true">
                     <!--begin::Modal dialog-->
-                    <div class="modal-dialog modal-dialog-centered mw-650px">
+                    <div class="modal-dialog modal-lg modal-dialog-centered">
                         <!--begin::Modal content-->
                         <div class="modal-content">
                             <!--begin::Form-->
@@ -268,10 +328,10 @@
                                 <!--begin::Modal header-->
                                 <div class="modal-header" id="kt_modal_add_customer_header">
                                     <!--begin::Modal title-->
-                                    <h2 class="fw-bolder">Tạo mới nhãn hiệu</h2>
+                                    <h2 class="fw-bolder">Tạo yêu cầu thuê xe</h2>
                                     <!--end::Modal title-->
                                     <!--begin::Close-->
-                                    <div wire:click="closeCreateModal" id="kt_modal_add_customer_close"
+                                    <div wire:click="closeModal" id="kt_modal_add_customer_close"
                                          class="btn btn-icon btn-sm btn-active-icon-primary">
                                         <!--begin::Svg Icon | path: icons/stockholm/Navigation/Close.svg-->
                                         <span class="svg-icon svg-icon-1">
@@ -302,61 +362,92 @@
                                          data-kt-scroll-wrappers="#kt_modal_add_customer_scroll"
                                          data-kt-scroll-offset="300px">
                                         <!--begin::Input group-->
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <div class="fv-row mb-7 fv-plugins-icon-container">
+                                                    <!--begin::Label-->
+                                                    <label class="required fs-6 fw-bold mb-2">Tên khách hàng</label>
+                                                    <!--end::Label-->
+                                                    <!--begin::Input-->
+                                                    <input type="text" wire:model="name" class="form-control form-control-solid">
+                                                    @error('name')
+                                                    <div class="fv-plugins-message-container">
+                                                        <div data-field="name" data-validator="notEmpty" class="fv-help-block">{{ $message }}</div>
+                                                    </div>
+                                                    @enderror
+                                                </div>
 
-                                        <div class="fv-row mb-7">
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="fv-row mb-7 fv-plugins-icon-container">
+                                                    <!--begin::Label-->
+                                                    <label class="fs-6 fw-bold mb-2">Email</label>
+                                                    <!--end::Label-->
+                                                    <!--begin::Input-->
+                                                    <input type="text" wire:model="name" class="form-control form-control-solid">
+                                                    @error('name')
+                                                    <div class="fv-plugins-message-container">
+                                                        <div data-field="name" data-validator="notEmpty" class="fv-help-block">{{ $message }}</div>
+                                                    </div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <div class="fv-row mb-7 fv-plugins-icon-container">
+                                                    <!--begin::Label-->
+                                                    <label class="required fs-6 fw-bold mb-2">CMT/CCCD</label>
+                                                    <!--end::Label-->
+                                                    <!--begin::Input-->
+                                                    <input type="text" wire:model="name" class="form-control form-control-solid">
+                                                    @error('name')
+                                                    <div class="fv-plugins-message-container">
+                                                        <div data-field="name" data-validator="notEmpty" class="fv-help-block">{{ $message }}</div>
+                                                    </div>
+                                                    @enderror
+                                                </div>
+
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="fv-row mb-7 fv-plugins-icon-container">
+                                                    <!--begin::Label-->
+                                                    <label class="required fs-6 fw-bold mb-2">Số điện thoại</label>
+                                                    <!--end::Label-->
+                                                    <!--begin::Input-->
+                                                    <input type="text" wire:model="name" class="form-control form-control-solid">
+                                                    @error('name')
+                                                    <div class="fv-plugins-message-container">
+                                                        <div data-field="name" data-validator="notEmpty" class="fv-help-block">{{ $message }}</div>
+                                                    </div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="fv-row mb-7 fv-plugins-icon-container" wire:ignore>
                                             <!--begin::Label-->
-                                            <label class="d-block fw-bold fs-6 mb-5">Ảnh</label>
-                                            <!--end::Label-->
-                                            <!--begin::Image input-->
-                                            <div class="image-input image-input-outline" data-kt-image-input="true" style="background-image: url({{ $image ? $image->temporaryUrl() : asset('admin/assets/img/default-image.jpg') }})">
-                                                <!--begin::Preview existing avatar-->
-                                                <div class="image-input-wrapper w-125px h-125px" style="background-image: url({{ $image ? $image->temporaryUrl() : asset('admin/assets/img/default-image.jpg') }});"></div>
-                                                <!--end::Preview existing avatar-->
-                                                <!--begin::Label-->
-                                                <label id="lfm" class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="" data-bs-original-title="Chọn ảnh">
-                                                    <i class="bi bi-pencil-fill fs-7"></i>
-                                                    <!--begin::Inputs-->
-                                                    <input type="file" wire:model="image" id="image" accept=".png, .jpg, .jpeg">
-                                                    <input type="hidden" name="avatar_remove">
-                                                    <!--end::Inputs-->
-                                                </label>
-                                                <!--end::Label-->
-                                                <!--begin::Cancel-->
-                                                <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="cancel" data-bs-toggle="tooltip" title="" data-bs-original-title="Cancel avatar">
-																				<i class="bi bi-x fs-2"></i>
-																			</span>
-                                                <!--end::Cancel-->
-                                                <!--begin::Remove-->
-                                                <span wire:click="clearImagePreview" class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="remove" data-bs-toggle="tooltip" title="" data-bs-original-title="Remove avatar">
-																				<i class="bi bi-x fs-2"></i>
-																			</span>
-                                                <!--end::Remove-->
-                                            </div>
+                                            <label class="required fs-6 fw-bold mb-2">Xe thuê</label>
 
-                                            <!--end::Image input-->
-                                            <!--begin::Hint-->
-                                            <div class="form-text">
-                                                Loại tệp được phép: png, jpg, jpeg.</div>
-
-                                            @error('image')
-                                            <div class="fv-plugins-message-container">
-                                                <div data-field="email" data-validator="notEmpty" class="fv-help-block">{{ $message }}</div>
-                                            </div>
-                                        @enderror
-                                        <!--end::Hint-->
+                                            <select wire:model="brandId" class="form-select form-select-solid"
+                                                    data-allow-clear="true"
+                                                    data-control="select2"
+                                                    data-placeholder="Chọn nhãn hiệu">
+                                                <option value=""></option>
+                                                @foreach($products as $product)
+                                                    <option value="{{ $product->id }}">{{ $product->name }}</option>
+                                                @endforeach
+                                            </select>
+                                            <!--end::Input group-->
+                                            <!--begin::Input group-->
                                         </div>
 
                                         <div class="fv-row mb-7 fv-plugins-icon-container">
                                             <!--begin::Label-->
-                                            <label class="required fs-6 fw-bold mb-2">Tên nhãn hiệu</label>
-                                            <!--end::Label-->
-                                            <!--begin::Input-->
-                                            <input type="text" wire:model="name" class="form-control form-control-solid">
-                                            @error('name')
-                                            <div class="fv-plugins-message-container">
-                                                <div data-field="name" data-validator="notEmpty" class="fv-help-block">{{ $message }}</div>
-                                            </div>
-                                            @enderror
+                                            <label class="required fs-6 fw-bold mb-2">Thời gian</label>
+                                            <input class="form-control form-control-solid" placeholder="Pick date rage" id="orderTime"/>
+                                            <!--end::Input group-->
+                                            <!--begin::Input group-->
                                         </div>
 
                                         <div class="fv-row mb-7 fv-plugins-icon-container">
@@ -379,7 +470,7 @@
                                                 <span class="indicator-label">Tạo mới</span>
                                             </button>
 
-                                            <button wire:click="closeCreateModal" type="reset"
+                                            <button wire:click="closeModal" type="reset"
                                                     id="kt_modal_add_customer_cancel" class="btn btn-white me-3">Huỷ
                                             </button>
                                             <!--end::Button-->
@@ -392,10 +483,9 @@
                         </div>
                     </div>
                 </div>
-            @endif
-            @if($showUpdateModal)
-                <div class="modal fade show" id="createModal"
-                     style="display: block; padding-right: 5px;"  tabindex="-1"
+                <div class="modal fad" id="updateModal"
+                    tabindex="-1"
+                     wire:ignore.self
                      aria-hidden="true">
                     <!--begin::Modal dialog-->
                     <div class="modal-dialog modal-dialog-centered mw-650px">
@@ -540,12 +630,10 @@
                         </div>
                     </div>
                 </div>
-            @endif
         <!--end::Modal - Customers - Add-->
             <!--begin::Modal - Adjust Balance-->
-            @if($showDeleteModal)
-                <div class="modal fade show" id="createModal"
-                     style="display: block; padding-right: 5px;"  tabindex="-1"
+                <div class="modal fade" id="deleteModal"
+                     tabindex="-1"
                      aria-hidden="true">
                     <!--begin::Modal dialog-->
                     <div class="modal-dialog modal-dialog-centered mw-450px">
@@ -601,7 +689,6 @@
                         </div>
                     </div>
                 </div>
-        @endif
         <!--end::Modal - New Card-->
             <!--end::Modals-->
         </div>

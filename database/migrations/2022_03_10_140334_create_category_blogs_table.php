@@ -15,6 +15,16 @@ class CreateCategoryBlogsTable extends Migration
     {
         Schema::create('category_blogs', function (Blueprint $table) {
             $table->id();
+            $table->string('name')->nullable();;
+            $table->bigInteger('parent_id')->nullable();;
+            $table->string('slug')->nullable();;
+            $table->timestamps();
+        });
+
+        Schema::create('category_blog_posts', function (Blueprint $table) {
+            $table->id();
+            $table->bigInteger('category_blog_id')->nullable();;
+            $table->bigInteger('post_id')->nullable();;
             $table->timestamps();
         });
     }
@@ -27,5 +37,6 @@ class CreateCategoryBlogsTable extends Migration
     public function down()
     {
         Schema::dropIfExists('category_blogs');
+        Schema::dropIfExists('category_blog_posts');
     }
 }

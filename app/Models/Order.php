@@ -26,7 +26,8 @@ class Order extends Model
         'price_deposits',
         'customer_id',
         'product_order_id',
-        'status'
+        'status',
+        'note'
     ];
 
 

@@ -24,6 +24,7 @@ class CategoryIndex extends Component
     public $perPage = 10;
     public $search = '';
     public $selectId;
+
     protected $listeners = [
         'changeParentId' => 'updateParentId',
     ];
@@ -93,7 +94,7 @@ class CategoryIndex extends Component
             $this->parentId = $category->parent_id;
             $this->status = $category->is_active;
             $this->dispatchBrowserEvent('openUpdateModal', [
-                'parent'=>$this->parentId
+                'parent' => $this->parentId
             ]);
         }
 
