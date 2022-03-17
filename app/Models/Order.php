@@ -9,7 +9,7 @@ class Order extends Model
 {
     use HasFactory;
 
-    protected $table = 'product_orders';
+    protected $table = 'orders';
 
     const STATUS = [
         'no_deposit_yet' => 0,
@@ -31,5 +31,9 @@ class Order extends Model
     ];
 
 
+    public function productOrder()
+    {
+        return $this->belongsTo(ProductOrder::class, 'product_order_id');
+    }
 
 }

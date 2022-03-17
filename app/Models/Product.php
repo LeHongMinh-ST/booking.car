@@ -49,6 +49,11 @@ class Product extends Model
         return $this->hasMany(ProductImage::class);
     }
 
+    public function productOrders()
+    {
+        return $this->hasMany(ProductOrder::class);
+    }
+
     public function scopeName($query, $search)
     {
         if ($search) {

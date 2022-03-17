@@ -51,7 +51,7 @@ class CustomerCreate extends Component
                 }
             ],
             'person_id' => 'required|string|max:255|unique:customers',
-            'permanentResidence' => 'required|string|max:255',
+            'permanentResidence' => 'required|string',
             'address' => 'required|string',
             'personIDAddress' => 'required|string',
             'personIDDate' => 'required|string|date|date_format:d-m-Y',

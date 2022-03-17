@@ -2,17 +2,22 @@
 
 namespace App\Http\Livewire\Admin\Order;
 
+use App\Models\Customer;
+use App\Models\Order;
 use App\Models\Product;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 use Livewire\Component;
 
 class OrderCreate extends Component
 {
     public $name = '';
-    public $email = '';
     public $note = '';
     public $personId = '';
+    public $address = '';
+    public $permanentResidence = '';
     public $phone = '';
     public $productId = '';
     public $orderTime = '';
@@ -20,6 +25,8 @@ class OrderCreate extends Component
 
     protected $listeners = [
         'changeOrderTime' => 'updateOrderTime',
+        'changeNote' => 'updateNote',
+        'changeProductId' => 'updateProductId',
     ];
 
     public function render()
@@ -35,7 +42,6 @@ class OrderCreate extends Component
     {
         return [
             'name' => 'required|string|max:255',
-            'email' => 'nullable|string|max:255|email',
             'phone' => [
                 'required',
                 'string',
@@ -46,7 +52,9 @@ class OrderCreate extends Component
                 }
             ],
             'personId' => 'required|string|max:255',
-            'orderTime' => 'required|string|max:255',
+            'orderTime' => 'required',
+            'permanentResidence' => 'required|string',
+            'address' => 'required|string',
             'productId' => 'required',
             'priceDeposits' => 'required',
 
@@ -60,11 +68,44 @@ class OrderCreate extends Component
         'productId' => 'Xe thuê',
         'orderTime' => 'Thời gian thuê xe',
         'priceDeposits' => 'Tiền cọc',
+        'address' => 'Địa chỉ',
+        'permanentResidence' => 'Hộ khẩu thường chú',
     ];
+
+    public function updated($propertyName)
+    {
+        $this->validateOnly($propertyName);
+
+        if ($propertyName == 'personId') {
+            $customer = Customer::query()->where('person_id', $this->personId)->first();
+
+            if ($customer) {
+                $this->name = $customer->name;
+                $this->permanentResidence = $customer->permanent_residence;
+                $this->phone = $customer->phone;
+                $this->address = $customer->address;
+            } else {
+                $this->name = '';
+                $this->permanentResidence = '';
+                $this->phone = '';
+                $this->address = '';
+            }
+        }
+    }
 
     public function updateOrderTime($value)
     {
         $this->orderTime = $value;
+    }
+
+    public function updateProductId($value)
+    {
+        $this->productId = $value;
+    }
+
+    public function updateNote($value)
+    {
+        $this->note = $value;
     }
 
     public function store()
@@ -80,7 +121,40 @@ class OrderCreate extends Component
 
         try {
 
+            $customer = Customer::query()->where('person_id', $this->personId)->first();
 
+            $product = Product::query()->find($this->productId);
+
+            if (!$customer) {
+                $customer = Customer::create([
+                    'name' => $this->name,
+                    'phone' => $this->phone,
+                    'person_id' => $this->personId,
+                    'address' => $this->address,
+                    'permanent_residence' => $this->permanentResidence,
+                ]);
+            }
+
+            $productOrder = $product->productOrders()->create([
+                'name' => $product->name,
+                'color' => $product->color,
+                'km' => $product->km,
+                'year' => $product->year,
+                'price' => $product->price,
+                'thumbnail' => $product->thumbnail,
+                'other_parameters' => $product->otherParameters,
+                'license_plates' => $product->licensePlates,
+                'brand_id' => $product->brandId,
+            ]);
+
+            $customer->orders()->create([
+                'name' => 'Yêu cầu thuê xe ' . $product->name . ' - ' . $product->license_plates,
+                'code' => 'YCTX' . $product->license_plates . Carbon::now()->timestamp,
+                'pick_date' => Carbon::make($this->orderTime['start'])->timestamp,
+                'drop_date' => Carbon::make($this->orderTime['end'])->timestamp,
+                'price_deposits' => $this->priceDeposits,
+                'product_order_id' => $productOrder->id,
+            ]);
 
             session()->flash('success', 'Tạo mới thành công');
             DB::commit();

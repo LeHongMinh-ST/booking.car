@@ -42,18 +42,24 @@
             },
         }).on('change', function () {
             Livewire.emit('changeOrderTime', {
-                'start': $(this).data('daterangepicker').startDate.format('DD/M/YYYY HH:mm:ss'),
-                'end': $(this).data('daterangepicker').endDate.format('DD/M/YYYY HH:mm:ss')
+                'start': $(this).data('daterangepicker').startDate.format('DD-M-YYYY HH:mm:ss'),
+                'end': $(this).data('daterangepicker').endDate.format('DD-M-YYYY HH:mm:ss')
             })
         })
+
+        $('#productId').change(function () {
+            Livewire.emit('changeProductId', $(this).val())
+        })
+
         var options = {
             filebrowserImageBrowseUrl: '/admin/laravel-filemanager?type=Images',
             filebrowserImageUploadUrl: '/admin/laravel-filemanager/upload?type=Images&_token=',
             filebrowserBrowseUrl: '/admin/laravel-filemanager?type=Files',
-            filebrowserUploadUrl: '/admin/laravel-filemanager/upload?type=Files&_token='
+            filebrowserUploadUrl: '/admin/laravel-filemanager/upload?type=Files&_token=',
+            language: 'vi'
         };
         CKEDITOR.replace('editor', options).on('change', (e) => {
-            Livewire.emit('updateDescription', e.editor.getData())
+            Livewire.emit('changeNote', e.editor.getData())
         })
     </script>
 @endsection
@@ -147,19 +153,6 @@
 
                                 <div class="d-flex flex-column mb-7 fv-row fv-plugins-icon-container">
                                     <!--begin::Label-->
-                                    <label class="fs-6 fw-bold mb-2">Email</label>
-                                    <!--end::Label-->
-                                    <!--begin::Input-->
-                                    <input type="text" wire:model="email" class="form-control form-control-solid">
-                                    @error('email')
-                                    <div class="fv-plugins-message-container">
-                                        <div data-field="name" data-validator="notEmpty" class="fv-help-block">{{ $message }}</div>
-                                    </div>
-                                    @enderror
-                                </div>
-
-                                <div class="d-flex flex-column mb-7 fv-row fv-plugins-icon-container">
-                                    <!--begin::Label-->
                                     <!--begin::Label-->
                                     <label class="required fs-6 fw-bold mb-2">CMT/CCCD</label>
                                     <!--end::Label-->
@@ -186,6 +179,34 @@
                                     @enderror
                                 </div>
 
+                                <div class="d-flex flex-column mb-7 fv-row fv-plugins-icon-container">
+                                    <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
+                                        <span class="required">Địa chỉ</span>
+                                    </label>
+                                    <!--end::Label-->
+                                    <input type="text" wire:model="address" class="form-control form-control-solid" placeholder="">
+                                    @error('address')
+                                    <div class="fv-plugins-message-container">
+                                        <div data-field="name" data-validator="notEmpty" class="fv-help-block">{{ $message }}</div>
+                                    </div>
+                                    @enderror
+                                </div>
+
+                                <div class="d-flex flex-column mb-7 fv-row fv-plugins-icon-container">
+                                    <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
+                                        <span class="required">Hộ khẩu thường trú</span>
+                                    </label>
+                                    <!--end::Label-->
+                                    <input type="text" wire:model="permanentResidence" class="form-control form-control-solid" placeholder="">
+                                    @error('permanentResidence')
+                                    <div class="fv-plugins-message-container">
+                                        <div data-field="name" data-validator="notEmpty" class="fv-help-block">{{ $message }}</div>
+                                    </div>
+                                    @enderror
+                                </div>
+
                                 <div class="d-flex flex-column mb-7 fv-row fv-plugins-icon-container" >
                                     <!--begin::Label-->
                                     <label class="required fs-6 fw-bold mb-2">Xe thuê</label>
@@ -193,6 +214,7 @@
                                         <select wire:model="productId"
                                                 class="form-select form-select-solid"
                                                 data-allow-clear="true"
+                                                id="productId"
                                                 data-control="select2"
                                                 data-placeholder="Chọn nhãn hiệu">
                                             <option value=""></option>
