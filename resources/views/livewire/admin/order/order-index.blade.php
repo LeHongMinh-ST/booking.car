@@ -257,7 +257,7 @@
                                                 <!--begin::Menu item-->
                                                 @if(checkPermission('order-update'))
                                                     <div class="menu-item px-3">
-                                                        <span wire:click="showUpdateModal({{ $order->id }})" class="menu-link px-3">Sửa</span>
+                                                        <a href="{{ route('admin.order.edit', $order->id) }}" class="menu-link px-3">Sửa</a>
                                                     </div>
                                                 @endif
                                             <!--end::Menu item-->

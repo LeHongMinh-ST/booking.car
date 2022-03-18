@@ -128,7 +128,7 @@
                         <div class="card-header card-header-stretch">
                             <!--begin::Title-->
                             <div class="card-title">
-                                <h3 class="m-0 text-gray-900">Thông tin cơ bản</h3>
+                                <h3 class="m-0 text-gray-900">Thông tin</h3>
                             </div>
                             <!--end::Title-->
                             <!--begin::Toolbar-->

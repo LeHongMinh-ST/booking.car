@@ -25,10 +25,11 @@ class Customer extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function orders()
+    public function customerOrders()
     {
-        return $this->hasMany(Order::class);
+        return $this->hasMany(CustomerOrder::class);
     }
+
 
     public function scopeSearch($query, $search)
     {

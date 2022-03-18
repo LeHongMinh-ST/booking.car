@@ -96,11 +96,17 @@ class OrderCreate extends Component
     public function updateOrderTime($value)
     {
         $this->orderTime = $value;
+        if ($value) {
+            $this->resetValidation('orderTime');
+        }
     }
 
     public function updateProductId($value)
     {
         $this->productId = $value;
+        if ($value) {
+            $this->resetValidation('productId');
+        }
     }
 
     public function updateNote($value)
@@ -135,6 +141,14 @@ class OrderCreate extends Component
                 ]);
             }
 
+            $customerOrder = $customer->customerOrders()->create([
+                'name' => $this->name,
+                'phone' => $this->phone,
+                'person_id' => $this->personId,
+                'address' => $this->address,
+                'permanent_residence' => $this->permanentResidence,
+            ]);
+
             $productOrder = $product->productOrders()->create([
                 'name' => $product->name,
                 'color' => $product->color,
@@ -142,14 +156,14 @@ class OrderCreate extends Component
                 'year' => $product->year,
                 'price' => $product->price,
                 'thumbnail' => $product->thumbnail,
-                'other_parameters' => $product->otherParameters,
-                'license_plates' => $product->licensePlates,
-                'brand_id' => $product->brandId,
+                'other_parameters' => $product->other_parameters,
+                'license_plates' => $product->license_plates,
+                'brand_id' => $product->brand_id,
             ]);
 
-            $customer->orders()->create([
-                'name' => 'Yêu cầu thuê xe ' . $product->name . ' - ' . $product->license_plates,
-                'code' => 'YCTX' . $product->license_plates . Carbon::now()->timestamp,
+            $customerOrder->orders()->create([
+                'name' => 'Yêu cầu thuê xe - ' . $product->name . ' - ' . $product->license_plates,
+                'code' => 'YCTX'. Carbon::now()->timestamp,
                 'pick_date' => Carbon::make($this->orderTime['start'])->timestamp,
                 'drop_date' => Carbon::make($this->orderTime['end'])->timestamp,
                 'price_deposits' => $this->priceDeposits,
