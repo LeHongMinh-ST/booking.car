@@ -9,7 +9,7 @@
             startDate: moment().startOf("hour"),
             endDate: moment().startOf("hour").add(32, "hour"),
             locale: {
-                format: "DD/M/YYYY hh:mm A",
+                format: "DD/M/YYYY HH:mm:ss ",
                 cancelLabel: 'Thoát',
                 applyLabel: 'Đồng ý',
                 separator: " - ",

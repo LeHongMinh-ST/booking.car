@@ -4,15 +4,19 @@
 
 @section('script')
     <script>
-        $(window).on('addOrderTime', () => {
-            console.log('a')
-        })
+
+        var start = '{{ $orderTime['start'] }}'
+        var end = '{{ $orderTime['end'] }}'
+        var productID = '{{ $productId }}'
+
+        $('#productId').val(productID).trigger('change')
+
         $("#orderTime").daterangepicker({
             timePicker: true,
-            startDate: moment().startOf("hour"),
-            endDate: moment().startOf("hour").add(32, "hour"),
+            startDate: moment(start, 'DD-MM-YYYY HH:mm:ss'),
+            endDate: moment(end, 'DD-MM-YYYY HH:mm:ss'),
             locale: {
-                format: "DD/M/YYYY hh:mm A",
+                format: "DD/M/YYYY HH:mm:ss",
                 cancelLabel: 'Thoát',
                 applyLabel: 'Đồng ý',
                 separator: " - ",
@@ -49,7 +53,6 @@
                 'end': $(this).data('daterangepicker').endDate.format('DD-M-YYYY HH:mm:ss')
             })
         })
-
 
 
         $('#productId').change(function () {
@@ -151,7 +154,8 @@
                                     <input type="text" wire:model="name" class="form-control form-control-solid">
                                     @error('name')
                                     <div class="fv-plugins-message-container">
-                                        <div data-field="name" data-validator="notEmpty" class="fv-help-block">{{ $message }}</div>
+                                        <div data-field="name" data-validator="notEmpty"
+                                             class="fv-help-block">{{ $message }}</div>
                                     </div>
                                     @enderror
                                 </div>
@@ -165,7 +169,8 @@
                                     <input type="text" wire:model="personId" class="form-control form-control-solid">
                                     @error('personId')
                                     <div class="fv-plugins-message-container">
-                                        <div data-field="personId" data-validator="notEmpty" class="fv-help-block">{{ $message }}</div>
+                                        <div data-field="personId" data-validator="notEmpty"
+                                             class="fv-help-block">{{ $message }}</div>
                                     </div>
                                     @enderror
                                 </div>
@@ -179,7 +184,8 @@
                                     <input type="text" wire:model="phone" class="form-control form-control-solid">
                                     @error('phone')
                                     <div class="fv-plugins-message-container">
-                                        <div data-field="name" data-validator="notEmpty" class="fv-help-block">{{ $message }}</div>
+                                        <div data-field="name" data-validator="notEmpty"
+                                             class="fv-help-block">{{ $message }}</div>
                                     </div>
                                     @enderror
                                 </div>
@@ -190,10 +196,12 @@
                                         <span class="required">Địa chỉ</span>
                                     </label>
                                     <!--end::Label-->
-                                    <input type="text" wire:model="address" class="form-control form-control-solid" placeholder="">
+                                    <input type="text" wire:model="address" class="form-control form-control-solid"
+                                           placeholder="">
                                     @error('address')
                                     <div class="fv-plugins-message-container">
-                                        <div data-field="name" data-validator="notEmpty" class="fv-help-block">{{ $message }}</div>
+                                        <div data-field="name" data-validator="notEmpty"
+                                             class="fv-help-block">{{ $message }}</div>
                                     </div>
                                     @enderror
                                 </div>
@@ -204,15 +212,17 @@
                                         <span class="required">Hộ khẩu thường trú</span>
                                     </label>
                                     <!--end::Label-->
-                                    <input type="text" wire:model="permanentResidence" class="form-control form-control-solid" placeholder="">
+                                    <input type="text" wire:model="permanentResidence"
+                                           class="form-control form-control-solid" placeholder="">
                                     @error('permanentResidence')
                                     <div class="fv-plugins-message-container">
-                                        <div data-field="name" data-validator="notEmpty" class="fv-help-block">{{ $message }}</div>
+                                        <div data-field="name" data-validator="notEmpty"
+                                             class="fv-help-block">{{ $message }}</div>
                                     </div>
                                     @enderror
                                 </div>
 
-                                <div class="d-flex flex-column mb-7 fv-row fv-plugins-icon-container" >
+                                <div class="d-flex flex-column mb-7 fv-row fv-plugins-icon-container">
                                     <!--begin::Label-->
                                     <label class="required fs-6 fw-bold mb-2">Xe thuê</label>
                                     <div wire:ignore>
@@ -224,13 +234,15 @@
                                                 data-placeholder="Chọn nhãn hiệu">
                                             <option value=""></option>
                                             @foreach($products as $product)
-                                                <option value="{{ $product->id }}">{{ $product->name . ' - ' . $product->license_plates }}</option>
+                                                <option
+                                                    value="{{ $product->id }}">{{ $product->name . ' - ' . $product->license_plates }}</option>
                                             @endforeach
                                         </select>
                                     </div>
                                     @error('productId')
                                     <div class="fv-plugins-message-container">
-                                        <div data-field="productId" data-validator="notEmpty" class="fv-help-block">{{ $message }}</div>
+                                        <div data-field="productId" data-validator="notEmpty"
+                                             class="fv-help-block">{{ $message }}</div>
                                     </div>
                                     @enderror
                                 </div>
@@ -241,10 +253,12 @@
                                     <label class="required fs-6 fw-bold mb-2">Tiền đặt cọc</label>
                                     <!--end::Label-->
                                     <!--begin::Input-->
-                                    <input type="text" wire:model="priceDeposits" class="form-control form-control-solid">
+                                    <input type="text" wire:model="priceDeposits"
+                                           class="form-control form-control-solid">
                                     @error('priceDeposits')
                                     <div class="fv-plugins-message-container">
-                                        <div data-field="priceDeposits" data-validator="notEmpty" class="fv-help-block">{{ $message }}</div>
+                                        <div data-field="priceDeposits" data-validator="notEmpty"
+                                             class="fv-help-block">{{ $message }}</div>
                                     </div>
                                     @enderror
                                 </div>
@@ -253,11 +267,13 @@
                                     <!--begin::Label-->
                                     <!--begin::Label-->
                                     <label class="required fs-6 fw-bold mb-2">Thời gian</label>
-                                    <input class="form-control form-control-solid" wire:modal="orderTime" placeholder="Chọn thời gian thuê" id="orderTime"/>
+                                    <input class="form-control form-control-solid" wire:modal="orderTime"
+                                           placeholder="Chọn thời gian thuê" id="orderTime"/>
                                     <!--end::Input group-->
                                     @error('orderTime')
                                     <div class="fv-plugins-message-container">
-                                        <div data-field="orderTime" data-validator="notEmpty" class="fv-help-block">{{ $message }}</div>
+                                        <div data-field="orderTime" data-validator="notEmpty"
+                                             class="fv-help-block">{{ $message }}</div>
                                     </div>
                                     @enderror
                                 </div>
@@ -301,19 +317,24 @@
                             <div class="carousel carousel-custom carousel-stretch slide">
                                 <div class="row">
                                     <div class="col">
-                                        <button wire:click="store" type="submit" class="btn btn-primary w-100">
-                                            <span class="svg-icon svg-icon-2">
-                                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-                                                    <rect fill="#000000" x="4" y="11" width="16" height="2" rx="1"></rect>
-                                                    <rect fill="#000000" opacity="0.5" transform="translate(12.000000, 12.000000) rotate(-270.000000) translate(-12.000000, -12.000000)" x="4" y="11" width="16" height="2" rx="1"></rect>
-                                                </svg>
+                                        <button wire:click="update" type="submit" class="btn btn-primary w-100">
+                                            <span class="svg-icon svg-icon-primary svg-icon-2"><!--begin::Svg Icon | path:/var/www/preview.keenthemes.com/metronic/releases/2021-05-14-112058/theme/html/demo2/dist/../src/media/svg/icons/Design/Edit.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                        <rect x="0" y="0" width="24" height="24"/>
+                                                        <path d="M8,17.9148182 L8,5.96685884 C8,5.56391781 8.16211443,5.17792052 8.44982609,4.89581508 L10.965708,2.42895648 C11.5426798,1.86322723 12.4640974,1.85620921 13.0496196,2.41308426 L15.5337377,4.77566479 C15.8314604,5.0588212 16,5.45170806 16,5.86258077 L16,17.9148182 C16,18.7432453 15.3284271,19.4148182 14.5,19.4148182 L9.5,19.4148182 C8.67157288,19.4148182 8,18.7432453 8,17.9148182 Z" fill="#000000" fill-rule="nonzero" transform="translate(12.000000, 10.707409) rotate(-135.000000) translate(-12.000000, -10.707409) "/>
+                                                        <rect fill="#000000" opacity="0.3" x="5" y="20" width="15" height="2" rx="1"/>
+                                                    </g>
+                                                </svg><!--end::Svg Icon-->
                                             </span>
-                                            <span class="indicator-label">Tạo mới</span>
+                                            <span class="indicator-label">Lưu</span>
                                         </button>
                                     </div>
                                     <div class="col">
                                         <a href="{{ route('admin.product') }}" class="btn btn-warning me-3 w-100">
-                                            <span class="svg-icon svg-icon-primary svg-icon-2"><!--begin::Svg Icon | path:/var/www/preview.keenthemes.com/metronic/releases/2021-05-14-112058/theme/html/demo2/dist/../src/media/svg/icons/Design/Circle.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                            <span class="svg-icon svg-icon-primary svg-icon-2"><!--begin::Svg Icon | path:/var/www/preview.keenthemes.com/metronic/releases/2021-05-14-112058/theme/html/demo2/dist/../src/media/svg/icons/Design/Circle.svg--><svg
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
+                                                    height="24px" viewBox="0 0 24 24" version="1.1">
                                                     <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                                                         <rect x="0" y="0" width="24" height="24"/>
                                                         <circle fill="#000000" cx="12" cy="12" r="8"/>

@@ -41,20 +41,17 @@ class OrderUpdate extends Component
     public function mount($id)
     {
         $order = Order::query()->with(['customerOrder', 'productOrder'])->find($id);
-
         if ($order) {
             $this->name = $order->customerOrder->name;
             $this->phone = $order->customerOrder->phone;
-            $this->permanentResidence = $order->customerOrder->permanent_pesidence;
+            $this->address = $order->customerOrder->address;
+            $this->permanentResidence = $order->customerOrder->permanent_residence;
             $this->personId = $order->customerOrder->person_id;
-            $this->phone = $order->customerOrder->phone;
             $this->note = $order->note;
-            $this->orderTime['start'] = Carbon::createFromTimestamp($order->pick_date)->format('d/m/Y H:m:s');
-            $this->orderTime['end'] = Carbon::createFromTimestamp($order->drop)->format('d/m/Y H:m:s');
-
-            $this->dispatchBrowserEvent('addOrderTime', [
-                'orderTime' => $this->orderTime
-            ]);
+            $this->priceDeposits = $order->price_deposits;
+            $this->productId = $order->productOrder->product_id;
+            $this->orderTime['start'] = Carbon::createFromTimestamp($order->pick_date)->format('d-m-Y H:m:s');
+            $this->orderTime['end'] = Carbon::createFromTimestamp($order->drop_date)->format('d-m-Y H:m:s');
         }
     }
 
@@ -95,22 +92,6 @@ class OrderUpdate extends Component
     public function updated($propertyName)
     {
         $this->validateOnly($propertyName);
-
-        if ($propertyName == 'personId') {
-            $customer = Customer::query()->where('person_id', $this->personId)->first();
-
-            if ($customer) {
-                $this->name = $customer->name;
-                $this->permanentResidence = $customer->permanent_residence;
-                $this->phone = $customer->phone;
-                $this->address = $customer->address;
-            } else {
-                $this->name = '';
-                $this->permanentResidence = '';
-                $this->phone = '';
-                $this->address = '';
-            }
-        }
     }
 
     public function updateOrderTime($value)
