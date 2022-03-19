@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Admin\Order;
 
 use App\Models\Customer;
+use App\Models\CustomerOrder;
 use App\Models\Order;
 use App\Models\Product;
 use Carbon\Carbon;
@@ -22,6 +23,10 @@ class OrderUpdate extends Component
     public $orderTime = [];
     public $priceDeposits = '';
     public $orderId = '';
+    public $status = 0;
+    private $customerOrderId = '';
+    private $productOrderId = '';
+    private $productIdOld = '';
 
     protected $listeners = [
         'changeOrderTime' => 'updateOrderTime',
@@ -42,14 +47,19 @@ class OrderUpdate extends Component
     {
         $order = Order::query()->with(['customerOrder', 'productOrder'])->find($id);
         if ($order) {
+            $this->orderId = $order->id;
             $this->name = $order->customerOrder->name;
             $this->phone = $order->customerOrder->phone;
             $this->address = $order->customerOrder->address;
             $this->permanentResidence = $order->customerOrder->permanent_residence;
             $this->personId = $order->customerOrder->person_id;
             $this->note = $order->note;
+            $this->status = $order->status;
             $this->priceDeposits = $order->price_deposits;
             $this->productId = $order->productOrder->product_id;
+            $this->customerOrderId = $order->customer_order_id;
+            $this->productOrderId = $order->product_order_id;
+            $this->productIdOld = $order->productOrder->product_id;
             $this->orderTime['start'] = Carbon::createFromTimestamp($order->pick_date)->format('d-m-Y H:m:s');
             $this->orderTime['end'] = Carbon::createFromTimestamp($order->drop_date)->format('d-m-Y H:m:s');
         }
@@ -128,52 +138,50 @@ class OrderUpdate extends Component
 
         try {
 
-            $customer = Customer::query()->where('person_id', $this->personId)->first();
-
-            $product = Product::query()->find($this->productId);
-
-            if (!$customer) {
-                $customer = Customer::updated([
+            $customerOrder = CustomerOrder::query()
+                ->where('id',$this->customerOrderId)
+                ->update([
                     'name' => $this->name,
                     'phone' => $this->phone,
                     'person_id' => $this->personId,
                     'address' => $this->address,
                     'permanent_residence' => $this->permanentResidence,
                 ]);
+            ;
+            $product = Product::query()->find($this->productId);
 
-                $customer->name = $this->name;
-                $customer->phone = $this->phone;
-                $customer->person_id = $this->personId;
-                $customer->address = $this->address;
-                $customer->permanent_residence = $this->permanentResidence;
+            if ($this->productId != $this->productIdOld) {
+                $productOrder = $product->productOrders()->create([
+                    'name' => $product->name,
+                    'color' => $product->color,
+                    'km' => $product->km,
+                    'year' => $product->year,
+                    'price' => $product->price,
+                    'thumbnail' => $product->thumbnail,
+                    'other_parameters' => $product->other_parameters,
+                    'license_plates' => $product->license_plates,
+                    'brand_id' => $product->brand_id,
+                ]);
+
+                $this->productOrderId = $productOrder->id;
             }
 
-            $productOrder = $product->productOrders()->create([
-                'name' => $product->name,
-                'color' => $product->color,
-                'km' => $product->km,
-                'year' => $product->year,
-                'price' => $product->price,
-                'thumbnail' => $product->thumbnail,
-                'other_parameters' => $product->other_parameters,
-                'license_plates' => $product->license_plates,
-                'brand_id' => $product->brand_id,
-            ]);
 
-            $customer->orders()->create([
-                'name' => 'Yêu cầu thuê xe - ' . $product->name . ' - ' . $product->license_plates,
+            Order::query()->where('id', $this->orderId)->update([
+                'name' => 'Yêu cầu thuê xe - ' . $product->name . ' - ' . $product->license_plates . ' - ' . $this->name,
                 'pick_date' => Carbon::make($this->orderTime['start'])->timestamp,
                 'drop_date' => Carbon::make($this->orderTime['end'])->timestamp,
                 'price_deposits' => $this->priceDeposits,
-                'product_order_id' => $productOrder->id,
+                'product_order_id' => $this->productOrderId,
+                'status' => $this->status,
             ]);
 
-            session()->flash('success', 'Tạo mới thành công');
+            session()->flash('success', 'Cập nhật thành công');
             DB::commit();
             return redirect()->route('admin.order');
         } catch (\Exception $exception) {
             DB::rollBack();
-            Log::error('Error create order', [
+            Log::error('Error update order', [
                 'method' => __METHOD__,
                 'message' => $exception->getMessage()
             ]);

@@ -20,8 +20,6 @@ class CustomerCreate extends Component
     public $person_id;
     public $address;
     public $permanentResidence;
-    public $personIDAddress;
-    public $personIDDate;
     public $thumbnail;
 
     public function render()
@@ -53,8 +51,6 @@ class CustomerCreate extends Component
             'person_id' => 'required|string|max:255|unique:customers',
             'permanentResidence' => 'required|string',
             'address' => 'required|string',
-            'personIDAddress' => 'required|string',
-            'personIDDate' => 'required|string|date|date_format:d-m-Y',
             'thumbnail' => 'nullable|image',
         ];
     }
@@ -65,8 +61,6 @@ class CustomerCreate extends Component
         'person_id' => 'CCCD/CMT',
         'address' => 'Địa chỉ',
         'permanentResidence' => 'Hộ khẩu thường chú',
-        'personIDAddress' => 'Nơi cấp',
-        'personIDDate' => 'Ngày cấp',
         'thumbnail' => 'Ảnh đại diện',
     ];
 
@@ -111,8 +105,6 @@ class CustomerCreate extends Component
                 'person_id' => $this->person_id,
                 'address' => $this->address,
                 'permanent_residence' => $this->permanentResidence,
-                'person_id_address' => $this->personIDAddress,
-                'person_id_date' => $this->personIDDate,
                 'user_id' => $user ? $user->id : null,
             ]);
 

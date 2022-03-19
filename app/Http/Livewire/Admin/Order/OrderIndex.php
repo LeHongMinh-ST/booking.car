@@ -19,12 +19,22 @@ class OrderIndex extends Component
     public $perPage = 10;
     public $search = '';
     public $selectId;
-    public $imageUpdate = '';
-    public $status = 1;
+    public $status = 0;
+    public $orderTime = [];
+
+    protected $listeners = [
+        'changeFilterStatus' => 'updateStatus',
+        'changeOrderTime' => 'updateOrderTime',
+    ];
+
 
     public function render()
     {
-        $orders = Order::query()->orderBy('created_at', 'desc')->paginate($this->perPage);
+        $orders = Order::query()
+            ->search($this->search)
+            ->filterStatus($this->status)
+            ->filterDate($this->orderTime)
+            ->orderBy('created_at', 'desc')->paginate($this->perPage);
 
         $products = Product::query()->status(Product::STATUS['normal'])->get();
 
@@ -39,9 +49,32 @@ class OrderIndex extends Component
         $this->dispatchBrowserEvent('closeModal');
     }
 
+    public function updateOrderTime($value)
+    {
+        $this->orderTime = $value;
+    }
+
+    public function resetFilter()
+    {
+        $this->status = 0;
+        $this->orderTime = [];
+
+        $this->dispatchBrowserEvent('clearFilter');
+    }
+
+    public function updateStatus($value)
+    {
+        $this->status = $value;
+    }
+
     public function openDeleteModal($id)
     {
         $this->selectId = $id;
         $this->dispatchBrowserEvent('openDeleteModal');
+    }
+
+    public function openDetailModal($id) {
+        $this->selectId = $id;
+        $this->dispatchBrowserEvent('openDetailModal');
     }
 }

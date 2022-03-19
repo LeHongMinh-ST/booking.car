@@ -150,7 +150,7 @@
 
                                 <div class="row mb-5">
                                     <!--begin::Col-->
-                                    <div class="col-md-6 fv-row fv-plugins-icon-container">
+                                    <div class="col fv-row fv-plugins-icon-container">
                                         <!--begin::Label-->
                                         <label class="required fs-5 fw-bold mb-2">CCCD/CMT</label>
                                         <!--end::Label-->
@@ -158,40 +158,6 @@
                                         <input type="text" wire:model="person_id" class="form-control form-control-solid" placeholder="" name="first-name">
                                         <!--end::Input-->
                                         @error('person_id')
-                                        <div class="fv-plugins-message-container">
-                                            <div data-field="name" data-validator="notEmpty" class="fv-help-block">{{ $message }}</div>
-                                        </div>
-                                        @enderror
-                                    </div>
-                                    <!--end::Col-->
-                                    <!--begin::Col-->
-                                    <div class="col-md-6 fv-row fv-plugins-icon-container">
-                                        <!--end::Label-->
-                                        <label class="required fs-5 fw-bold mb-2">Ngày cấp</label>
-                                        <!--end::Label-->
-                                        <!--end::Input-->
-                                        <input type="text" wire:model="personIDDate" class="form-control form-control-solid" placeholder="" name="last-name">
-                                        <!--end::Input-->
-                                        @error('personIDDate')
-                                        <div class="fv-plugins-message-container">
-                                            <div data-field="name" data-validator="notEmpty" class="fv-help-block">{{ $message }}</div>
-                                        </div>
-                                        @enderror
-                                    </div>
-
-                                    <!--end::Col-->
-                                </div>
-
-                                <div class="row mb-5">
-                                    <!--begin::Col-->
-                                    <div class="col fv-row fv-plugins-icon-container">
-                                        <!--begin::Label-->
-                                        <label class="required fs-5 fw-bold mb-2">Nơi cấp</label>
-                                        <!--end::Label-->
-                                        <!--begin::Input-->
-                                        <input type="text" wire:model="personIDAddress" class="form-control form-control-solid" placeholder="" name="first-name">
-                                        <!--end::Input-->
-                                        @error('personIDAddress')
                                         <div class="fv-plugins-message-container">
                                             <div data-field="name" data-validator="notEmpty" class="fv-help-block">{{ $message }}</div>
                                         </div>

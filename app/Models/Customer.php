@@ -13,8 +13,6 @@ class Customer extends Model
         'name',
         'phone',
         'person_id',
-        'person_id_address',
-        'person_id_date',
         'address',
         'permanent_residence',
         'user_id'

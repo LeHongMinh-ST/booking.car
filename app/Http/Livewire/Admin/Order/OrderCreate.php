@@ -162,12 +162,13 @@ class OrderCreate extends Component
             ]);
 
             $customerOrder->orders()->create([
-                'name' => 'Yêu cầu thuê xe - ' . $product->name . ' - ' . $product->license_plates,
+                'name' => 'Yêu cầu thuê xe - ' . $product->name . ' - ' . $product->license_plates . ' - ' . $this->name,
                 'code' => 'YCTX'. Carbon::now()->timestamp,
                 'pick_date' => Carbon::make($this->orderTime['start'])->timestamp,
                 'drop_date' => Carbon::make($this->orderTime['end'])->timestamp,
                 'price_deposits' => $this->priceDeposits,
                 'product_order_id' => $productOrder->id,
+                'status' => $productOrder->priceDeposits > 0 ? Order::STATUS['deposited'] : Order::STATUS['no_deposit_yet'],
             ]);
 
             session()->flash('success', 'Tạo mới thành công');

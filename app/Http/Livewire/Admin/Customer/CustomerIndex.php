@@ -3,7 +3,6 @@
 namespace App\Http\Livewire\Admin\Customer;
 
 use App\Models\Customer;
-use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Livewire\Component;
@@ -16,8 +15,6 @@ class CustomerIndex extends Component
     protected $paginationTheme = 'bootstrap';
 
     public $perPage = 10;
-    public $showDeleteModal = false;
-    public $showResetModal = false;
     public $selectId;
     public $status = "";
     public $search = '';
@@ -85,6 +82,13 @@ class CustomerIndex extends Component
         }
     }
 
+    public function resetForm()
+    {
+        $this->password = '';
+        $this->password_confirmation = '';
+        $this->selectId = null;
+    }
+
     public function resetPassword()
     {
         if (!checkPermission('customer-update')) {
@@ -121,19 +125,18 @@ class CustomerIndex extends Component
     public function openDeleteModal($id)
     {
         $this->selectId = $id;
-        $this->showDeleteModal = true;
+        $this->dispatchBrowserEvent('openDeleteModal');
     }
 
     public function openResetModal($id)
     {
         $this->selectId = $id;
-        $this->showResetModal = true;
+        $this->dispatchBrowserEvent('openResetModal');
     }
 
     public function closeModal()
     {
-        $this->selectId = null;
-        $this->showDeleteModal = false;
-        $this->showResetModal = false;
+        $this->resetForm();
+        $this->dispatchBrowserEvent('closeModal');
     }
 }

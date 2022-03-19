@@ -12,6 +12,7 @@
 <!--begin::Global Stylesheets Bundle(used by all pages)-->
 <link href="{{ asset('admin/assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
 <link href="{{ asset('admin/assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
+<link href="{{ asset('admin/assets/css/custom.css') }}" rel="stylesheet" type="text/css" />
 
 @yield('style')
 @livewireStyles

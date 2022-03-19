@@ -20,8 +20,6 @@ class CustomerUpdate extends Component
     public $person_id;
     public $address;
     public $permanentResidence;
-    public $personIDAddress;
-    public $personIDDate;
     public $thumbnail;
     public $selectId;
     public $isActive;
@@ -43,8 +41,6 @@ class CustomerUpdate extends Component
             $this->isActive = $customer->user ? $customer->user->is_active : '';;
             $this->address = $customer->address;
             $this->person_id = $customer->person_id;
-            $this->personIDDate = $customer->person_id_date;
-            $this->personIDAddress = $customer->person_id_address;
             $this->permanentResidence = $customer->permanent_residence;
             $this->selectId = $customer->id;
             $this->userID = $customer->user ? $customer->user->id : '';
@@ -74,9 +70,7 @@ class CustomerUpdate extends Component
             ],
             'person_id' => 'required|string|max:255|unique:customers,person_id,' . $this->selectId,
             'permanentResidence' => 'required|string|max:255',
-            'address' => 'required|string',
-            'personIDAddress' => 'required|string',
-            'personIDDate' => 'required|string|date|date_format:d-m-Y',
+            'address' => 'required|string'
         ];
     }
 
@@ -86,8 +80,6 @@ class CustomerUpdate extends Component
         'personID' => 'CCCD/CMT',
         'address' => 'Địa chỉ',
         'permanentResidence' => 'Hộ khẩu thường chú',
-        'personIDAddress' => 'Nơi cấp',
-        'personIDDate' => 'Ngày cấp',
     ];
 
     public function updated($propertyName)
@@ -116,8 +108,6 @@ class CustomerUpdate extends Component
                 'person_id' => $this->person_id,
                 'address' => $this->address,
                 'permanent_residence' => $this->permanentResidence,
-                'person_id_address' => $this->personIDAddress,
-                'person_id_date' => $this->personIDDate,
             ]);
 
             if ($customer->user) {

@@ -12,12 +12,23 @@
             $('#deleteModal').modal('hide')
         })
 
+
+        $('#filterStatus').change(function () {
+            Livewire.emit('changeFilterStatus', $(this).val())
+        })
+
+        window.addEventListener('clearFilter', () =>{
+            $('#filterStatus').val(null).trigger('change')
+            $("#orderTime").data('daterangepicker').setStartDate(moment().toDate())
+            $("#orderTime").data('daterangepicker').setEndDate(moment().toDate())
+            $("#orderTime").val(null).trigger('change')
+            Livewire.emit('changeOrderTime', {})
+        })
+
         $("#orderTime").daterangepicker({
             timePicker: true,
-            startDate: moment().startOf("hour"),
-            endDate: moment().startOf("hour").add(32, "hour"),
             locale: {
-                format: "DD/M/YYYY hh:mm A",
+                format: "DD/M/YYYY HH:mm:ss",
                 cancelLabel: 'Thoát',
                 applyLabel: 'Đồng ý',
                 separator: " - ",
@@ -48,17 +59,13 @@
                     "Tháng 12",
                 ],
             },
+        }).on('change', function () {
+            Livewire.emit('changeOrderTime', {
+                'start': $(this).data('daterangepicker').startDate.format('DD-M-YYYY HH:mm:ss'),
+                'end': $(this).data('daterangepicker').endDate.format('DD-M-YYYY HH:mm:ss')
+            })
         })
-
-        var options = {
-            filebrowserImageBrowseUrl: '/admin/laravel-filemanager?type=Images',
-            filebrowserImageUploadUrl: '/admin/laravel-filemanager/upload?type=Images&_token=',
-            filebrowserBrowseUrl: '/admin/laravel-filemanager?type=Files',
-            filebrowserUploadUrl: '/admin/laravel-filemanager/upload?type=Files&_token='
-        };
-        CKEDITOR.replace('editor', options).on('change', (e) => {
-            Livewire.emit('updateDescription', e.editor.getData())
-        })
+        $("#orderTime").val(null).trigger('change')
     </script>
 @endsection
 
@@ -140,6 +147,72 @@
                     <!--begin::Card toolbar-->
                     <div class="card-toolbar">
                         <!--begin::Toolbar-->
+                        <button type="button" class="btn btn-light-primary me-3" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end" data-kt-menu-flip="top-end">
+                            <!--begin::Svg Icon | path: icons/stockholm/Text/Filter.svg-->
+                            <span class="svg-icon svg-icon-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                        <rect x="0" y="0" width="24" height="24"></rect>
+                                        <path d="M5,4 L19,4 C19.2761424,4 19.5,4.22385763 19.5,4.5 C19.5,4.60818511 19.4649111,4.71345191 19.4,4.8 L14,12 L14,20.190983 C14,20.4671254 13.7761424,20.690983 13.5,20.690983 C13.4223775,20.690983 13.3458209,20.6729105 13.2763932,20.6381966 L10,19 L10,12 L4.6,4.8 C4.43431458,4.5790861 4.4790861,4.26568542 4.7,4.1 C4.78654809,4.03508894 4.89181489,4 5,4 Z" fill="#000000"></path>
+                                    </g>
+                                </svg>
+                            </span>
+                            <!--end::Svg Icon-->Lọc
+                        </button>
+
+                        <div class="menu menu-sub menu-sub-dropdown w-300px w-md-325px" data-kt-menu="true" wire:ignore>
+                            <!--begin::Header-->
+                            <div class="px-7 py-5">
+                                <div class="fs-4 text-dark fw-bolder">Lọc</div>
+                            </div>
+                            <!--end::Header-->
+                            <!--begin::Separator-->
+                            <div class="separator border-gray-200"></div>
+                            <!--end::Separator-->
+                            <!--begin::Content-->
+                            <div class="px-7 py-5">
+                                <!--begin::Input group-->
+                                <div class="mb-10"  wire:ignore>
+                                    <!--begin::Label-->
+                                    <label class="form-label fs-5 fw-bold mb-3">Trạng thái:</label>
+                                    <!--end::Label-->
+                                    <!--begin::Input-->
+                                    <select wire:model="status"
+                                            class="form-select form-select-solid"
+                                            data-allow-clear="true"
+                                            id="filterStatus"
+                                            data-control="select2"
+                                            data-hide-search="true"
+                                            data-placeholder="Chọn trạng thái"
+                                    >
+                                        <option value=""></option>
+                                        <option value="{{ \App\Models\Order::STATUS['no_deposit_yet'] }}">Chưa đặt cọc</option>
+                                        <option value="{{ \App\Models\Order::STATUS['deposited'] }}">Đã đặt cọc</option>
+                                        <option value="{{ \App\Models\Order::STATUS['contract'] }}">Hợp đồng</option>
+                                        <option value="{{ \App\Models\Order::STATUS['cancel'] }}">Hủy</option>
+                                    </select>
+
+                                    <!--end::Input-->
+                                </div>
+
+                                <div class="mb-10">
+                                    <!--begin::Label-->
+                                    <label class="form-label fs-5 fw-bold mb-3">Ngày thuê xe:</label>
+                                    <!--end::Label-->
+                                    <!--begin::Input-->
+                                    <input class="form-control form-control-solid" wire:modal="orderTime"
+                                           placeholder="Chọn thời gian thuê" id="orderTime"/>
+
+                                    <!--end::Input-->
+                                </div>
+                                <div class="d-flex justify-content-end" wire:ignore>
+                                    <button type="reset" wire:click="resetFilter" class="btn btn-white btn-active-light-primary me-2">Khôi phục</button>
+                                </div>
+                                <!--end::Actions-->
+                            </div>
+                            <!--end::Content-->
+                        </div>
+
                         <div class="d-flex justify-content-end" data-kt-customer-table-toolbar="base">
                             <!--begin::Add customer-->
                             <a href="{{ route('admin.order.create') }}" type="button" class="btn btn-primary">
@@ -180,28 +253,45 @@
                     <!--begin::Table-->
                     <div id="kt_customers_table_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
                         <div class="table-responsive">
-                            <table class="table align-middle table-row-dashed fs-6 gy-5 dataTable no-footer"
-                                   id="kt_customers_table" role="grid">
+                            <table
+                                class="table align-middle table-rounded table-row-dashed fs-6 gy-5 dataTable no-footer"
+                                id="kt_customers_table" role="grid">
                                 <!--begin::Table head-->
                                 <thead>
                                 <!--begin::Table row-->
                                 <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0" role="row">
-                                    <th style="width: 50px;" >
+                                    <th style="width: 50px;">
                                         STT
                                     </th>
-                                    <th class="min-w-125px" tabindex="0"
-                                        style="width: 100px;">Ảnh
-                                    </th>
                                     <th class="min-w-125px"
-                                        style="width: 163.734px;">Tên nhãn hiệu
+                                        style="width: 163.734px;">Tên hợp đồng
                                     </th>
 
-                                    <th class="min-w-125px" t
+                                    <th class="min-w-125px"
+                                        style="width: 163.734px;">Mã yêu cầu
+                                    </th>
+                                    <th class="min-w-125px"
+                                        style="width: 163.734px;">Tên khách hàng
+                                    </th>
+
+                                    <th class="min-w-125px"
+                                        style="width: 163.734px;">Xe thuê
+                                    </th>
+
+                                    <th class="min-w-125px"
+                                        style="width: 163.734px;">Thời gian bắt đầu
+                                    </th>
+
+                                    <th class="min-w-125px"
+                                        style="width: 163.734px;">Thời gian trả xe
+                                    </th>
+
+                                    <th class="min-w-125px"
                                         style="width: 163.734px;">Trạng thái
                                     </th>
 
-                                    <th class="text-end min-w-70px sorting_disabled" rowspan="1" colspan="1"
-                                        aria-label="Actions" style="width: 118.438px;">Hành động
+                                    <th class="text-center min-w-70px sorting_disabled" rowspan="1" colspan="1"
+                                        aria-label="Actions" style="width: 200px;">Hành động
                                     </th>
                                 </tr>
                                 <!--end::Table row-->
@@ -215,62 +305,83 @@
                                         <td>
                                             {{ $loop->index + 1 + $orders->perPage() * ($orders->currentPage() - 1)   }}
                                         </td>
-                                        <td>
-                                            @if($order->thumbnail)
-                                                <img class="image-input-wrapper w-100px h-100px image-input-outline" src="{{ $order->thumbnail }}" alt="">
-                                            @else
-                                                <img class="image-input-wrapper w-100px h-100px image-input-outline" src="{{ asset('admin/assets/img/default-image.jpg') }}" alt="">
-                                            @endif
-                                        </td>
                                         <!--end::Name=-->
                                         <!--end::Payment method=-->
                                         <!--begin::Date=-->
-                                        <td>{{ $order->name }}</td>
-                                        <td>{!! $order->is_active ? '<span class="badge badge-success">Kích hoạt</span>' : '<span class="badge badge-danger">Khóa</span>' !!}</td>
+                                        <td><a href="#" wire:click="openDetailModal({{ $order->id }})">{{ $order->name }}</a></td>
+                                        <td>{{ $order->code }}</td>
+                                        <td>{{ $order->customerOrder->name }}</td>
+                                        <td>{{ $order->productOrder->name }}</td>
+                                        <td>{{ $order->pickDateText }}</td>
+                                        <td>{{ $order->dropDateText }}</td>
+                                        <td>{!! $order->statusText !!}</td>
 
                                         <!--end::Date=-->
                                         <!--begin::Action=-->
-                                        <td class="text-end">
-                                            <a href="#" class="btn btn-sm btn-light btn-active-light-primary"
-                                               data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end"
-                                               data-kt-menu-flip="top-end">Tuỳ chọn
-                                                <!--begin::Svg Icon | path: icons/stockholm/Navigation/Angle-down.svg-->
-                                                <span class="svg-icon svg-icon-5 m-0">
-															<svg xmlns="http://www.w3.org/2000/svg"
-                                                                 xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
-                                                                 height="24px" viewBox="0 0 24 24" version="1.1">
-																<g stroke="none" stroke-width="1" fill="none"
-                                                                   fill-rule="evenodd">
-																	<polygon points="0 0 24 0 24 24 0 24"></polygon>
-																	<path
-                                                                        d="M6.70710678,15.7071068 C6.31658249,16.0976311 5.68341751,16.0976311 5.29289322,15.7071068 C4.90236893,15.3165825 4.90236893,14.6834175 5.29289322,14.2928932 L11.2928932,8.29289322 C11.6714722,7.91431428 12.2810586,7.90106866 12.6757246,8.26284586 L18.6757246,13.7628459 C19.0828436,14.1360383 19.1103465,14.7686056 18.7371541,15.1757246 C18.3639617,15.5828436 17.7313944,15.6103465 17.3242754,15.2371541 L12.0300757,10.3841378 L6.70710678,15.7071068 Z"
-                                                                        fill="#000000" fill-rule="nonzero"
-                                                                        transform="translate(12.000003, 11.999999) rotate(-180.000000) translate(-12.000003, -11.999999)"></path>
-																</g>
-															</svg>
-														</span>
-                                                <!--end::Svg Icon--></a>
-                                            <!--begin::Menu-->
-                                            <div
-                                                class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
-                                                data-kt-menu="true">
-                                                <!--begin::Menu item-->
-                                                @if(checkPermission('order-update'))
-                                                    <div class="menu-item px-3">
-                                                        <a href="{{ route('admin.order.edit', $order->id) }}" class="menu-link px-3">Sửa</a>
-                                                    </div>
-                                                @endif
-                                            <!--end::Menu item-->
-                                                <!--begin::Menu item-->
-                                                @if(checkPermission('order-delete'))
-                                                    <div class="menu-item px-3">
-                                                    <span  wire:click="openDeleteModal({{ $order->id }})" class="menu-link px-3"
-                                                           data-kt-customer-table-filter="delete_row">Xoá</span>
-                                                    </div>
+                                        <td class="text-center btnAction">
+                                            <span
+                                                class="btn btn-sm btn-clean btn-icon mr-2"
+                                                style="cursor: pointer" title="Chi tiết"
+                                                wire:click="openDetailModal({{ $order->id }})" >
+                                                  <span class="svg-icon svg-icon-2">
+                                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                                         xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
+                                                         height="24px" viewBox="0 0 24 24" version="1.1">
+                                                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                            <rect x="0" y="0" width="24" height="24"/>
+                                                            <path d="M3,12 C3,12 5.45454545,6 12,6 C16.9090909,6 21,12 21,12 C21,12 16.9090909,18 12,18 C5.45454545,18 3,12 3,12 Z" fill="#000000" fill-rule="nonzero" opacity="0.3"/>
+                                                            <path d="M12,15 C10.3431458,15 9,13.6568542 9,12 C9,10.3431458 10.3431458,9 12,9 C13.6568542,9 15,10.3431458 15,12 C15,13.6568542 13.6568542,15 12,15 Z" fill="#000000" opacity="0.3"/>
+                                                        </g>
+                                                    </svg>
+                                                  </span>
+                                            </span>
+
+                                            @if(checkPermission('order-update'))
+                                            <a href="{{ route('admin.order.edit', $order->id) }}" class="btn btn-sm btn-clean btn-icon mr-2"
+                                               title="Chỉnh sửa">
+                                                <span class="svg-icon svg-icon-2"><!--begin::Svg Icon | path:/var/www/preview.keenthemes.com/metronic/releases/2021-05-14-112058/theme/html/demo2/dist/../src/media/svg/icons/Design/Edit.svg--><svg
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                        xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
+                                                        height="24px" viewBox="0 0 24 24" version="1.1">
+                                                        <g stroke="none" stroke-width="1" fill="none"
+                                                           fill-rule="evenodd">
+                                                            <rect x="0" y="0" width="24" height="24"/>
+                                                            <path
+                                                                d="M8,17.9148182 L8,5.96685884 C8,5.56391781 8.16211443,5.17792052 8.44982609,4.89581508 L10.965708,2.42895648 C11.5426798,1.86322723 12.4640974,1.85620921 13.0496196,2.41308426 L15.5337377,4.77566479 C15.8314604,5.0588212 16,5.45170806 16,5.86258077 L16,17.9148182 C16,18.7432453 15.3284271,19.4148182 14.5,19.4148182 L9.5,19.4148182 C8.67157288,19.4148182 8,18.7432453 8,17.9148182 Z"
+                                                                fill="#000000" fill-rule="nonzero"
+                                                                transform="translate(12.000000, 10.707409) rotate(-135.000000) translate(-12.000000, -10.707409) "/>
+                                                            <rect fill="#000000" opacity="0.3" x="5" y="20"
+                                                                  width="15" height="2" rx="1"/>
+                                                        </g>
+                                                    </svg><!--end::Svg Icon-->
+                                                </span>
+                                            </a>
                                             @endif
 
-                                            <!--end::Menu item-->
-                                            </div>
+                                            @if(checkPermission('order-delete'))
+                                            <span
+                                                class="btn btn-sm btn-clean btn-icon mr-2"
+                                                style="cursor: pointer" title="Xóa"
+                                                wire:click="openDeleteModal({{ $order->id }})" >
+                                                  <span class="svg-icon svg-icon-2">
+                                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                                         xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
+                                                         height="24px" viewBox="0 0 24 24" version="1.1">
+                                                    <g
+                                                        stroke="none" stroke-width="1" fill="none"
+                                                        fill-rule="evenodd">
+                                                        <rect
+                                                            x="0" y="0" width="24" height="24"></rect>
+                                                        <path
+                                                            d="M6,8 L6,20.5 C6,21.3284271 6.67157288,22 7.5,22 L16.5,22 C17.3284271,22 18,21.3284271 18,20.5 L18,8 L6,8 Z"
+                                                            fill="#000000" fill-rule="nonzero"></path>
+                                                        <path
+                                                            d="M14,4.5 L14,4 C14,3.44771525 13.5522847,3 13,3 L11,3 C10.4477153,3 10,3.44771525 10,4 L10,4.5 L5.5,4.5 C5.22385763,4.5 5,4.72385763 5,5 L5,5.5 C5,5.77614237 5.22385763,6 5.5,6 L18.5,6 C18.7761424,6 19,5.77614237 19,5.5 L19,5 C19,4.72385763 18.7761424,4.5 18.5,4.5 L14,4.5 Z"
+                                                            fill="#000000" opacity="0.3"></path>
+                                                    </g>	                                </svg>
+                                                  </span>
+                                            </span>
+                                            @endif
                                             <!--end::Menu-->
                                         </td>
 
@@ -278,7 +389,7 @@
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="5" style="text-align: center">
+                                        <td colspan="9" style="text-align: center">
                                             Không có bản ghi nào phù hợp!
                                         </td>
                                     </tr>

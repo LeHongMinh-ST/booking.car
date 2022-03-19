@@ -323,6 +323,13 @@ class PermissionSeeder extends Seeder
         ]);
 
         self::checkIssetBeforeCreate([
+            'code' => 'customer-reset-password',
+            'name' => 'Đặt mật khẩu tài khoản khách hàng',
+            'group_code' => 'customer',
+            'description' => 'Có quyền đặt mật khẩu tài khoản khách hàng'
+        ]);
+
+        self::checkIssetBeforeCreate([
             'code' => 'statistic-revenue',
             'name' => 'Xem thống kê doanh thu',
             'group_code' => 'statistic',

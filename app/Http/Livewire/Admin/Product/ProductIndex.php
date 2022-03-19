@@ -106,12 +106,12 @@ class ProductIndex extends Component
     public function openDeleteModal($id)
     {
         $this->deleteId = $id;
-        $this->showDeleteModal = true;
+        $this->dispatchBrowserEvent('openDeleteModal');
     }
 
     public function closeModal()
     {
         $this->deleteId = null;
-        $this->showDeleteModal = false;
+        $this->dispatchBrowserEvent('closeModal');
     }
 }
