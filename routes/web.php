@@ -13,6 +13,7 @@ use App\Http\Livewire\Admin\Home\Dashboard;
 use App\Http\Livewire\Admin\Order\OrderIndex;
 use App\Http\Livewire\Admin\Order\OrderCreate;
 use App\Http\Livewire\Admin\Order\OrderUpdate;
+use App\Http\Livewire\Admin\Order\OrderDetail;
 use App\Http\Livewire\Admin\Product\ProductCreate;
 use App\Http\Livewire\Admin\Product\ProductDetail;
 use App\Http\Livewire\Admin\Product\ProductIndex;
@@ -87,6 +88,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
         Route::prefix('order')->group(function () {
             Route::get('/',OrderIndex::class)->middleware('permission:order-index')->name('order');
             Route::get('/create',OrderCreate::class)->middleware('permission:order-create')->name('order.create');
+            Route::get('/{id}',OrderDetail::class)->middleware('permission:order-index')->name('order.detail');
             Route::get('/{id}/edit',OrderUpdate::class)->middleware('permission:order-update')->name('order.edit');
         });
 

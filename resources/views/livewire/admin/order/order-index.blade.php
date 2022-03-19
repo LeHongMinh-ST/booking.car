@@ -308,7 +308,7 @@
                                         <!--end::Name=-->
                                         <!--end::Payment method=-->
                                         <!--begin::Date=-->
-                                        <td><a href="#" wire:click="openDetailModal({{ $order->id }})">{{ $order->name }}</a></td>
+                                        <td><a href="{{ route('admin.order.detail', $order->id) }}">{{ $order->name }}</a></td>
                                         <td>{{ $order->code }}</td>
                                         <td>{{ $order->customerOrder->name }}</td>
                                         <td>{{ $order->productOrder->name }}</td>
@@ -319,10 +319,9 @@
                                         <!--end::Date=-->
                                         <!--begin::Action=-->
                                         <td class="text-center btnAction">
-                                            <span
+                                            <a href="{{ route('admin.order.detail', $order->id) }}"
                                                 class="btn btn-sm btn-clean btn-icon mr-2"
-                                                style="cursor: pointer" title="Chi tiết"
-                                                wire:click="openDetailModal({{ $order->id }})" >
+                                                style="cursor: pointer" title="Chi tiết">
                                                   <span class="svg-icon svg-icon-2">
                                                     <svg xmlns="http://www.w3.org/2000/svg"
                                                          xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
@@ -334,7 +333,7 @@
                                                         </g>
                                                     </svg>
                                                   </span>
-                                            </span>
+                                            </a>
 
                                             @if(checkPermission('order-update'))
                                             <a href="{{ route('admin.order.edit', $order->id) }}" class="btn btn-sm btn-clean btn-icon mr-2"
