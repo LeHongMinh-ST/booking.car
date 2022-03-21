@@ -165,7 +165,9 @@ class OrderUpdate extends Component
 
                 $this->productOrderId = $productOrder->id;
             }
-
+            if (!($this->status == Order::STATUS['cancel'] || $this->status == Order::STATUS['contract'])) {
+                $this->status = $this->priceDeposits > 0 ? Order::STATUS['deposited'] : Order::STATUS['no_deposit_yet'];
+            }
 
             Order::query()->where('id', $this->orderId)->update([
                 'name' => 'Yêu cầu thuê xe - ' . $product->name . ' - ' . $product->license_plates . ' - ' . $this->name,
@@ -173,7 +175,7 @@ class OrderUpdate extends Component
                 'drop_date' => Carbon::make($this->orderTime['end'])->timestamp,
                 'price_deposits' => $this->priceDeposits,
                 'product_order_id' => $this->productOrderId,
-                'status' => $this->status,
+                'status' => $this->status
             ]);
 
             session()->flash('success', 'Cập nhật thành công');

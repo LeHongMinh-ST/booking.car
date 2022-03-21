@@ -152,7 +152,7 @@
 
                                     <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
 
-                                        <div class="fw-bold fs-6 text-gray-400">Ngày đăng kí</div>
+                                        <div class="fw-bold fs-6 text-gray-400">Ngày đăng ký</div>
 
                                         <!--begin::Number-->
                                         <div class="d-flex align-items-center">

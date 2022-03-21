@@ -11,11 +11,41 @@ class CategoryBlog extends Model
 
     protected $table = 'category_blogs';
 
+    const IS_ACTIVE = [
+        'deactivate' => 0,
+        'active' => 1
+    ];
+
     protected $fillable = [
         'name',
-        'slug',
-        'parent_id'
+        'description',
+        'parent_id',
+        'depth',
+        'is_active'
     ];
+
+    protected $appends = [
+        'parent'
+    ];
+
+    public function parent()
+    {
+        return $this->belongsTo(self::class, 'parent_id');
+    }
+
+    public function children()
+    {
+        return $this->hasMany(self::class, 'parent_id');
+    }
+
+    public function scopeName($query, $search)
+    {
+        if ($search) {
+            $query->where('name', 'like', '%' . $search . '%');
+        }
+
+        return $query;
+    }
 
     public function post()
     {

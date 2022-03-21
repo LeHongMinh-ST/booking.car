@@ -34,7 +34,7 @@ class Order extends Model
     public function getStatusTextAttribute()
     {
         $status = '';
-        switch ($this->status) {
+        switch ((int)$this->status) {
             case 1:
                 $status .= '<span class="badge badge-warning">Chưa đặt cọc</span>';
                 break;
@@ -53,6 +53,15 @@ class Order extends Model
         }
         return $status;
     }
+
+    public function getTotalPriceAttribute()
+    {
+        $pickDate = Carbon::createFromTimestamp($this->pick_date);
+        $dropDate = Carbon::createFromTimestamp($this->drop_date);
+        $date = $pickDate->diffInDays($dropDate);
+        return  $date * $this->productOrder->price;
+    }
+
     public function getPickDateTextAttribute()
     {
         return  Carbon::createFromTimestamp($this->pick_date)->format('H:m:s d/m/Y');

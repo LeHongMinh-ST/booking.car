@@ -351,36 +351,6 @@
                         <!--end::Body-->
                     </div>
                     <!--end::Security recent alerts-->
-                    <div class="card mb-5 mb-xl-10">
-
-                        <div class="card-header card-header-stretch">
-                            <!--begin::Title-->
-                            <div class="card-title">
-                                <h3 class="m-0 text-gray-900">Trạng thái</h3>
-                            </div>
-                            <!--end::Title-->
-                            <!--begin::Toolbar-->
-                            <!--end::Toolbar-->
-                        </div>
-                        <!--begin::Body-->
-                        <div class="card-body pt-5">
-                            <!--begin::Carousel-->
-                            <div class="d-flex flex-column mb-10 fv-row">
-                                <!--begin::Label-->
-                                <!--end::Label-->
-                                <!--begin::Select-->
-                                <select wire:model="status" class="form-select form-select-solid">
-                                    <option value="{{ \App\Models\Order::STATUS['no_deposit_yet'] }}">Chưa đặt cọc</option>
-                                    <option value="{{ \App\Models\Order::STATUS['deposited'] }}">Đã đặt cọc</option>
-                                    <option value="{{ \App\Models\Order::STATUS['contract'] }}">Hợp đồng</option>
-                                    <option value="{{ \App\Models\Order::STATUS['cancel'] }}">Hủy</option>
-                                </select>
-                                <!--end::Select-->
-                            </div>
-                            <!--end::Carousel-->
-                        </div>
-                        <!--end::Body-->
-                    </div>
 
                 </div>
             </div>

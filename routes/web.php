@@ -6,6 +6,7 @@ use App\Http\Livewire\Admin\Account\AccountIndex;
 use App\Http\Livewire\Admin\Account\AccountUpdate;
 use App\Http\Livewire\Admin\Brand\BrandIndex;
 use App\Http\Livewire\Admin\Category\CategoryIndex;
+use App\Http\Livewire\Admin\CategoryPost\CategoryPostIndex;
 use App\Http\Livewire\Admin\Customer\CustomerCreate;
 use App\Http\Livewire\Admin\Customer\CustomerIndex;
 use App\Http\Livewire\Admin\Customer\CustomerUpdate;
@@ -21,6 +22,9 @@ use App\Http\Livewire\Admin\Product\ProductUpdate;
 use App\Http\Livewire\Admin\Role\RoleCreate;
 use App\Http\Livewire\Admin\Role\RoleIndex;
 use App\Http\Livewire\Admin\Role\RoleUpdate;
+use App\Http\Livewire\Admin\Post\PostIndex;
+use App\Http\Livewire\Admin\Post\PostCreate;
+use App\Http\Livewire\Admin\Post\PostUpdate;
 use App\Http\Livewire\Client\Home;
 use App\Http\Livewire\Client\About;
 use App\Http\Livewire\Client\Service;
@@ -32,6 +36,7 @@ use App\Http\Livewire\Client\ListProductByCategory;
 use App\Http\Livewire\Client\Blog;
 use App\Http\Livewire\Client\Post;
 use App\Http\Livewire\Client\CategoryPost;
+use App\Models\CategoryBlog;
 use Illuminate\Support\Facades\Route;
 use UniSharp\LaravelFilemanager\Lfm;
 
@@ -55,8 +60,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
         Route::get('/role',RoleIndex::class)->name('role');
         Route::get('/brand',BrandIndex::class)->name('brand');
         Route::get('/category',CategoryIndex::class)->name('category');
-        Route::get('/category-post',CategoryIndex::class)->name('category-post');
-        Route::get('/post',CategoryIndex::class)->name('post');
+        Route::get('/category-post',CategoryPostIndex::class)->name('category-post');
         Route::get('/statistic/revenue',CategoryIndex::class)->name('statistic.revenue');
         Route::get('/statistic/product',CategoryIndex::class)->name('statistic.product');
 
@@ -65,6 +69,12 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
             Route::get('/create',ProductCreate::class)->middleware('permission:product-create')->name('product.create');
             Route::get('/{id}',ProductDetail::class)->middleware('permission:product-index')->name('product.detail');
             Route::get('/{id}/edit',ProductUpdate::class)->middleware('permission:product-update')->name('product.edit');
+        });
+
+        Route::prefix('post')->group(function () {
+            Route::get('/',PostIndex::class)->middleware('permission:post-index')->name('post');
+            Route::get('/create',PostCreate::class)->middleware('permission:post-create')->name('post.create');
+            Route::get('/{id}/edit',PostUpdate::class)->middleware('permission:post-update')->name('post.edit');
         });
 
         Route::prefix('customer')->group(function () {
@@ -88,7 +98,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
         Route::prefix('order')->group(function () {
             Route::get('/',OrderIndex::class)->middleware('permission:order-index')->name('order');
             Route::get('/create',OrderCreate::class)->middleware('permission:order-create')->name('order.create');
-            Route::get('/{id}',OrderDetail::class)->middleware('permission:order-index')->name('order.detail');
             Route::get('/{id}/edit',OrderUpdate::class)->middleware('permission:order-update')->name('order.edit');
         });
 

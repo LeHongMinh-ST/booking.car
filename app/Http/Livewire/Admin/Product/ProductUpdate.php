@@ -51,7 +51,7 @@ class ProductUpdate extends Component
         'name' => 'Tên xe',
         'price' => 'Giá thuê',
         'km' => 'Km',
-        'year' => 'Ngày đăng kí',
+        'year' => 'Ngày đăng ký',
         'color' => 'Màu sắc',
     ];
 

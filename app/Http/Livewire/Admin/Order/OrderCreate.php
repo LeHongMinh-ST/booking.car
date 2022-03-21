@@ -168,7 +168,7 @@ class OrderCreate extends Component
                 'drop_date' => Carbon::make($this->orderTime['end'])->timestamp,
                 'price_deposits' => $this->priceDeposits,
                 'product_order_id' => $productOrder->id,
-                'status' => $productOrder->priceDeposits > 0 ? Order::STATUS['deposited'] : Order::STATUS['no_deposit_yet'],
+                'status' =>  $this->priceDeposits > 0 ? Order::STATUS['deposited'] : Order::STATUS['no_deposit_yet'],
             ]);
 
             session()->flash('success', 'Tạo mới thành công');
