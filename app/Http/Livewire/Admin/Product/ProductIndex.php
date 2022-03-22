@@ -16,7 +16,6 @@ class ProductIndex extends Component
     protected $paginationTheme = 'bootstrap';
 
     public $perPage = 10;
-    public $showDeleteModal = false;
     public $deleteId;
     public $status = "";
     public $search = '';

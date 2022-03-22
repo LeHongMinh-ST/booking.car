@@ -34,6 +34,7 @@ class Login extends Component
         if (auth()->guard('admin')->attempt(['email' => $this->email, 'password' => $this->password])) {
             return redirect()->intended('admin/dashboard');
         }
+
         $this->addError('email', 'Email hoặc Mật khẩu không chính xác');
     }
 

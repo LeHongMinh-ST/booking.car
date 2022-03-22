@@ -51,7 +51,7 @@ class ProductCreate extends Component
     public function render()
     {
         $brands = Brand::where('is_active', Brand::IS_ACTIVE['active'])->get();
-        $categories = Category::where(['is_active' => Brand::IS_ACTIVE['active'], 'depth' => 0])
+        $categories = Category::where(['is_active' => Category::IS_ACTIVE['active'], 'depth' => 0])
             ->with('children')->get();
 
         return view('livewire.admin.product.product-create', [

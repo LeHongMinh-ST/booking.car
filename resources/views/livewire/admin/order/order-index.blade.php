@@ -471,7 +471,7 @@
                                                 </g>
                                             </svg>
                                             Tạo hợp đồng</span>
-                                        <span class="btn btn-light-danger m-1" wire:click="openCancelModal({{ $order->id }})">
+                                        <span class="btn btn-light-danger m-1" wire:click="openCancelModal({{ $selectId  }})">
                                             <span class="svg-icon svg-icon-primary svg-icon-2x"><!--begin::Svg Icon | path:/var/www/preview.keenthemes.com/metronic/releases/2021-05-14-112058/theme/html/demo2/dist/../src/media/svg/icons/Code/Error-circle.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                                                 <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                                                     <rect x="0" y="0" width="24" height="24"/>

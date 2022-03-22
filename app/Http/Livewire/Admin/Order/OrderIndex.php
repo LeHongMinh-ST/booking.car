@@ -100,6 +100,7 @@ class OrderIndex extends Component
         $order = Order::query()->with(['customerOrder', 'productOrder'])->find($id);
         if ($order) {
             $this->name = $order->name ?? '';
+            $this->selectId = $order->id ?? '';
             $this->customerName = $order->customerOrder->name ?? '';
             $this->personId = $order->customerOrder->person_id ?? '' ;
             $this->phone = $order->customerOrder->phone ?? '';
