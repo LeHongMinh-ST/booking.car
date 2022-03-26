@@ -119,6 +119,7 @@ class OrderCreate extends Component
         if (!checkPermission('order-create')) {
             $this->dispatchBrowserEvent('alert',
                 ['type' => 'error', 'message' => 'Bạn không có quyền thực hiện chức năng này!', 'title' => '403']);
+            return;
         }
 
         $this->validate();

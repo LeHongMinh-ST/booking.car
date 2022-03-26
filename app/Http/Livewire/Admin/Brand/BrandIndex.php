@@ -107,6 +107,7 @@ class BrandIndex extends Component
         if (!checkPermission('brand-update')) {
             $this->dispatchBrowserEvent('alert',
                 ['type' => 'error', 'message' => 'Bạn không có quyền thực hiện chức năng này!', 'title' => '403']);
+            return;
         }
 
         $this->validate();
@@ -149,6 +150,7 @@ class BrandIndex extends Component
         if (!checkPermission('brand-create')) {
             $this->dispatchBrowserEvent('alert',
                 ['type' => 'error', 'message' => 'Bạn không có quyền thực hiện chức năng này!', 'title' => '403']);
+            return;
         }
 
         $this->validate();
@@ -198,6 +200,7 @@ class BrandIndex extends Component
         if (!checkPermission('brand-delete')) {
             $this->dispatchBrowserEvent('alert',
                 ['type' => 'error', 'message' => 'Bạn không có quyền thực hiện chức năng này!', 'title' => '403']);
+            return;
         }
 
         try {

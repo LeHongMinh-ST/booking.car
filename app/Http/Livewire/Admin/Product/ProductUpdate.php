@@ -82,7 +82,7 @@ class ProductUpdate extends Component
             $this->otherParameters = $product->other_parameters;
             $this->status = $product->status;
             $this->productId  = $product->id;
-            $this->categoryChecked = $product->categories->pluck('id')->toArray();
+            $this->categoryChecked = $product->categories()->pluck('id')->toArray();
             foreach ($product->images as $image) {
                 $this->images[] = $image->image_url;
             }
@@ -143,6 +143,7 @@ class ProductUpdate extends Component
         if (!checkPermission('product-create')) {
             $this->dispatchBrowserEvent('alert',
                 ['type' => 'error', 'message' => 'Bạn không có quyền thực hiện chức năng này!', 'title' => '403']);
+            return;
         }
 
         $this->validate();

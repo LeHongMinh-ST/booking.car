@@ -15,7 +15,7 @@ class AddUserIdPostTable extends Migration
     {
         Schema::table('posts', function (Blueprint $table) {
             if (!Schema::hasColumn('posts', 'user_id')) {
-                $table->bigInteger('is_active')->nullable();
+                $table->bigInteger('user_id')->nullable();
             }
         });
     }
@@ -29,7 +29,7 @@ class AddUserIdPostTable extends Migration
     {
         Schema::table('posts', function (Blueprint $table) {
             if (Schema::hasColumn('posts', 'user_id')) {
-                $table->dropColumn('is_active')->nullable();
+                $table->dropColumn('user_id')->nullable();
             }
         });
     }

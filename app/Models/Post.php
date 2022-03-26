@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Http\Livewire\Client\CategoryPost;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -22,23 +21,24 @@ class Post extends Model
         'slug',
         'content',
         'description',
+        'user_id',
+        'status',
         'thumbnail'
     ];
 
     public function categories()
     {
-        return $this->belongsToMany(CategoryPost::class, 'category_blog_posts', 'category_blog_id', 'id');
+        return $this->belongsToMany(CategoryBlog::class, 'category_blog_posts', 'category_blog_id', 'post_id');
     }
 
     public function user() {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(Admin::class, 'user_id');
     }
 
     public function scopeName($query, $search)
     {
         if ($search) {
-            $query->where('name', 'like', '%' . $search . '%')->
-            orWhere('license_plates', 'like', '%' . $search . '%');
+            $query->where('title', 'like', '%' . $search . '%');
         }
 
         return $query;
@@ -64,7 +64,7 @@ class Post extends Model
                 $status .= '<span class="badge badge-danger">Ẩn</span>';
                 break;
             default:
-                $status .= '<span class="badge badge-warning">Công khai</span>';
+                $status .= '<span class="badge badge-success">Công khai</span>';
                 break;
         }
         return $status;
@@ -75,7 +75,7 @@ class Post extends Model
     {
         if ($categoryIds) {
             $query->whereHas('categories', function ($q) use ($categoryIds) {
-                $q->whereIn('categories.id', $categoryIds);
+                $q->whereIn('category_blogs.id', $categoryIds);
             });
         }
 

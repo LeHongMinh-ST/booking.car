@@ -14,6 +14,11 @@ class PostIndex extends Component
     public $status = "";
     public $search = '';
     public $categoryIds = [];
+    protected $listeners = [
+        'changeFilterCategories' => 'updateCategoryIds',
+        'changeFilterStatus' => 'updateStatus',
+    ];
+
 
     public function render()
     {
@@ -21,7 +26,7 @@ class PostIndex extends Component
             ->name($this->search)
             ->filterCategory($this->categoryIds)
             ->status($this->status)
-            ->with(['categories', 'brand'])->paginate($this->perPage);
+            ->with(['categories'])->paginate($this->perPage);
         $categories = CategoryBlog::query()->where('is_active', CategoryBlog::IS_ACTIVE['active'])->get();
 
         return view('livewire.admin.post.post-index',[
