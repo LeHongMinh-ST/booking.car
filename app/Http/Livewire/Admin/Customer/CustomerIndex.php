@@ -62,6 +62,7 @@ class CustomerIndex extends Component
         if (!checkPermission('customer-delete')) {
             $this->dispatchBrowserEvent('alert',
                 ['type' => 'error', 'message' => 'Bạn không có quyền thực hiện chức năng này!!', 'title' => '403']);
+            return false;
         }
 
         try {
@@ -94,6 +95,7 @@ class CustomerIndex extends Component
         if (!checkPermission('customer-update')) {
             $this->dispatchBrowserEvent('alert',
                 ['type' => 'error', 'message' => 'Bạn không có quyền thực hiện chức năng này!!', 'title' => '403']);
+            return false;
         }
 
         $this->validate();

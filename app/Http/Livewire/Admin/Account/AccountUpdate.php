@@ -106,7 +106,7 @@ class AccountUpdate extends Component
         if (!checkPermission('account-update')) {
             $this->dispatchBrowserEvent('alert',
                 ['type' => 'error', 'message' => 'Bạn không có quyền thực hiện chức năng này!', 'title' => '403']);
-            return;
+            return false;
         }
 
         $this->validate();

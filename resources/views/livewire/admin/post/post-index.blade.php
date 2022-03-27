@@ -301,7 +301,7 @@
                                                 </a>
                                             @endif
 
-                                            @if(checkPermission('post-delete'))
+                                            @if(checkPermission('post-delete') && $post->user_id == auth('admin')->user()->id)
                                                 <span
                                                     class="btn btn-sm btn-clean btn-icon mr-2"
                                                     style="cursor: pointer" title="Xóa"

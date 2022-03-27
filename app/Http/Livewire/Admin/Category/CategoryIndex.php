@@ -121,7 +121,7 @@ class CategoryIndex extends Component
         if (!checkPermission('category-create')) {
             $this->dispatchBrowserEvent('alert',
                 ['type' => 'error', 'message' => 'Bạn không có quyền thực hiện chức năng này!', 'title' => '403']);
-            return;
+            return false;
         }
 
         $this->validate();
@@ -163,7 +163,7 @@ class CategoryIndex extends Component
         if (!checkPermission('category-update')) {
             $this->dispatchBrowserEvent('alert',
                 ['type' => 'error', 'message' => 'Bạn không có quyền thực hiện chức năng này!', 'title' => '403']);
-            return;
+            return false;
         }
 
         $this->validate();
@@ -206,7 +206,7 @@ class CategoryIndex extends Component
         if (!checkPermission('category-delete')) {
             $this->dispatchBrowserEvent('alert',
                 ['type' => 'error', 'message' => 'Bạn không có quyền thực hiện chức năng này!', 'title' => '403']);
-            return;
+            return false;
         }
 
         try {

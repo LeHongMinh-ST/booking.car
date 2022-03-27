@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -51,6 +52,11 @@ class Post extends Model
         }
 
         return $query;
+    }
+
+    public function getCreatedAtTextAttribute()
+    {
+        return Carbon::make($this->created_at)->format('H:m d/m/Y');
     }
 
     public function getStatusTextAttribute()

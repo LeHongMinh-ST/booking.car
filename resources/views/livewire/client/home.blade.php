@@ -230,75 +230,31 @@
                 <div class="inner">
                     <div class="inner_wrapper">
                         <div class="blog_grid_wrapper sidebar_content full_width ppb_blog_posts">
+                            @foreach($posts as $post)
                             <div id="post-18" class="post type-post hentry status-publish ">
                                 <div class="post_wrapper grid_layout">
                                     <div class="post_img small static">
-                                        <a href="#">
-                                            <img src="{{ asset('client/upload/nw6xremkxkg-nicolai-berntsen-960x636.jpg') }}" alt="What To Do if Your Rental Car Has Met With An Accident" class="" />
-                                        </a>
+                                        <a href="{{ route('post', $post->slug) }}">
+                                            <div style="width: 390px; height: 260px; background-image: url('{{$post->thumbnail}}'); background-size: cover; object-fit: cover" ></div>
+                                            </a>
                                     </div>
                                     <div class="post_header_wrapper">
                                         <div class="post_header grid">
                                             <div class="post_detail single_post">
                                                         <span class="post_info_date">
-													    	<a href="#" title="What To Do if Your Rental Car Has Met With An Accident">January 12, 2017</a>
+													    	<a href="{{ route('post', $post->slug) }}" title="{{ $post->title }}">{{ $post->createdAtText }}</a>
 													    </span>
                                             </div>
-                                            <h6><a href="#" title="What To Do if Your Rental Car Has Met With An Accident">What To Do if Your Rental Car Has Met With An Accident</a></h6>
+                                            <h6><a href="{{ route('post', $post->slug) }}" title="{{ $post->title }}">{{ $post->title }}</a></h6>
                                         </div>
-                                        <p>Meh synth Schlitz, tempor duis single-origin coffee ea next level ethnic fingerstache...
+                                        <p class="sortText">{{ $post->description }}
                                         <div class="post_button_wrapper">
-                                            <a class="readmore" href="#">Đọc thêm<span class="ti-angle-right"></span></a>
+                                            <a class="readmore" href="{{ route('post', $post->slug) }}">Đọc thêm<span class="ti-angle-right"></span></a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div id="post-29" class="post type-post hentry status-publish ">
-                                <div class="post_wrapper grid_layout">
-                                    <div class="post_img small static">
-                                        <a href="#">
-                                            <img src="{{ asset('client/upload/IMG_3496bfree-960x636.jpg') }}" alt="On The Trail of 6 Best Foods in North America" class="" />
-                                        </a>
-                                    </div>
-                                    <div class="post_header_wrapper">
-                                        <div class="post_header grid">
-                                            <div class="post_detail single_post">
-                                                        <span class="post_info_date">
-													    	<a href="#" title="On The Trail of 6 Best Foods in North America">January 10, 2017</a>
-													    </span>
-                                            </div>
-                                            <h6><a href="#" title="On The Trail of 6 Best Foods in North America">On The Trail of 6 Best Foods in North America</a></h6>
-                                        </div>
-                                        <p>Meh synth Schlitz, tempor duis single-origin coffee ea next level ethnic fingerstache...
-                                        <div class="post_button_wrapper">
-                                            <a class="readmore" href="#">Đọc thêm<span class="ti-angle-right"></span></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div id="post-36" class="post type-post hentry status-publish last">
-                                <div class="post_wrapper grid_layout">
-                                    <div class="post_img small static">
-                                        <a href="#">
-                                            <img src="{{ asset('client/upload/pexels-photo-2-960x636.jpg') }}" alt="Car Rental Mistakes That Can Cost You Big" class="" />
-                                        </a>
-                                    </div>
-                                    <div class="post_header_wrapper">
-                                        <div class="post_header grid">
-                                            <div class="post_detail single_post">
-                                                        <span class="post_info_date">
-													    	<a href="#" title="Car Rental Mistakes That Can Cost You Big">January 9, 2017</a>
-													    </span>
-                                            </div>
-                                            <h6><a href="#" title="Car Rental Mistakes That Can Cost You Big">Car Rental Mistakes That Can Cost You Big</a></h6>
-                                        </div>
-                                        <p>Meh synth Schlitz, tempor duis single-origin coffee ea next level ethnic fingerstache...
-                                        <div class="post_button_wrapper">
-                                            <a class="readmore" href="#">Đọc thêm<span class="ti-angle-right"></span></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            @endforeach
                             <br class="clear" />
                         </div>
                     </div>

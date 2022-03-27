@@ -64,11 +64,19 @@ class PostIndex extends Component
         if (!checkPermission('post-delete')) {
             $this->dispatchBrowserEvent('alert',
                 ['type' => 'error', 'message' => 'Bạn không có quyền thực hiện chức năng này!!', 'title' => '403']);
+            return false;
         }
 
         try {
-            Post::query()->where('id', $this->deleteId)->first()->categories()->detach();
+            $post = Post::query()->where('id', $this->deleteId)->first();
 
+            if ($post->user_id != auth('admin')->user()->id) {
+                $this->dispatchBrowserEvent('alert',
+                    ['type' => 'error', 'message' => 'Bạn không có quyền thực hiện chức năng này!', 'title' => '403']);
+                return false;
+            }
+
+            $post->categories()->detach();
             Post::destroy($this->deleteId);
             $this->dispatchBrowserEvent('alert',
                 ['type' => 'success', 'message' => 'Xóa thành công!']);

@@ -38,6 +38,7 @@ class RoleIndex extends Component
         if (!checkPermission('role-delete')) {
             $this->dispatchBrowserEvent('alert',
                 ['type' => 'error', 'message' => 'Bạn không có quyền thực hiện chức năng này!!', 'title' => '403']);
+            return false;
         }
 
         try {

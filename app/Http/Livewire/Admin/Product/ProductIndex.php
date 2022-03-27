@@ -80,6 +80,7 @@ class ProductIndex extends Component
         if (!checkPermission('product-delete')) {
             $this->dispatchBrowserEvent('alert',
                 ['type' => 'error', 'message' => 'Bạn không có quyền thực hiện chức năng này!!', 'title' => '403']);
+            return false;
         }
 
         try {

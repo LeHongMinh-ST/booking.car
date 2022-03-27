@@ -98,13 +98,13 @@ class PostUpdate extends Component
         if (!checkPermission('post-update')) {
             $this->dispatchBrowserEvent('alert',
                 ['type' => 'error', 'message' => 'Bạn không có quyền thực hiện chức năng này!', 'title' => '403']);
-            return;
+            return false;
         }
 
         if ($this->userId != auth('admin')->user()->id) {
             $this->dispatchBrowserEvent('alert',
                 ['type' => 'error', 'message' => 'Bạn không có quyền thực hiện chức năng này!', 'title' => '403']);
-            return;
+            return false;
         }
 
         $this->validate();
