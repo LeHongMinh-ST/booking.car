@@ -8,6 +8,7 @@ class Product extends Component
 {
     public function render()
     {
-        return view('livewire.client.product')->extends('client.layouts.master')->section('content');
+        return view('livewire.client.product')
+            ->extends('client.layouts.master')->section('content');
     }
 }

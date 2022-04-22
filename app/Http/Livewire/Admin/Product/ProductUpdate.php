@@ -70,6 +70,7 @@ class ProductUpdate extends Component
     public function mount($id)
     {
         $product = Product::query()->with(['categories', 'brand'])->find($id);
+
         if ($product) {
             $this->name = $product->name;
             $this->color = $product->color;
@@ -82,7 +83,7 @@ class ProductUpdate extends Component
             $this->otherParameters = $product->other_parameters;
             $this->status = $product->status;
             $this->productId  = $product->id;
-            $this->categoryChecked = $product->categories()->pluck('id')->toArray();
+            $this->categoryChecked = $product->categories()->pluck('categories.id')->toArray();
             foreach ($product->images as $image) {
                 $this->images[] = $image->image_url;
             }

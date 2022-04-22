@@ -27,8 +27,8 @@ class ChangeTimestampPickDateOrdersTable extends Migration
     public function down()
     {
         Schema::table('orders', function (Blueprint $table) {
-            $table->dateTime('pick_date')->change();
-            $table->dateTime('drop_date')->change();
+//            $table->dateTime('pick_date')->change();
+//            $table->dateTime('drop_date')->change();
         });
     }
 }
