@@ -260,6 +260,13 @@ class PermissionSeeder extends Seeder
         ]);
 
         self::checkIssetBeforeCreate([
+            'code' => 'order-approved',
+            'name' => 'Duyệt yêu cầu',
+            'group_code' => 'order',
+            'description' => 'Có duyệt yêu cầu'
+        ]);
+
+        self::checkIssetBeforeCreate([
             'code' => 'order-delete',
             'name' => 'Xoá yêu cầu',
             'group_code' => 'order',
