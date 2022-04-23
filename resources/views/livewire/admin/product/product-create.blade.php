@@ -208,6 +208,20 @@
                                     </div>
                                     @endforeach
                                 </div>
+                                <div class="d-flex flex-column mb-7 fv-row fv-plugins-icon-container">
+                                    <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
+                                        <span>Đường dẫn video đánh giá </span>
+                                    </label>
+                                    <!--end::Label-->
+                                    <input type="text" wire:model="linkVideo" class="form-control form-control-solid" placeholder="">
+                                    @error('linkVideo')
+                                    <div class="fv-plugins-message-container">
+                                        <div data-field="name" data-validator="notEmpty" class="fv-help-block">{{ $message }}</div>
+                                    </div>
+                                    @enderror
+                                </div>
+
 
                                 <div class="d-flex flex-column mb-7 fv-row fv-plugins-icon-container" wire:ignore>
                                     <!--begin::Label-->

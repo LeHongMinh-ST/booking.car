@@ -84,11 +84,6 @@ class OrderCreate extends Component
                 $this->permanentResidence = $customer->permanent_residence;
                 $this->phone = $customer->phone;
                 $this->address = $customer->address;
-            } else {
-                $this->name = '';
-                $this->permanentResidence = '';
-                $this->phone = '';
-                $this->address = '';
             }
         }
     }

@@ -15,7 +15,7 @@
 <link rel='stylesheet' href='{{ asset('client/css/animation.css') }}' type='text/css' media='all' />
 <link rel='stylesheet' href='{{ asset('client/css/ilightbox/ilightbox.css') }}' type='text/css' media='all' />
 <link rel='stylesheet' href='{{ asset('client/css/jqueryui/custom.css') }}' type='text/css' media='all' />
-<link rel='stylesheet' href='{{ asset('client/js/plugins/mediaelement/mediaelementplayer-legacy.min.css') }}' type='text/css' media='all' />
+{{--<link rel='stylesheet' href='{{ asset('client/js/plugins/mediaelement/mediaelementplayer-legacy.min.css') }}' type='text/css' media='all' />--}}
 <link rel='stylesheet' href='{{ asset('client/js/plugins/flexslider/flexslider.css') }}' type='text/css' media='all' />
 <link rel='stylesheet' href='{{ asset('client/css/tooltipster.css') }}' type='text/css' media='all' />
 <link rel='stylesheet' href='{{ asset('client/css/odometer-theme-minimal.css') }}' type='text/css' media='all' />
@@ -29,4 +29,5 @@
 
 <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Work+Sans%3A100%2C200%2C300%2Cregular%2C500%2C600%2C700%2C800%2C900%7CPoppins%3A300%2Cregular%2C500%2C600%2C700%2C900&#038;subset' type='text/css' media='all' />
 
-@section('style')
+@yield('style')
+

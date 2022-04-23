@@ -27,7 +27,8 @@ class Product extends Model
         'status',
         'brand_id',
         'thumbnail',
-        'slug'
+        'slug',
+        'link_video'
     ];
 
     protected $casts = [

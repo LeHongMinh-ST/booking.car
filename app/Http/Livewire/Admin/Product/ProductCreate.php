@@ -19,6 +19,7 @@ class ProductCreate extends Component
     public $licensePlates;
     public $km;
     public $brandId;
+    public $linkVideo;
     public $thumbnail;
     public $otherParameters = [];
     public $categoryChecked = [];
@@ -37,15 +38,17 @@ class ProductCreate extends Component
         'km' => 'required|string|max:255',
         'year' => 'required|date|date_format:d-m-Y',
         'price' => 'required|integer|min:0',
+        'linkVideo' => 'nullable|url',
     ];
 
-    protected $validationAttributes  = [
+    protected $validationAttributes = [
         'licensePlates' => 'Biển kiểm soát',
         'name' => 'Tên xe',
         'price' => 'Giá thuê',
         'km' => 'Km',
         'year' => 'Ngày đăng ký',
         'color' => 'Màu sắc',
+        'linkVideo' => 'Đường dẫn video',
     ];
 
     public function render()
@@ -116,7 +119,9 @@ class ProductCreate extends Component
                 'thumbnail' => $this->thumbnail,
                 'other_parameters' => $this->otherParameters,
                 'license_plates' => $this->licensePlates,
+                'description' => $this->description,
                 'brand_id' => $this->brandId,
+                'link_video' => $this->linkVideo,
                 'slug' => Str::slug($this->name . $this->licensePlates)
             ]);
 

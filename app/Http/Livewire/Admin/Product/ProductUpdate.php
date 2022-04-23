@@ -28,6 +28,7 @@ class ProductUpdate extends Component
     public $status;
     public $categoryChecked = [];
     public $productId;
+    public $linkVideo;
     public $imageUpdate;
 
     public $images = [];
@@ -44,6 +45,7 @@ class ProductUpdate extends Component
         'km' => 'required|string|max:255',
         'year' => 'required|date|date_format:d-m-Y',
         'price' => 'required|integer|min:0',
+        'linkVideo' => 'nullable|url',
     ];
 
     protected $validationAttributes = [
@@ -53,6 +55,7 @@ class ProductUpdate extends Component
         'km' => 'Km',
         'year' => 'Ngày đăng ký',
         'color' => 'Màu sắc',
+        'linkVideo' => 'Đường dẫn video',
     ];
 
     public function render()
@@ -83,6 +86,8 @@ class ProductUpdate extends Component
             $this->otherParameters = $product->other_parameters;
             $this->status = $product->status;
             $this->productId  = $product->id;
+            $this->linkVideo  = $product->linkVideo;
+            $this->description  = $product->description;
             $this->categoryChecked = $product->categories()->pluck('categories.id')->toArray();
             foreach ($product->images as $image) {
                 $this->images[] = $image->image_url;
@@ -170,6 +175,8 @@ class ProductUpdate extends Component
                 'license_plates' => $this->licensePlates,
                 'brand_id' => $this->brandId,
                 'status' => $this->status,
+                'link_video' => $this->linkVideo,
+                'description' => $this->description,
                 'slug' => Str::slug($this->name . $this->licensePlates)
             ]);
             if ($product) {

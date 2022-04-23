@@ -4,6 +4,7 @@
 <head>
 
 @include('client.includes.style')
+    @livewireStyles
 </head>
 
 <body class="home page-template-default page page-id-3075 woocommerce-no-js ppb_enable">
