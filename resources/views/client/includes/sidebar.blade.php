@@ -18,13 +18,13 @@
                         @foreach($posts as $post)
                         <li>
                             <div class="post_circle_thumb">
-                                <a href="{{ route('blog', $post->slug ?? "") }}">
+                                <a href="{{ route('post', $post->slug ?? "") }}">
                                     <img class="alignleft frame post_thumb"
                                          style="width: 70px; height: 70px; object-fit: cover"
                                                  src="{{ $post->thumbnail }}"
                                                  alt="{{ $post->title }}"/></a>
                             </div>
-                            <a href="{{ route('blog', $post->slug) }}">{{ $post->title }}</a>
+                            <a href="{{ route('post', $post->slug) }}">{{ $post->title }}</a>
                             <div class="post_attribute">{{ \Carbon\Carbon::make($post->created_at)->format('d/m/Y') }}</div>
                         </li>
                         @endforeach

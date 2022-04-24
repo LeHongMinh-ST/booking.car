@@ -112,14 +112,14 @@ Route::get('/home', function () {
     return redirect()->route('home');
 });
 Route::get('/', Home::class)->name('home');
-Route::get('/products', ListProduct::class)->name('products');
-Route::get('/product/{slug}', Product::class)->name('product');
-Route::get('/category/{slug}', ListProductByCategory::class)->name('product-by-category');
-Route::get('/brand/{slug}', ListProductByBrand::class)->name('product-by-brand');
-Route::get('/category-post/{slug}', CategoryPost::class)->name('category.post');
-Route::get('/posts', Blog::class)->name('blog');
-Route::get('/post/{slug}', Post::class)->name('post');
-Route::get('/about', About::class)->name('about');
-Route::get('/service', Service::class)->name('service');
-Route::get('/contact', Contact::class)->name('contact');
+Route::get('/san-pham', ListProduct::class)->name('products');
+Route::get('/san-pham/{slug}', Product::class)->name('product');
+Route::get('/danh-muc/{slug}', ListProductByCategory::class)->name('product-by-category');
+Route::get('/nhan-hieu/{slug}', ListProductByBrand::class)->name('product-by-brand');
+Route::get('/danh-muc-bai-viet/{slug}', CategoryPost::class)->name('category.post');
+Route::get('/bai-viet', Blog::class)->name('blog');
+Route::get('/bai-viet/{slug}', Post::class)->name('post');
+Route::get('/gioi-thieu', About::class)->name('about');
+Route::get('/dich-vu', Service::class)->name('service');
+Route::get('/lien-he', Contact::class)->name('contact');
 

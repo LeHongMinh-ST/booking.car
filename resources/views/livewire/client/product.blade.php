@@ -1,3 +1,6 @@
+@section('title')
+    {{ $product->name }}
+@endsection
 <div>
     <div id="page_caption" class="hasbg parallax   withtopbar "
          @if($product->thumbnail)

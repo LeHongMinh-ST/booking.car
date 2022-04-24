@@ -40,10 +40,10 @@
                             <div class="post_wrapper grid_layout">
 
                                 <div class="post_img small static">
-                                    <a href="{{ route('blog', $post->slug ?? "") }}">
+                                    <a href="{{ route('post', $post->slug ?? "") }}">
                                         <img src="{{ $post->thumbnail }}"
                                              alt="{{ $post->title }}" class=""
-                                             style="width:960px;height:636px; object-fit: cover"/>
+                                             style="width:960px!important; height:250px!important; object-fit: cover"/>
                                     </a>
                                 </div>
 
@@ -51,18 +51,18 @@
                                     <div class="post_header grid">
                                         <div class="post_detail single_post">
                                             <span class="post_info_date">
-                                                <a href="{{ route('blog', $post->slug ?? "") }}"
+                                                <a href="{{ route('post', $post->slug ?? "") }}"
                                                    title="{{ $post->title }}">{{ \Carbon\Carbon::make($post->created_at)->format('d/m/Y') }}</a>
                                             </span>
                                         </div>
-                                        <h6><a href="{{ route('blog', $post->slug ?? "") }}" title="{{ $post->title }}">{{ $post->title }}</a></h6>
+                                        <h6><a href="{{ route('post', $post->slug ?? "") }}" title="{{ $post->title }}">{{ $post->title }}</a></h6>
                                     </div>
                                     <p style="width: 100%; overflow: hidden; text-overflow: ellipsis;    line-height: 25px;    -webkit-line-clamp: 3;    height: 75px;    display: -webkit-box;    -webkit-box-orient: vertical;">
                                         {{ $post->description }}
                                     </p>
 
                                     <div class="post_button_wrapper">
-                                        <a class="readmore" href="{{ route('blog', $post->slug ?? "") }}">Đọc thêm<span class="ti-angle-right"></span></a>
+                                        <a class="readmore" href="{{ route('post', $post->slug ?? "") }}">Đọc thêm<span class="ti-angle-right"></span></a>
                                     </div>
                                 </div>
 
