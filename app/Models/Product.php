@@ -95,4 +95,17 @@ class Product extends Model
 
         return $query;
     }
+
+    public function scopeFilterOrderBy($query, $orderBy)
+    {
+        if ($orderBy == 'priceDesc') {
+            $query->orderBy('price', 'desc');
+        }
+
+        if ($orderBy == 'priceAsc') {
+            $query->orderBy('price', 'asc');
+        }
+
+        return $query;
+    }
 }

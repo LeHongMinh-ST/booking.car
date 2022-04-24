@@ -15,33 +15,19 @@
                 <li id="grandcarrental_cat_posts-2" class="widget grandcarrental_Cat_Posts">
                     <h2 class="widgettitle"><span>Bài viết mới</span></h2>
                     <ul class="posts blog withthumb ">
+                        @foreach($posts as $post)
                         <li>
                             <div class="post_circle_thumb">
-                                <a href="#"><img class="alignleft frame post_thumb"
-                                                 src="{{ asset('client/upload/traffic-car-vehicle-black-150x150.jpg') }}"
-                                                 alt=""/></a>
+                                <a href="{{ route('blog', $post->slug ?? "") }}">
+                                    <img class="alignleft frame post_thumb"
+                                         style="width: 70px; height: 70px; object-fit: cover"
+                                                 src="{{ $post->thumbnail }}"
+                                                 alt="{{ $post->title }}"/></a>
                             </div>
-                            <a href="#">America Car Rental Offers Lowest Car Rental Rates</a>
-                            <div class="post_attribute">January 5, 2017</div>
+                            <a href="{{ route('blog', $post->slug) }}">{{ $post->title }}</a>
+                            <div class="post_attribute">{{ \Carbon\Carbon::make($post->created_at)->format('d/m/Y') }}</div>
                         </li>
-                        <li>
-                            <div class="post_circle_thumb">
-                                <a href="#"><img class="alignleft frame post_thumb"
-                                                 src="{{ asset('client/upload/pexels-photo-245374-150x150.jpeg') }}"
-                                                 alt=""/></a>
-                            </div>
-                            <a href="#">How to Enjoy Sightseeing Los Angeles With Car Rentals</a>
-                            <div class="post_attribute">January 4, 2017</div>
-                        </li>
-                        <li>
-                            <div class="post_circle_thumb">
-                                <a href="#"><img class="alignleft frame post_thumb"
-                                                 src="{{ asset('client/upload/road-people-street-smartphone-150x150.jpg') }}"
-                                                 alt=""/></a>
-                            </div>
-                            <a href="#">Ride Across the Blue Ridge Parkway</a>
-                            <div class="post_attribute">January 3, 2017</div>
-                        </li>
+                        @endforeach
                     </ul>
                 </li>
                 <li id="grandcarrental_social_profiles_posts-3"

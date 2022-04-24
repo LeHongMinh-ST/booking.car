@@ -60,122 +60,15 @@
                                         <li class="menu-item {{ request()->is('/about') ? 'current-menu-item' : '' }} menu-item-has-children"><a href="{{ route('about') }}">Giới thiệu</a></li>
                                         <li class="menu-item  {{ request()->is('/service') ? 'current-menu-item' : '' }} menu-item-has-children"><a href="{{ route('service') }}">Dịch vụ</a></li>
                                         <li class="menu-item  {{ request()->is('/products') ? 'current-menu-item' : '' }} menu-item-has-children"><a href="{{ route('products') }}">Thuê xe</a></li>
-                                        <li class="menu-item  {{ request()->is('/about') ? 'current-menu-item' : '' }} menu-item-has-children arrow"><a href="#">Danh mục xe</a>
-                                            <ul class="sub-menu">
-                                                <li class="menu-item menu-item-has-children arrow"><a href="car-list-right-sidebar.html">Car List Sidebar</a>
-                                                    <ul class="sub-menu">
-                                                        <li class="menu-item"><a href="car-list-right-sidebar.html">Right Sidebar</a></li>
-                                                        <li class="menu-item"><a href="car-list-left-sidebar.html">Left Sidebar</a></li>
-                                                    </ul>
-                                                </li>
-                                                <li class="menu-item menu-item-has-children arrow"><a href="car-list-thumbnail-right-sidebar.html">Car List Thumbnail Sidebar</a>
-                                                    <ul class="sub-menu">
-                                                        <li class="menu-item"><a href="car-list-thumbnail-right-sidebar.html">Right Sidebar</a></li>
-                                                        <li class="menu-item"><a href="car-list-thumbnail-left-sidebar.html">Left Sidebar</a></li>
-                                                    </ul>
-                                                </li>
-                                                <li class="menu-item menu-item-has-children arrow"><a href="car-2-columns-classic.html">Car Classic Fullwidth</a>
-                                                    <ul class="sub-menu">
-                                                        <li class="menu-item"><a href="car-2-columns-classic.html">2 Columns</a></li>
-                                                        <li class="menu-item"><a href="car-3-columns-classic.html">3 Columns</a></li>
-                                                        <li class="menu-item"><a href="car-4-columns-classic.html">4 Columns</a></li>
-                                                    </ul>
-                                                </li>
-                                                <li class="menu-item menu-item-has-children arrow"><a href="car-2-columns-classic-right-sidebar.html">Car Classic Right Sidebar</a>
-                                                    <ul class="sub-menu">
-                                                        <li class="menu-item"><a href="car-2-columns-classic-right-sidebar.html">Right Sidebar</a></li>
-                                                        <li class="menu-item"><a href="car-2-columns-classic-left-sidebar.html">Left Sidebar</a></li>
-                                                    </ul>
-                                                </li>
-                                                <li class="menu-item menu-item-has-children arrow"><a href="car-2-columns-grid.html">Car Grid Fullwidth</a>
-                                                    <ul class="sub-menu">
-                                                        <li class="menu-item"><a href="car-2-columns-grid.html">2 Columns</a></li>
-                                                        <li class="menu-item"><a href="car-3-columns-grid.html">3 Columns</a></li>
-                                                        <li class="menu-item"><a href="car-4-columns-grid.html">4 Columns</a></li>
-                                                    </ul>
-                                                </li>
-                                                <li class="menu-item menu-item-has-children arrow"><a href="car-grid-right-sidebar.html">Car Grid Sidebar</a>
-                                                    <ul class="sub-menu">
-                                                        <li class="menu-item"><a href="car-grid-right-sidebar.html">Right Sidebar</a></li>
-                                                        <li class="menu-item"><a href="car-grid-left-sidebar.html">Left Sidebar</a></li>
-                                                    </ul>
-                                                </li>
-                                                <li class="menu-item"><a href="car-by-brand-type-fullwidth.html">Car By Brand &#038; Type Fullwidth</a></li>
-                                                <li class="menu-item menu-item-has-children arrow"><a href="#">Car By Brands</a>
-                                                    <ul class="sub-menu">
-                                                        <li class="menu-item"><a href="audi.html">Audi</a></li>
-                                                        <li class="menu-item"><a href="bmw.html">BMW</a></li>
-                                                        <li class="menu-item"><a href="lexus.html">Lexus</a></li>
-                                                        <li class="menu-item"><a href="mercedes-benz.html">Mercedes Benz</a></li>
-                                                        <li class="menu-item"><a href="porsche.html">Porsche</a></li>
-                                                    </ul>
-                                                </li>
-                                                <li class="menu-item menu-item-has-children arrow"><a href="#">Car By Types</a>
-                                                    <ul class="sub-menu">
-                                                        <li class="menu-item"><a href="coupe.html">Coupe</a></li>
-                                                        <li class="menu-item"><a href="sedan.html">Sedan</a></li>
-                                                        <li class="menu-item"><a href="suv.html">SUV</a></li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
+                                        <li class="menu-item  {{ request()->is('/about') ? 'current-menu-item' : '' }} menu-item-has-children arrow">
+                                            <a href="#">Danh mục xe</a>
+                                            @include('client.includes.menu-categories', ['categories' => $menuCategories])
                                         </li>
                                         <li class="menu-item menu-item-has-children arrow"><a href="#">Nhãn hiệu</a>
                                             <ul class="sub-menu">
-                                                <li class="menu-item menu-item-has-children arrow"><a href="car-list-right-sidebar.html">Car List Sidebar</a>
-                                                    <ul class="sub-menu">
-                                                        <li class="menu-item"><a href="car-list-right-sidebar.html">Right Sidebar</a></li>
-                                                        <li class="menu-item"><a href="car-list-left-sidebar.html">Left Sidebar</a></li>
-                                                    </ul>
-                                                </li>
-                                                <li class="menu-item menu-item-has-children arrow"><a href="car-list-thumbnail-right-sidebar.html">Car List Thumbnail Sidebar</a>
-                                                    <ul class="sub-menu">
-                                                        <li class="menu-item"><a href="car-list-thumbnail-right-sidebar.html">Right Sidebar</a></li>
-                                                        <li class="menu-item"><a href="car-list-thumbnail-left-sidebar.html">Left Sidebar</a></li>
-                                                    </ul>
-                                                </li>
-                                                <li class="menu-item menu-item-has-children arrow"><a href="car-2-columns-classic.html">Car Classic Fullwidth</a>
-                                                    <ul class="sub-menu">
-                                                        <li class="menu-item"><a href="car-2-columns-classic.html">2 Columns</a></li>
-                                                        <li class="menu-item"><a href="car-3-columns-classic.html">3 Columns</a></li>
-                                                        <li class="menu-item"><a href="car-4-columns-classic.html">4 Columns</a></li>
-                                                    </ul>
-                                                </li>
-                                                <li class="menu-item menu-item-has-children arrow"><a href="car-2-columns-classic-right-sidebar.html">Car Classic Right Sidebar</a>
-                                                    <ul class="sub-menu">
-                                                        <li class="menu-item"><a href="car-2-columns-classic-right-sidebar.html">Right Sidebar</a></li>
-                                                        <li class="menu-item"><a href="car-2-columns-classic-left-sidebar.html">Left Sidebar</a></li>
-                                                    </ul>
-                                                </li>
-                                                <li class="menu-item menu-item-has-children arrow"><a href="car-2-columns-grid.html">Car Grid Fullwidth</a>
-                                                    <ul class="sub-menu">
-                                                        <li class="menu-item"><a href="car-2-columns-grid.html">2 Columns</a></li>
-                                                        <li class="menu-item"><a href="car-3-columns-grid.html">3 Columns</a></li>
-                                                        <li class="menu-item"><a href="car-4-columns-grid.html">4 Columns</a></li>
-                                                    </ul>
-                                                </li>
-                                                <li class="menu-item menu-item-has-children arrow"><a href="car-grid-right-sidebar.html">Car Grid Sidebar</a>
-                                                    <ul class="sub-menu">
-                                                        <li class="menu-item"><a href="car-grid-right-sidebar.html">Right Sidebar</a></li>
-                                                        <li class="menu-item"><a href="car-grid-left-sidebar.html">Left Sidebar</a></li>
-                                                    </ul>
-                                                </li>
-                                                <li class="menu-item"><a href="car-by-brand-type-fullwidth.html">Car By Brand &#038; Type Fullwidth</a></li>
-                                                <li class="menu-item menu-item-has-children arrow"><a href="#">Car By Brands</a>
-                                                    <ul class="sub-menu">
-                                                        <li class="menu-item"><a href="audi.html">Audi</a></li>
-                                                        <li class="menu-item"><a href="bmw.html">BMW</a></li>
-                                                        <li class="menu-item"><a href="lexus.html">Lexus</a></li>
-                                                        <li class="menu-item"><a href="mercedes-benz.html">Mercedes Benz</a></li>
-                                                        <li class="menu-item"><a href="porsche.html">Porsche</a></li>
-                                                    </ul>
-                                                </li>
-                                                <li class="menu-item menu-item-has-children arrow"><a href="#">Car By Types</a>
-                                                    <ul class="sub-menu">
-                                                        <li class="menu-item"><a href="coupe.html">Coupe</a></li>
-                                                        <li class="menu-item"><a href="sedan.html">Sedan</a></li>
-                                                        <li class="menu-item"><a href="suv.html">SUV</a></li>
-                                                    </ul>
-                                                </li>
+                                                @foreach($menuBrands as $brand)
+                                                <li class="menu-item"><a href="{{ route('product-by-brand', $brand->slug ?? "") }}">{{ $brand->name }}</a></li>
+                                                @endforeach
                                             </ul>
                                         </li>
                                         <li class="menu-item {{ request()->is('/blog') ? 'current-menu-item' : '' }} menu-item-has-children"><a href="{{ route('blog') }}">Bài viết</a></li>

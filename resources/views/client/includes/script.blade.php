@@ -41,9 +41,20 @@
 {{--<script type='text/javascript' src='{{ asset('client/js/plugins/custom.js') }}'></script>--}}
 <script type='text/javascript' src='{{ asset('client/js/plugins/custom_onepage.js') }}'></script>
 <script type='text/javascript' src='{{ asset('client/js/plugins/jquery.cookie.js') }}'></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script type='text/javascript'>
     /* <![CDATA[ */
     var mc4wp_forms_config = [];
     /* ]]> */
+
+    @if(\session()->has('success'))
+        Swal.fire({
+            icon: 'success',
+            title: '{{ session()->pull('success.title') }} ',
+            text: '{{ session()->pull('success.message') }} ',
+        })
+    @endif
+
+
 </script>
 @yield('script')

@@ -136,9 +136,13 @@ class Product extends Component
                 'status' =>  Order::STATUS['no_deposit_yet']
             ]);
 
-            session()->flash('success', 'Tạo mới thành công');
+            session()->flash('success', [
+                'title'=> 'Đặt xe thành công',
+                'message' => 'Vui lòng kiểm tra email để xem chi tiết!'
+            ]);
+
             DB::commit();
-            return redirect()->route('admin.order');
+            return redirect()->route('home');
         } catch (\Exception $exception) {
             DB::rollBack();
             Log::error('Error create order by user', [
@@ -146,7 +150,7 @@ class Product extends Component
                 'message' => $exception->getMessage()
             ]);
 
-            $this->dispatchBrowserEvent('alert',
+            $this->dispatchBrowserEvent('alertUser',
                 ['type' => 'error', 'message' => 'Tạo mới thất bại!']);
         }
     }
