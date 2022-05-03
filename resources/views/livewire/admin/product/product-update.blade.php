@@ -88,19 +88,40 @@
                                     @enderror
                                 </div>
 
-                                <div class="d-flex flex-column mb-7 fv-row fv-plugins-icon-container">
-                                    <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
-                                        <span class="required">Biển kiểm soát</span>
-                                    </label>
-                                    <!--end::Label-->
-                                    <input type="text" wire:model="licensePlates" class="form-control form-control-solid" placeholder="">
-                                    @error('licensePlates')
-                                    <div class="fv-plugins-message-container">
-                                        <div data-field="name" data-validator="notEmpty" class="fv-help-block">{{ $message }}</div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="d-flex flex-column mb-7 fv-row fv-plugins-icon-container">
+                                            <!--begin::Label-->
+                                            <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
+                                                <span class="required">Biển kiểm soát</span>
+                                            </label>
+                                            <!--end::Label-->
+                                            <input type="text" wire:model="licensePlates" class="form-control form-control-solid" placeholder="">
+                                            @error('licensePlates')
+                                            <div class="fv-plugins-message-container">
+                                                <div data-field="name" data-validator="notEmpty" class="fv-help-block">{{ $message }}</div>
+                                            </div>
+                                            @enderror
+                                        </div>
                                     </div>
-                                    @enderror
+                                    <div class="col-md-6">
+                                        <div class="d-flex flex-column mb-7 fv-row fv-plugins-icon-container">
+                                            <!--begin::Label-->
+                                            <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
+                                                <span class="required">Số chỗ</span>
+                                            </label>
+                                            <!--end::Label-->
+                                            <input type="text" wire:model="numberSeats" class="form-control form-control-solid" placeholder="">
+                                            @error('numberSeats')
+                                            <div class="fv-plugins-message-container">
+                                                <div data-field="name" data-validator="notEmpty" class="fv-help-block">{{ $message }}</div>
+                                            </div>
+                                            @enderror
+                                        </div>
+                                    </div>
                                 </div>
+
+
 
                                 <div class="d-flex flex-column mb-7 fv-row fv-plugins-icon-container">
                                     <!--begin::Label-->
@@ -110,6 +131,34 @@
                                     <!--end::Label-->
                                     <input type="text" wire:model="price" class="form-control form-control-solid" placeholder="">
                                     @error('price')
+                                    <div class="fv-plugins-message-container">
+                                        <div data-field="name" data-validator="notEmpty" class="fv-help-block">{{ $message }}</div>
+                                    </div>
+                                    @enderror
+                                </div>
+
+                                <div class="d-flex flex-column mb-7 fv-row fv-plugins-icon-container">
+                                    <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
+                                        <span class="required">Giá cọc thấp nhất</span>
+                                    </label>
+                                    <!--end::Label-->
+                                    <input type="text" wire:model="depositPrice" class="form-control form-control-solid" placeholder="">
+                                    @error('depositPrice')
+                                    <div class="fv-plugins-message-container">
+                                        <div data-field="name" data-validator="notEmpty" class="fv-help-block">{{ $message }}</div>
+                                    </div>
+                                    @enderror
+                                </div>
+
+                                <div class="d-flex flex-column mb-7 fv-row fv-plugins-icon-container">
+                                    <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
+                                        <span class="required">Tiền phụ trội theo giờ/h</span>
+                                    </label>
+                                    <!--end::Label-->
+                                    <input type="text" wire:model="overtimePrice" class="form-control form-control-solid" placeholder="">
+                                    @error('overtimePrice')
                                     <div class="fv-plugins-message-container">
                                         <div data-field="name" data-validator="notEmpty" class="fv-help-block">{{ $message }}</div>
                                     </div>
@@ -356,6 +405,7 @@
                                         <option value="{{ \App\Models\Product::STATUS['normal'] }}">Sẵn sàng</option>
                                         <option value="{{ \App\Models\Product::STATUS['hired'] }}">Đang cho thuê</option>
                                         <option value="{{ \App\Models\Product::STATUS['hide'] }}">Ẩn</option>
+                                        <option value="{{ \App\Models\Product::STATUS['deposit'] }}">Đã đặt</option>
                                 </select>
                                 <!--end::Select-->
                             </div>

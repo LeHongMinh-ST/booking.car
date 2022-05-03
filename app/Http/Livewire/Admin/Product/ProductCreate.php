@@ -15,6 +15,10 @@ class ProductCreate extends Component
     public $description;
     public $color;
     public $price;
+    public $overtimePrice;
+    public $overKmPrice;
+    public $numberSeats;
+    public $depositPrice;
     public $year;
     public $licensePlates;
     public $km;
@@ -39,6 +43,10 @@ class ProductCreate extends Component
         'year' => 'required|date|date_format:d-m-Y',
         'price' => 'required|integer|min:0',
         'linkVideo' => 'nullable|url',
+        'overtimePrice' => 'required|integer|min:0',
+//        'overKmPrice' => 'required|integer|min:0',
+        'depositPrice' => 'required|integer|min:0',
+        'numberSeats' => 'required|integer|min:0',
     ];
 
     protected $validationAttributes = [
@@ -49,6 +57,10 @@ class ProductCreate extends Component
         'year' => 'Ngày đăng ký',
         'color' => 'Màu sắc',
         'linkVideo' => 'Đường dẫn video',
+        'overtimePrice' => 'Tiền phụ trội giờ',
+//        'overKmPrice' => 'Tiền phụ trội km',
+        'depositPrice' => 'Tiền đặt cọc tối  thiểu',
+        'numberSeats' => 'Số chỗ',
     ];
 
     public function render()
@@ -122,6 +134,10 @@ class ProductCreate extends Component
                 'description' => $this->description,
                 'brand_id' => $this->brandId,
                 'link_video' => $this->linkVideo,
+                'overtime_price' => $this->overtimePrice,
+                'over_km_price' => $this->overKmPrice,
+                'deposit_price' => $this->depositPrice,
+                'number_of_seats' => $this->numberSeats,
                 'slug' => Str::slug($this->name . $this->licensePlates)
             ]);
 

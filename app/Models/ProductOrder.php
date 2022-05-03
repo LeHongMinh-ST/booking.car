@@ -28,7 +28,11 @@ class ProductOrder extends Model
         'brand_id',
         'thumbnail',
         'slug',
-        'product_id'
+        'product_id',
+        'overtime_price',
+        'over_km_price',
+        'deposit_price',
+        'number_of_seats',
     ];
 
     protected $casts = [

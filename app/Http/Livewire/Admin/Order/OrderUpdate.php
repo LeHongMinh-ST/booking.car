@@ -36,7 +36,7 @@ class OrderUpdate extends Component
 
     public function render()
     {
-        $products = Product::query()->status(Product::STATUS['normal'])->get();
+        $products = Product::query()->status(Product::STATUS['normal'])->orWhere('id', $this->orderId)->get();
 
         return view('livewire.admin.order.order-update', [
             'products' => $products
@@ -162,6 +162,10 @@ class OrderUpdate extends Component
                     'other_parameters' => $product->other_parameters,
                     'license_plates' => $product->license_plates,
                     'brand_id' => $product->brand_id,
+                    'overtime_price' => $product->overtimePrice,
+                    'over_km_price' => $product->overKmPrice,
+                    'deposit_price' => $product->depositPrice,
+                    'number_of_seats' => $product->numberSeats,
                 ]);
 
                 $this->productOrderId = $productOrder->id;
@@ -178,6 +182,11 @@ class OrderUpdate extends Component
                 'product_order_id' => $this->productOrderId,
                 'status' => $this->status
             ]);
+
+
+            $product->status = Product::STATUS['deposit'];
+            $product->save();
+
 
             session()->flash('success', 'Cập nhật thành công');
             DB::commit();

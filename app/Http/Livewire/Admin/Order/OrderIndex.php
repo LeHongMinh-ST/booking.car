@@ -42,6 +42,9 @@ class OrderIndex extends Component
     public $selectId;
     public $status = 0;
     public $orderTime = [];
+    public $noteCancel;
+    public $noteCanceled;
+    public $depositPrice;
 
     protected $listeners = [
         'changeFilterStatus' => 'updateStatus',
@@ -121,16 +124,31 @@ class OrderIndex extends Component
             $this->productId = $order->productOrder->product_id ?? '';
             $this->licensePlates = $order->productOrder->license_plates ?? '';
             $this->statusOrder = $order->status ?? 0;
+            $this->noteCanceled = $order->note_cancel;
+            $this->depositPrice = $order->productOrder->deposit_price;
             $this->dispatchBrowserEvent('openDetailModal');
         }
     }
 
+    protected $rules = [
+        'noteCancel' => 'required',
+    ];
+
+    protected $validationAttributes = [
+        'noteCancel' => 'Lý do',
+    ];
+
     public function cancelOrder()
     {
+        $this->validate();
+
         $order = Order::query()->find($this->selectId);
-        $order->status = Order::STATUS['cancel'];
+        $this->statusOrder = $order->status = Order::STATUS['cancel'];
+        $this->noteCanceled = $order->note_cancel = $this->noteCancel;
         $order->save();
         $this->statusText = $order->statusText;
+
+        $this->closeModalCancel();
 
         $this->dispatchBrowserEvent('alert',
             ['type' => 'success', 'message' => 'Cập nhật thành công!']);
@@ -180,5 +198,10 @@ class OrderIndex extends Component
             $this->dispatchBrowserEvent('alert',
                 ['type' => 'error', 'message' => 'Xóa thất bại!']);
         }
+    }
+
+    public function handleCreateContract($id)
+    {
+        $order = Order::query()->with(['customerOrder', 'productOrder'])->find($id);
     }
 }

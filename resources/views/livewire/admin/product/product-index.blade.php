@@ -150,6 +150,7 @@
                                         <option value="{{ \App\Models\Product::STATUS['normal'] }}">Sẵn sàng</option>
                                         <option value="{{ \App\Models\Product::STATUS['hired'] }}">Đang cho thuê</option>
                                         <option value="{{ \App\Models\Product::STATUS['hide'] }}">Ẩn</option>
+                                        <option value="{{ \App\Models\Product::STATUS['deposit'] }}">Đã đặt</option>
                                     </select>
 
                                     <!--end::Input-->
@@ -308,6 +309,9 @@
                                                 @break
                                                 @case(\App\Models\Product::STATUS['hide'])
                                                 <span class="badge badge-danger">Ẩn</span>
+                                                @break
+                                                @case(\App\Models\Product::STATUS['deposit'])
+                                                <span class="badge badge-primary">Đã được đặt</span>
                                                 @break
                                             @endswitch
                                         </td>

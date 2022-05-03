@@ -28,7 +28,8 @@ class Order extends Model
         'customer_id',
         'product_order_id',
         'status',
-        'note'
+        'note',
+        'note_cancel'
     ];
 
     public function getStatusTextAttribute()

@@ -10,9 +10,10 @@ class Product extends Model
     use HasFactory;
 
     const STATUS = [
-        'hide' => 0,
-        'normal' => 1,
-        'hired' => 2
+        'hide' => 1,
+        'normal' => 2,
+        'hired' => 3,
+        'deposit' => 4
     ];
 
     protected $fillable = [
@@ -28,7 +29,11 @@ class Product extends Model
         'brand_id',
         'thumbnail',
         'slug',
-        'link_video'
+        'link_video',
+        'overtime_price',
+        'over_km_price',
+        'deposit_price',
+        'number_of_seats',
     ];
 
     protected $casts = [

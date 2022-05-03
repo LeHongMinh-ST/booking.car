@@ -38,6 +38,10 @@
             Livewire.emit('changeOrderTime', {})
         })
 
+        $('#noteCancel').keyup(function () {
+            Livewire.emit('changeNoteCancel', $(this).val())
+        })
+
         $("#orderTime").daterangepicker({
             timePicker: true,
             locale: {
@@ -557,7 +561,14 @@
                                                     <!--begin::Row-->
                                                     <tr class="">
                                                         <td class="text-gray-400">Tiền đặ cọc:</td>
-                                                        <td class="text-gray-800">{{ number_format($priceDeposits ?? 0) }} VNĐ</td>
+                                                        <td class="text-gray-800">
+                                                            {{ number_format($priceDeposits ?? 0) }} VNĐ
+                                                            @if($depositPrice > $priceDeposits)
+                                                                <span style="color: #F1416C">(Còn thiếu: {{ number_format($depositPrice- $priceDeposits) }} VNĐ)</span>
+                                                            @else
+                                                                <span style="color:#258600;">(Đủ)</span>
+                                                            @endif
+                                                        </td>
                                                     </tr>
                                                     <!--end::Row-->
                                                     <!--begin::Row-->
@@ -607,6 +618,7 @@
                                                     <th class="min-w-125px">Ngày đăng ký</th>
                                                     <th class="min-w-125px">Km sử dụng</th>
                                                     <th class="min-w-125px">Giá thuê</th>
+                                                    <th class="min-w-125px">Giá cọc</th>
                                                 </tr>
                                                 <!--end::Table row-->
                                                 </thead>
@@ -634,6 +646,7 @@
                                                     <td>{{ $year ?? '' }}</td>
                                                     <td>{{ number_format($km ?? 0) }} km</td>
                                                     <td>{{ number_format($price ?? 0) }} VNĐ / Ngày</td>
+                                                    <td>{{ number_format($depositPrice ?? 0) }} VNĐ </td>
                                                 </tr>
                                                 </tbody>
                                                 <!--end::Table body-->
@@ -642,6 +655,18 @@
                                         </div>
                                         <!--end::Product table-->
                                     </div>
+                                    @if($noteCanceled)
+                                        <div class="mb-0">
+                                            <!--begin::Title-->
+                                            <h5 class="mb-4">Lý do huỷ:</h5>
+                                            <!--end::Title-->
+                                            <!--begin::Product table-->
+                                            <div>
+                                                {!! $noteCanceled !!}
+                                            </div>
+                                            <!--end::Product table-->
+                                        </div>
+                                    @endif
                                     <!--end::Section-->
                                 </div>
                                 <!--end::Card body-->
@@ -713,6 +738,7 @@
                     </div>
                 </div>
             <div class="modal fade" id="cancelModal"
+                 wire:ignore.self
                  tabindex="-1"
                  aria-hidden="true">
                 <!--begin::Modal dialog-->
@@ -749,8 +775,20 @@
                         <!--begin::Modal body-->
                         <div class="modal-body">
                             <!--begin::Scroll-->
-                            <div style="font-size: 14px">
+                            <div style="font-size: 14px" class="mb-5">
                                 Bạn có chắc chắn muốn tiếp tục. Dữ liệu không thể phục hồi!
+                            </div>
+                            <div>
+                                <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
+                                    <span class="required">Lý do</span>
+                                </label>
+                                <textarea name="" wire:model="noteCancel" id="noteCancel"  class="form-control" rows="5">
+                                </textarea>
+                                @error('noteCancel')
+                                <div class="fv-plugins-message-container">
+                                    <div data-field="name" data-validator="notEmpty" class="fv-help-block">{{ $message }}</div>
+                                </div>
+                                @enderror
                             </div>
                         </div>
 

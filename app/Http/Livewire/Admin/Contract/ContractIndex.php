@@ -8,6 +8,7 @@ class ContractIndex extends Component
 {
     public function render()
     {
-        return view('livewire.admin.contract.contract-index');
+        return view('livewire.admin.contract.contract-index')
+            ->extends('admin.layouts.master')->section('content');
     }
 }

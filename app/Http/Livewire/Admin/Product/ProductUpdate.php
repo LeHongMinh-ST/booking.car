@@ -30,6 +30,10 @@ class ProductUpdate extends Component
     public $productId;
     public $linkVideo;
     public $imageUpdate;
+    public $overtimePrice;
+    public $overKmPrice;
+    public $numberSeats;
+    public $depositPrice;
 
     public $images = [];
 
@@ -46,6 +50,10 @@ class ProductUpdate extends Component
         'year' => 'required|date|date_format:d-m-Y',
         'price' => 'required|integer|min:0',
         'linkVideo' => 'nullable|url',
+        'overtimePrice' => 'required|integer|min:0',
+//        'overKmPrice' => 'required|integer|min:0',
+        'depositPrice' => 'required|integer|min:0',
+        'numberSeats' => 'required|integer|min:0',
     ];
 
     protected $validationAttributes = [
@@ -56,6 +64,10 @@ class ProductUpdate extends Component
         'year' => 'Ngày đăng ký',
         'color' => 'Màu sắc',
         'linkVideo' => 'Đường dẫn video',
+        'overtimePrice' => 'Tiền phụ trội giờ',
+//        'overKmPrice' => 'Tiền phụ trội km',
+        'depositPrice' => 'Tiền đặt cọc tối  thiểu',
+        'numberSeats' => 'Số chỗ',
     ];
 
     public function render()
@@ -85,9 +97,13 @@ class ProductUpdate extends Component
             $this->imageUpdate = $product->thumbnail;
             $this->otherParameters = $product->other_parameters;
             $this->status = $product->status;
-            $this->productId  = $product->id;
-            $this->linkVideo  = $product->linkVideo;
-            $this->description  = $product->description;
+            $this->productId = $product->id;
+            $this->linkVideo = $product->linkVideo;
+            $this->description = $product->description;
+            $this->overtimePrice = $product->overtime_price;
+            $this->overKmPrice = $product->over_km_price;
+            $this->depositPrice = $product->deposit_price;
+            $this->numberSeats = $product->number_of_seats;
             $this->categoryChecked = $product->categories()->pluck('categories.id')->toArray();
             foreach ($product->images as $image) {
                 $this->images[] = $image->image_url;
@@ -97,7 +113,7 @@ class ProductUpdate extends Component
 
     public function updateImages($value)
     {
-        $this->images = array_merge(explode(',', $value),  $this->images) ;
+        $this->images = array_merge(explode(',', $value), $this->images);
     }
 
     public function deleteAllImage()
@@ -177,8 +193,13 @@ class ProductUpdate extends Component
                 'status' => $this->status,
                 'link_video' => $this->linkVideo,
                 'description' => $this->description,
+                'overtime_price' => $this->overtimePrice,
+                'over_km_price' => $this->overKmPrice,
+                'deposit_price' => $this->depositPrice,
+                'number_of_seats' => $this->numberSeats,
                 'slug' => Str::slug($this->name . $this->licensePlates)
             ]);
+
             if ($product) {
                 $product->categories()->detach();
 

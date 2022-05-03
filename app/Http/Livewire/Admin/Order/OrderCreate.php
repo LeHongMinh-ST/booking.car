@@ -31,7 +31,8 @@ class OrderCreate extends Component
 
     public function render()
     {
-        $products = Product::query()->status(Product::STATUS['normal'])->get();
+        $products = Product::query()
+            ->status(Product::STATUS['normal'])->get();
 
         return view('livewire.admin.order.order-create', [
             'products' => $products
@@ -155,6 +156,10 @@ class OrderCreate extends Component
                 'other_parameters' => $product->other_parameters,
                 'license_plates' => $product->license_plates,
                 'brand_id' => $product->brand_id,
+                'overtime_price' => $product->overtimePrice,
+                'over_km_price' => $product->overKmPrice,
+                'deposit_price' => $product->depositPrice,
+                'number_of_seats' => $product->numberSeats,
             ]);
 
             $customerOrder->orders()->create([
@@ -166,6 +171,9 @@ class OrderCreate extends Component
                 'product_order_id' => $productOrder->id,
                 'status' =>  $this->priceDeposits > 0 ? Order::STATUS['deposited'] : Order::STATUS['no_deposit_yet'],
             ]);
+
+            $product->status = Product::STATUS['deposit'];
+            $product->save();
 
             session()->flash('success', 'Tạo mới thành công');
             DB::commit();
