@@ -23,6 +23,6 @@ class ContractDetail extends Component
 
     public function handlePrint()
     {
-
+        $this->dispatchBrowserEvent('downloadPdf');
     }
 }

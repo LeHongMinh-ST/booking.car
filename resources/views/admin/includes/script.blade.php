@@ -1,4 +1,5 @@
 @livewireScripts
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="{{ asset('admin/assets/plugins/global/plugins.bundle.js') }}"></script>
 <script src="{{ asset('admin/assets/js/scripts.bundle.js') }}"></script>

@@ -39,6 +39,7 @@ use App\Http\Livewire\Client\CategoryPost;
 use App\Models\CategoryBlog;
 use App\Http\Livewire\Admin\Contract\ContractIndex;
 use App\Http\Livewire\Admin\Contract\ContractDetail;
+use App\Http\Livewire\Admin\Contract\ContractUpdate;
 use Illuminate\Support\Facades\Route;
 use UniSharp\LaravelFilemanager\Lfm;
 
@@ -106,6 +107,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
         Route::prefix('contract')->group(function () {
             Route::get('/',ContractIndex::class)->middleware('permission:contract-index')->name('contract');
             Route::get('/{id}',ContractDetail::class)->middleware('permission:contract-detail')->name('contract.detail');
+            Route::get('/{id}/edit',ContractUpdate::class)->middleware('permission:contract-update')->name('contract.edit');
         });
 
     });

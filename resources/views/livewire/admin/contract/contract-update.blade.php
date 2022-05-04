@@ -7,9 +7,9 @@
         let config = {}
         config.font_defaultLabel = "Times New Roman"
         config.fontSize_defaultLabel = '15px';
-        CKEDITOR.disableAutoInline = true;
-        CKEDITOR.inline( 'editorContract' , config).on('change', function() {
-
+        CKEDITOR.disableAutoInline = false;
+        CKEDITOR.replace( 'editorContract' , config).on('change', function() {
+            livewire.emit('changeContent', $(this).getData())
         })
     </script>
 @endsection
