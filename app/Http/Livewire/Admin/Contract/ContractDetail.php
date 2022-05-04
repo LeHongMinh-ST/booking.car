@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Admin\Contract;
 
 use App\Models\Contract;
 use Livewire\Component;
+use PDF;
 
 class ContractDetail extends Component
 {
@@ -18,5 +19,10 @@ class ContractDetail extends Component
     public function mount($id)
     {
         $this->contract = Contract::query()->with(['productOrder', 'customerOrder'])->find($id);
+    }
+
+    public function handlePrint()
+    {
+
     }
 }

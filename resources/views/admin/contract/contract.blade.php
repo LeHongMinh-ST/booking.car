@@ -64,7 +64,7 @@
     <p style='margin-left:36.0pt;margin-bottom:10.0pt;text-align:justify;'><span >- &nbsp; &nbsp; &nbsp; &nbsp; Chịu toàn bộ chi phí xăng dầu khi sử dụng xe.</span></p>
     <p style='margin-bottom:10.0pt;text-align:justify;'><strong ><span >ĐIỀU 4 : HIỆU LỰC HỢP ĐỒNG</span></strong></p>
     <p style='margin-left:36.0pt;margin-bottom:10.0pt;text-align:justify;'><span >- &nbsp; &nbsp; &nbsp; &nbsp; Hợp đồng có giá trị kể từ {{ $contract->pickDateText }} đến hết ngày {{ $contract->dropDateText }}</span></p>
-    <p style='margin-left:36.0pt;margin-bottom:10.0pt;text-align:justify;'><span >- &nbsp; &nbsp; &nbsp; &nbsp;  Nếu quá hạn trả xe, Bên A phải chịu thêm phí tương đương với {{ number_format($contract->productOrder->overtime_price) }}</span></p>
+    <p style='margin-left:36.0pt;margin-bottom:10.0pt;text-align:justify;'><span >- &nbsp; &nbsp; &nbsp; &nbsp;  Nếu quá hạn trả xe, Bên A phải chịu thêm phí tương đương với {{ number_format($contract->productOrder->overtime_price) }} VNĐ/giờ</span></p>
     <p style='margin-left:36.0pt;margin-bottom:10.0pt;text-align:justify;'><span >- &nbsp; &nbsp; &nbsp; &nbsp;  Nếu một trong hai Bên, bên nào muốn chấm dứt Hợp đồng trước thời hạn thì phải thông báo cho Bên kia và chịu trách nghiệm hoàn toàn với giá trị hợp đồng.</span></p>
     <p style='margin-bottom:10.0pt;text-align:justify;'><strong ><span >ĐIỀU 5 : ĐIỀU KHOẢN CHUNG</span></strong></p>
     <p style='margin-left:36.0pt;margin-bottom:10.0pt;text-align:justify;'><span >- &nbsp; &nbsp; &nbsp; &nbsp; Trong quá trình thực hiện hợp đồng, nếu có đề nghị điều chỉnh thì phải thông báo cho nhau bằng văn bản để cùng bàn bạc giải quyết.</span></p>
