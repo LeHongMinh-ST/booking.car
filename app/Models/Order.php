@@ -59,8 +59,15 @@ class Order extends Model
     {
         $pickDate = Carbon::createFromTimestamp($this->pick_date);
         $dropDate = Carbon::createFromTimestamp($this->drop_date);
-        $date = $pickDate->diffInDays($dropDate);
+        $date = $pickDate->diffInHours($dropDate);
         return  $date * $this->productOrder->price;
+    }
+
+    public function getTotalHoursAttribute()
+    {
+        $pickDate = Carbon::createFromTimestamp($this->pick_date);
+        $dropDate = Carbon::createFromTimestamp($this->drop_date);
+        return $pickDate->diffInHours($dropDate);
     }
 
     public function getPickDateTextAttribute()

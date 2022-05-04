@@ -282,7 +282,7 @@
                                         STT
                                     </th>
                                     <th class="min-w-125px"
-                                        style="width: 163.734px;">Tên hợp đồng
+                                        style="width: 163.734px;">Yêu cầu
                                     </th>
 
                                     <th class="min-w-125px"
@@ -464,7 +464,7 @@
                                     <!--begin::Card toolbar-->
                                     @if($statusOrder != \App\Models\Order::STATUS['cancel'])
                                     <div class="card-toolbar">
-                                        <span class="btn btn-light-primary m-1">
+                                        <span class="btn btn-light-primary m-1" wire:click="handleCreateContract({{ $selectId  }})">
                                             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                                                 <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                                                     <rect x="0" y="0" width="24" height="24"></rect>
@@ -585,6 +585,11 @@
                                                     </tr>
 
                                                     <tr class="">
+                                                        <td class="text-gray-400">Tổng thời gian thuê:</td>
+                                                        <td class="text-gray-800">{{ number_format($totalHours ?? 0) }} Giờ</td>
+                                                    </tr>
+
+                                                    <tr class="">
                                                         <td class="text-gray-400">Tổng tiền:</td>
                                                         <td class="text-gray-800">{{ number_format($totalPrice ?? 0) }} VNĐ</td>
                                                     </tr>
@@ -645,7 +650,7 @@
                                                     <td>{{ $color ?? '' }}</td>
                                                     <td>{{ $year ?? '' }}</td>
                                                     <td>{{ number_format($km ?? 0) }} km</td>
-                                                    <td>{{ number_format($price ?? 0) }} VNĐ / Ngày</td>
+                                                    <td>{{ number_format($price ?? 0) }} VNĐ / Giờ</td>
                                                     <td>{{ number_format($depositPrice ?? 0) }} VNĐ </td>
                                                 </tr>
                                                 </tbody>
@@ -655,6 +660,18 @@
                                         </div>
                                         <!--end::Product table-->
                                     </div>
+
+                                    <div class="mb-0">
+                                        <!--begin::Title-->
+                                        <h5 class="mb-4">Ghi chú:</h5>
+                                        <!--end::Title-->
+                                        <!--begin::Product table-->
+                                        <div>
+                                            {!! $note !!}
+                                        </div>
+                                        <!--end::Product table-->
+                                    </div>
+
                                     @if($noteCanceled)
                                         <div class="mb-0">
                                             <!--begin::Title-->

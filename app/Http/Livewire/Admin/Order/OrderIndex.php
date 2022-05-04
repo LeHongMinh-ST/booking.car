@@ -2,8 +2,11 @@
 
 namespace App\Http\Livewire\Admin\Order;
 
+use App\Models\Contract;
 use App\Models\Order;
 use App\Models\Product;
+use App\Models\ProductOrder;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Livewire\Component;
@@ -31,6 +34,7 @@ class OrderIndex extends Component
     public $statusOrder = 0;
     public $productId = 0;
     public $totalPrice = 0;
+    public $totalHours = 0;
     public $customerName = '';
     public $personId = '';
     public $phone = '';
@@ -45,6 +49,7 @@ class OrderIndex extends Component
     public $noteCancel;
     public $noteCanceled;
     public $depositPrice;
+    public $note;
 
     protected $listeners = [
         'changeFilterStatus' => 'updateStatus',
@@ -105,7 +110,7 @@ class OrderIndex extends Component
             $this->name = $order->name ?? '';
             $this->selectId = $order->id ?? '';
             $this->customerName = $order->customerOrder->name ?? '';
-            $this->personId = $order->customerOrder->person_id ?? '' ;
+            $this->personId = $order->customerOrder->person_id ?? '';
             $this->phone = $order->customerOrder->phone ?? '';
             $this->address = $order->customerOrder->address ?? '';
             $this->permanentResidence = $order->customerOrder->permanent_residence ?? '';
@@ -115,6 +120,7 @@ class OrderIndex extends Component
             $this->pickDateText = $order->pickDateText ?? '';
             $this->dropDateText = $order->dropDateText ?? '';
             $this->totalPrice = $order->totalPrice ?? 0;
+            $this->totalHours = $order->totalHours ?? 0;
             $this->productName = $order->productOrder->name ?? '';
             $this->color = $order->productOrder->color ?? '';
             $this->km = $order->productOrder->km ?? '';
@@ -125,6 +131,7 @@ class OrderIndex extends Component
             $this->licensePlates = $order->productOrder->license_plates ?? '';
             $this->statusOrder = $order->status ?? 0;
             $this->noteCanceled = $order->note_cancel;
+            $this->note = $order->note;
             $this->depositPrice = $order->productOrder->deposit_price;
             $this->dispatchBrowserEvent('openDetailModal');
         }
@@ -202,6 +209,75 @@ class OrderIndex extends Component
 
     public function handleCreateContract($id)
     {
-        $order = Order::query()->with(['customerOrder', 'productOrder'])->find($id);
+        if (!checkPermission('contract-create')) {
+            $this->dispatchBrowserEvent('alert',
+                ['type' => 'error', 'message' => 'Bạn không có quyền thực hiện chức năng này!', 'title' => '403']);
+            return false;
+        }
+
+        DB::beginTransaction();
+        try {
+            $order = Order::query()->with(['customerOrder', 'productOrder'])->find($id);
+
+            $product = $order->productOrder;
+            $customer = $order->customerOrder;
+
+            $now = Carbon::now()->timestamp;
+            if ($order->price_deposits < $product->deposit_price) {
+                $this->dispatchBrowserEvent('alert',
+                    ['type' => 'error', 'message' => 'Khách hàng chưa đóng đủ tiền cọc tối thiểu!', 'title' => 'Lỗi']);
+                return false;
+            }
+
+            if ($now > $order->pick_date) {
+                $this->dispatchBrowserEvent('alert',
+                    ['type' => 'error', 'message' => 'Đã quá thời gian nhận xe!', 'title' => 'Lỗi']);
+                return false;
+            }
+
+            $contract = new Contract();
+            $contract->name = 'Hợp đồng thuê xe  - ' . $product->name . ' - ' . $product->license_plates . ' - ' . $customer->name;
+            $contract->code = $this->generateUniqueCode();
+            $contract->pick_date = $order->pick_date;
+            $contract->drop_date = $order->drop_date;
+            $contract->price_total = $order->totalPrice;
+            $contract->price_hour = $product->price;
+            $contract->hour = $order->totalHours;
+            $contract->price_deposits = $order->price_deposits;
+            $contract->customer_id = $customer->id;
+            $contract->product_order_id = $product->id;
+            $contract->status = Contract::STATUS['deposited'];
+            if ($contract->save()) {
+                $contract->load(['productOrder', 'customerOrder']);
+                $contract->content = view('admin.contract.contract', ['contract' => $contract]);
+                $contract->save();
+                session()->flash('success', 'Tạo hợp đồng thành công');
+                DB::commit();
+                return redirect()->route('admin.contract.detail', $contract->id);
+            }
+
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::error('Error delete order', [
+                'method' => __METHOD__,
+                'message' => $e->getMessage()
+            ]);
+
+            $this->dispatchBrowserEvent('alert',
+                ['type' => 'error', 'message' => 'Tạo hợp đồng thất bại!']);
+        }
+    }
+
+    public function generateUniqueCode(): string
+    {
+        $text = 'ABCDEFGHILKMNOPQRSTUVWXYZ';
+        $code = substr(str_shuffle($text), 0, 5). '-' . rand(10000, 99999);
+
+        if (Contract::query()->where('code', $code)->exists()) {
+            return $this->generateUniqueCode();
+        }
+
+        return $code;
     }
 }

@@ -24,9 +24,9 @@ class OrderUpdate extends Component
     public $priceDeposits = '';
     public $orderId = '';
     public $status = 0;
-    private $customerOrderId = '';
-    private $productOrderId = '';
-    private $productIdOld = '';
+    public $customerOrderId = '';
+    public $productOrderId = '';
+    public $productIdOld = '';
 
     protected $listeners = [
         'changeOrderTime' => 'updateOrderTime',
@@ -56,10 +56,9 @@ class OrderUpdate extends Component
             $this->note = $order->note;
             $this->status = $order->status;
             $this->priceDeposits = $order->price_deposits;
-            $this->productId = $order->productOrder->product_id;
+            $this->productIdOld = $this->productId = $order->productOrder->product_id;
             $this->customerOrderId = $order->customer_order_id;
             $this->productOrderId = $order->product_order_id;
-            $this->productIdOld = $order->productOrder->product_id;
             $this->orderTime['start'] = Carbon::createFromTimestamp($order->pick_date)->format('d-m-Y H:m:s');
             $this->orderTime['end'] = Carbon::createFromTimestamp($order->drop_date)->format('d-m-Y H:m:s');
         }
@@ -133,13 +132,14 @@ class OrderUpdate extends Component
             return false;
         }
 
+
         $this->validate();
 
         DB::beginTransaction();
 
         try {
 
-            $customerOrder = CustomerOrder::query()
+            CustomerOrder::query()
                 ->where('id',$this->customerOrderId)
                 ->update([
                     'name' => $this->name,
@@ -148,7 +148,7 @@ class OrderUpdate extends Component
                     'address' => $this->address,
                     'permanent_residence' => $this->permanentResidence,
                 ]);
-            ;
+
             $product = Product::query()->find($this->productId);
 
             if ($this->productId != $this->productIdOld) {
@@ -162,14 +162,15 @@ class OrderUpdate extends Component
                     'other_parameters' => $product->other_parameters,
                     'license_plates' => $product->license_plates,
                     'brand_id' => $product->brand_id,
-                    'overtime_price' => $product->overtimePrice,
-                    'over_km_price' => $product->overKmPrice,
-                    'deposit_price' => $product->depositPrice,
-                    'number_of_seats' => $product->numberSeats,
+                    'overtime_price' => $product->overtime_price,
+                    'over_km_price' => $product->over_km_price,
+                    'deposit_price' => $product->deposit_price,
+                    'number_of_seats' => $product->number_of_seats,
                 ]);
 
                 $this->productOrderId = $productOrder->id;
             }
+
             if (!($this->status == Order::STATUS['cancel'] || $this->status == Order::STATUS['contract'])) {
                 $this->status = $this->priceDeposits > 0 ? Order::STATUS['deposited'] : Order::STATUS['no_deposit_yet'];
             }
@@ -178,7 +179,7 @@ class OrderUpdate extends Component
                 'name' => 'Yêu cầu thuê xe - ' . $product->name . ' - ' . $product->license_plates . ' - ' . $this->name,
                 'pick_date' => Carbon::make($this->orderTime['start'])->timestamp,
                 'drop_date' => Carbon::make($this->orderTime['end'])->timestamp,
-                'price_deposits' => $this->priceDeposits,
+                'price_deposits' => (int)$this->priceDeposits,
                 'product_order_id' => $this->productOrderId,
                 'status' => $this->status
             ]);

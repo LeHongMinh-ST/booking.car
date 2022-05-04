@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -38,6 +39,12 @@ class ProductOrder extends Model
     protected $casts = [
         'other_parameters' => 'array'
     ];
+
+    public function getTextYearAttribute()
+    {
+        $year = Carbon::make($this->year)->year;
+        return $year;
+    }
 
     public function categories()
     {
