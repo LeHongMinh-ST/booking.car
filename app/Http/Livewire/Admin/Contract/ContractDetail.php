@@ -9,6 +9,7 @@ use PDF;
 class ContractDetail extends Component
 {
     public $contract;
+    public $noteCancel;
 
     public function render()
     {
@@ -19,6 +20,21 @@ class ContractDetail extends Component
     public function mount($id)
     {
         $this->contract = Contract::query()->with(['productOrder', 'customerOrder'])->find($id);
+    }
+
+    public function openModalCheckComplete()
+    {
+        $this->dispatchBrowserEvent('openModalCheckComplete');
+    }
+
+    public function openModalCheckCancel()
+    {
+        $this->dispatchBrowserEvent('openModalCancel');
+    }
+
+    public function handleComplete()
+    {
+
     }
 
     public function handlePrint()

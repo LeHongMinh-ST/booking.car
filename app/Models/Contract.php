@@ -13,11 +13,10 @@ class Contract extends Model
     protected $table = 'contracts';
 
     const STATUS = [
-        'no_deposit_yet' => 1,
-        'deposited' => 2,
-        'paid' => 3,
-        'cancel' => 4,
-        'processing' => 5
+        'deposited' => 1,
+        'processing' => 2,
+        'cancel' => 3,
+        'complete' => 4
     ];
 
     protected $fillable = [
@@ -33,7 +32,8 @@ class Contract extends Model
         'price_deposits',
         'customer_id',
         'product_order_id',
-        'status'
+        'status',
+        'order_id'
     ];
 
     public function getDateCreateTextAttribute()
@@ -61,6 +61,42 @@ class Contract extends Model
         return "$hour giờ $minute phút ngày $date";
     }
 
+    public function getTotalPriceTextAttribute()
+    {
+        return number_format($this->price_total) . " VNĐ";
+    }
+
+    public function getStatusTextAttribute()
+    {
+        $status = "";
+
+        switch ($this->status) {
+            case self::STATUS['deposited']:
+                $status = '<span class="badge badge-info">Đã đặt cọc</span>';
+                break;
+            case self::STATUS['processing']:
+                $status = '<span class="badge badge-primary">Đang thực hiện</span>';
+                break;
+            case self::STATUS['cancel']:
+                $status = '<span class="badge badge-danger">Đã huỷ</span>';
+                break;
+            case self::STATUS['complete']:
+                $status = '<span class="badge badge-success">Đã hoàn thành</span>';
+                break;
+        }
+
+        return $status;
+    }
+
+    public function scopeSearch($query, $search)
+    {
+        if ($search) {
+            $query->where('name', 'LIKE', '%' . $search . '%')
+                ->orWhere('code', 'LIKE', '%' . $search . '%');
+        }
+        return $query;
+    }
+
     public function productOrder()
     {
         return $this->belongsTo(ProductOrder::class, 'product_order_id', 'id');
@@ -70,5 +106,7 @@ class Contract extends Model
     {
         return $this->belongsTo(CustomerOrder::class, 'customer_id', 'id');
     }
+
+
 
 }

@@ -128,4 +128,8 @@ class Order extends Model
         return $this->belongsTo(CustomerOrder::class, 'customer_order_id', 'id');
     }
 
+    public function contract()
+    {
+        return $this->hasOne(Contract::class, 'order_id');
+    }
 }

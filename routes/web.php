@@ -14,7 +14,6 @@ use App\Http\Livewire\Admin\Home\Dashboard;
 use App\Http\Livewire\Admin\Order\OrderIndex;
 use App\Http\Livewire\Admin\Order\OrderCreate;
 use App\Http\Livewire\Admin\Order\OrderUpdate;
-use App\Http\Livewire\Admin\Order\OrderDetail;
 use App\Http\Livewire\Admin\Product\ProductCreate;
 use App\Http\Livewire\Admin\Product\ProductDetail;
 use App\Http\Livewire\Admin\Product\ProductIndex;
@@ -36,10 +35,11 @@ use App\Http\Livewire\Client\ListProductByCategory;
 use App\Http\Livewire\Client\Blog;
 use App\Http\Livewire\Client\Post;
 use App\Http\Livewire\Client\CategoryPost;
-use App\Models\CategoryBlog;
 use App\Http\Livewire\Admin\Contract\ContractIndex;
 use App\Http\Livewire\Admin\Contract\ContractDetail;
 use App\Http\Livewire\Admin\Contract\ContractUpdate;
+use App\Http\Livewire\Admin\Statistic\Product as StatisticProduct;
+use App\Http\Livewire\Admin\Statistic\Revenue as StatisticRevenue;
 use Illuminate\Support\Facades\Route;
 use UniSharp\LaravelFilemanager\Lfm;
 
@@ -59,13 +59,12 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
     Route::group(['middleware' => ['admin.auth']], function () {
-        Route::get('/dashboard',Dashboard::class)->name('dashboard');
-        Route::get('/role',RoleIndex::class)->name('role');
-        Route::get('/brand',BrandIndex::class)->name('brand');
-        Route::get('/category',CategoryIndex::class)->name('category');
-        Route::get('/category-post',CategoryPostIndex::class)->name('category-post');
-        Route::get('/statistic/revenue',CategoryIndex::class)->name('statistic.revenue');
-        Route::get('/statistic/product',CategoryIndex::class)->name('statistic.product');
+        Route::get('/dashboard',Dashboard::class)->middleware('permission:dashboard-index')->name('dashboard');
+        Route::get('/brand',BrandIndex::class)->middleware('permission:brand-index')->name('brand');
+        Route::get('/category',CategoryIndex::class)->middleware('permission:category-index')->name('category');
+        Route::get('/category-post',CategoryPostIndex::class)->middleware('permission:category-post-index')->name('category-post');
+        Route::get('/statistic/revenue',StatisticRevenue::class)->middleware('permission:statistic-revenue')->name('statistic.revenue');
+        Route::get('/statistic/product',StatisticProduct::class)->middleware('permission:statistic-product')->name('statistic.product');
 
         Route::prefix('product')->group(function () {
             Route::get('/',ProductIndex::class)->middleware('permission:product-index')->name('product');
