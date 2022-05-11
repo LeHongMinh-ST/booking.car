@@ -10,7 +10,7 @@
         config.height = '800px';
         CKEDITOR.disableAutoInline = false;
         CKEDITOR.replace( 'editorContract' , config).on('change', function() {
-            livewire.emit('changeContent', $(this).getData())
+            livewire.emit('changeContent', this.getData())
         })
     </script>
 @endsection
@@ -84,7 +84,7 @@
                     <!--begin::Card toolbar-->
                     <div class="card-toolbar">
                         <!--begin::Toolbar-->
-                        <button type="button" class="btn btn-light-primary me-3" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end" data-kt-menu-flip="top-end">
+                        <button type="button" class="btn btn-light-primary me-3" wire:click="update" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end" data-kt-menu-flip="top-end">
                             <!--begin::Svg Icon | path: icons/stockholm/Text/Filter.svg-->
                             <span class="svg-icon svg-icon-primary svg-icon-2"><!--begin::Svg Icon | path:/var/www/preview.keenthemes.com/metronic/releases/2021-05-14-112058/theme/html/demo1/dist/../src/media/svg/icons/General/Save.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                                     <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -105,7 +105,7 @@
             </div>
             <!--end::Card-->
             <div class="card">
-                <div class="card-body">
+                <div class="card-body"  wire:ignore>
                     <div class="container" id="editorContract" contenteditable="true">
                         {!! $contract->content !!}
 

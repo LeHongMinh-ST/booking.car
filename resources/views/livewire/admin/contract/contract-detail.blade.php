@@ -23,7 +23,7 @@
         })
 
         window.addEventListener('openModalCheckComplete', event => {
-            $('#checkCompleteModal').modal('show')
+            $('#completeModal').modal('show')
         })
 
         window.addEventListener('openModalCancel', event => {
@@ -31,7 +31,7 @@
         })
 
         window.addEventListener('closeModal', event => {
-            $('#checkCompleteModal').modal('hide')
+            $('#completeModal').modal('hide')
             $('#cancelModal').modal('hide')
         })
     </script>
@@ -106,7 +106,7 @@
                     <!--begin::Card toolbar-->
                     <div class="card-toolbar">
                         <!--begin::Toolbar-->
-                        <button type="button" class="btn btn-light-success me-3" wire:click=""
+                        <button type="button" class="btn btn-light-success me-3" wire:click="openModalCheckComplete"
                                 data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end"
                                 data-kt-menu-flip="top-end">
                             <!--begin::Svg Icon | path: icons/stockholm/Text/Filter.svg-->
@@ -125,7 +125,7 @@
                             <!--end::Svg Icon-->Hoàn thành
                         </button>
 
-                        <button type="button" class="btn btn-light-danger me-3" wire:click=""
+                        <button type="button" class="btn btn-light-danger me-3" wire:click="openModalCheckCancel"
                                 data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end"
                                 data-kt-menu-flip="top-end">
                             <!--begin::Svg Icon | path: icons/stockholm/Text/Filter.svg-->
@@ -203,4 +203,87 @@
         <!--end::Container-->
     </div>
     <!--end::Post-->
+    <div class="modal fade" wire:ignore.self id="completeModal" tabindex="-1"
+         aria-hidden="true">
+        <!--begin::Modal dialog-->
+        <div class="modal-dialog modal-dialog-centered mw-650px">
+            <!--begin::Modal content-->
+            <div class="modal-content">
+                <!--begin::Form-->
+                <form class="form fv-plugins-bootstrap5 fv-plugins-framework" wire:submit.prevent="handleComplete">
+                    <!--begin::Modal header-->
+                    <div class="modal-header" id="kt_modal_add_customer_header">
+                        <!--begin::Modal title-->
+                        <h2 class="fw-bolder">Hoàn thành hợp đồng</h2>
+                        <!--end::Modal title-->
+                        <!--begin::Close-->
+                        <div wire:click="closeModal" id="kt_modal_add_customer_close"
+                             class="btn btn-icon btn-sm btn-active-icon-primary">
+                            <!--begin::Svg Icon | path: icons/stockholm/Navigation/Close.svg-->
+                            <span class="svg-icon svg-icon-1">
+                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                                 xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px"
+                                                 viewBox="0 0 24 24" version="1.1">
+                                                <g transform="translate(12.000000, 12.000000) rotate(-45.000000) translate(-12.000000, -12.000000) translate(4.000000, 4.000000)"
+                                                   fill="#000000">
+                                                    <rect fill="#000000" x="0" y="7" width="16" height="2" rx="1"></rect>
+                                                    <rect fill="#000000" opacity="0.5"
+                                                          transform="translate(8.000000, 8.000000) rotate(-270.000000) translate(-8.000000, -8.000000)"
+                                                          x="0" y="7" width="16" height="2" rx="1"></rect>
+                                                </g>
+                                            </svg>
+                                        </span>
+                            <!--end::Svg Icon-->
+                        </div>
+                        <!--end::Close-->
+                    </div>
+                    <!--end::Modal header-->
+                    <!--begin::Modal body-->
+                    <div class="modal-body py-10 px-lg-17">
+                        <!--begin::Scroll-->
+                        <div class="scroll-y me-n7 pe-7" id="kt_modal_add_customer_scroll" data-kt-scroll="true"
+                             data-kt-scroll-activate="{default: false, lg: true}"
+                             data-kt-scroll-max-height="auto"
+                             data-kt-scroll-dependencies="#kt_modal_add_customer_header"
+                             data-kt-scroll-wrappers="#kt_modal_add_customer_scroll"
+                             data-kt-scroll-offset="300px">
+                            <!--begin::Input group-->
+
+
+                            <div class="fv-row mb-7 fv-plugins-icon-container">
+                                <!--begin::Label-->
+                                <label class="fs-6 fw-bold mb-2">Số giờ phụ trội</label>
+                                <!--end::Label-->
+                                <!--begin::Input-->
+                                <input type="number" wire:model="numberOvertime" class="form-control form-control-solid">
+                            </div>
+
+                            <div class="fv-row mb-7 fv-plugins-icon-container">
+                                <!--begin::Label-->
+                                <label class="fs-6 fw-bold mb-2">Tiền phụ trội</label>
+                                <!--end::Label-->
+                                <!--begin::Input-->
+                                <input type="number" wire:model="overtimePrice" disabled class="form-control form-control-solid">
+                            </div>
+                            <!--end::Modal body-->
+                            <!--begin::Modal footer-->
+                            <div class="modal-footer flex-center">
+                                <!--begin::Button-->
+                                <button type="submit" id="kt_modal_add_customer_submit" class="btn btn-primary">
+                                    <span class="indicator-label">Lưu</span>
+                                </button>
+
+                                <button wire:click="closeModal" type="reset"
+                                        id="kt_modal_add_customer_cancel" class="btn btn-white me-3">Huỷ
+                                </button>
+                                <!--end::Button-->
+                            </div>
+                        </div>
+                    </div>
+                    <!--end::Modal footer-->
+                </form>
+                <!--end::Form-->
+            </div>
+        </div>
+    </div>
 </div>
