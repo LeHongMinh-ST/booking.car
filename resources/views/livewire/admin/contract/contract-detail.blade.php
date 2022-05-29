@@ -106,6 +106,7 @@
                     <!--begin::Card toolbar-->
                     <div class="card-toolbar">
                         <!--begin::Toolbar-->
+                        @if(!($contract->status == \App\Models\Contract::STATUS['complete'] || $contract->status == \App\Models\Contract::STATUS['cancel']))
                         <button type="button" class="btn btn-light-success me-3" wire:click="openModalCheckComplete"
                                 data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end"
                                 data-kt-menu-flip="top-end">
@@ -139,6 +140,7 @@
                                 </svg><!--end::Svg Icon--></span>
                             <!--end::Svg Icon-->Huỷ
                         </button>
+                        @endif
 
                         <button type="button" class="btn btn-light-info me-3" wire:click="handlePrint"
                                 data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end"
@@ -162,7 +164,7 @@
                             </svg><!--end::Svg Icon--></span>
                             <!--end::Svg Icon-->Tải xuống
                         </button>
-
+                        @if(!($contract->status == \App\Models\Contract::STATUS['complete'] || $contract->status == \App\Models\Contract::STATUS['cancel']))
                         <a type="button" class="btn btn-light-primary me-3"
                            href="{{ route('admin.contract.edit', $contract->id) }}"
                            data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end"
@@ -183,6 +185,7 @@
                             </span>
                             <!--end::Svg Icon-->Chỉnh sửa
                         </a>
+                        @endif
                     </div>
                     <!--end::Card toolbar-->
                 </div>

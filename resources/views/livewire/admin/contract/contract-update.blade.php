@@ -84,18 +84,26 @@
                     <!--begin::Card toolbar-->
                     <div class="card-toolbar">
                         <!--begin::Toolbar-->
-                        <button type="button" class="btn btn-light-primary me-3" wire:click="update" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end" data-kt-menu-flip="top-end">
-                            <!--begin::Svg Icon | path: icons/stockholm/Text/Filter.svg-->
-                            <span class="svg-icon svg-icon-primary svg-icon-2"><!--begin::Svg Icon | path:/var/www/preview.keenthemes.com/metronic/releases/2021-05-14-112058/theme/html/demo1/dist/../src/media/svg/icons/General/Save.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                        @if(!($contract->status == \App\Models\Contract::STATUS['complete'] || $contract->status == \App\Models\Contract::STATUS['cancel']))
+                            <button type="button" class="btn btn-light-primary me-3" wire:click="update"
+                                    data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end"
+                                    data-kt-menu-flip="top-end">
+                                <!--begin::Svg Icon | path: icons/stockholm/Text/Filter.svg-->
+                                <span class="svg-icon svg-icon-primary svg-icon-2"><!--begin::Svg Icon | path:/var/www/preview.keenthemes.com/metronic/releases/2021-05-14-112058/theme/html/demo1/dist/../src/media/svg/icons/General/Save.svg--><svg
+                                        xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                        width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                                     <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                                         <polygon points="0 0 24 0 24 24 0 24"/>
-                                        <path d="M17,4 L6,4 C4.79111111,4 4,4.7 4,6 L4,18 C4,19.3 4.79111111,20 6,20 L18,20 C19.2,20 20,19.3 20,18 L20,7.20710678 C20,7.07449854 19.9473216,6.94732158 19.8535534,6.85355339 L17,4 Z M17,11 L7,11 L7,4 L17,4 L17,11 Z" fill="#000000" fill-rule="nonzero"/>
+                                        <path
+                                            d="M17,4 L6,4 C4.79111111,4 4,4.7 4,6 L4,18 C4,19.3 4.79111111,20 6,20 L18,20 C19.2,20 20,19.3 20,18 L20,7.20710678 C20,7.07449854 19.9473216,6.94732158 19.8535534,6.85355339 L17,4 Z M17,11 L7,11 L7,4 L17,4 L17,11 Z"
+                                            fill="#000000" fill-rule="nonzero"/>
                                         <rect fill="#000000" opacity="0.3" x="12" y="4" width="3" height="5" rx="0.5"/>
                                     </g>
                                 </svg><!--end::Svg Icon-->
                             </span>
-                            <!--end::Svg Icon-->Lưu hợp đồng
-                        </button>
+                                <!--end::Svg Icon-->Lưu hợp đồng
+                            </button>
+                        @endif
                     </div>
                     <!--end::Card toolbar-->
                 </div>
@@ -105,7 +113,7 @@
             </div>
             <!--end::Card-->
             <div class="card">
-                <div class="card-body"  wire:ignore>
+                <div class="card-body" wire:ignore>
                     <div class="container" id="editorContract" contenteditable="true">
                         {!! $contract->content !!}
 

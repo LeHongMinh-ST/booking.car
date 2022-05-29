@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\Chart\ChartController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Livewire\Admin\Account\AccountCreate;
 use App\Http\Livewire\Admin\Account\AccountIndex;
@@ -41,6 +42,7 @@ use App\Http\Livewire\Admin\Contract\ContractUpdate;
 use App\Http\Livewire\Admin\Statistic\Product as StatisticProduct;
 use App\Http\Livewire\Admin\Statistic\Revenue as StatisticRevenue;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Client\LoginController as ClientLoginController;
 use UniSharp\LaravelFilemanager\Lfm;
 
 /*
@@ -109,6 +111,13 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
             Route::get('/{id}/edit',ContractUpdate::class)->middleware('permission:contract-update')->name('contract.edit');
         });
 
+        Route::prefix('chart')->name('chart.')->group(function () {
+            Route::get('get-data-chart-revenue-two-week', [ChartController::class, 'getDataChartRevenueTwoWeek'])->name('get-data-chart-revenue-two-week');
+            Route::get('get-data-chart-contract', [ChartController::class, 'getDataChartContract'])->name('get-data-chart-contract');
+            Route::get('get-data-chart-pie-revenue', [ChartController::class, 'getDataChartPieRevenue'])->name('get-data-chart-pie-revenue');
+            Route::get('get-data-chart-total-revenue', [ChartController::class, 'getDataChartTotalRevenue'])->name('get-data-chart-total-revenue');
+        });
+
     });
 });
 
@@ -130,4 +139,9 @@ Route::get('/bai-viet/{slug}', Post::class)->name('post');
 Route::get('/gioi-thieu', About::class)->name('about');
 Route::get('/dich-vu', Service::class)->name('service');
 Route::get('/lien-he', Contact::class)->name('contact');
+
+//Route::get('/dang-ky', ClientLoginController::class)->name('register');
+Route::get('/dang-nhap', [ClientLoginController::class, 'showLoginForm'])->name('login.form');
+Route::get('/get-social/{social}', [ClientLoginController::class, 'getSocial'])->name('get-social');
+Route::get('/check-social/{social}', [ClientLoginController::class, 'getSocial'])->name('get-social');
 

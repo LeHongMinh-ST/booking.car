@@ -6,6 +6,7 @@
 <script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
 <script src="//cdn.ckeditor.com/4.17.2/full/ckeditor.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 <!--end::Global Javascript Bundle-->
 <!--begin::Page Custom Javascript(used by this page)-->
 
