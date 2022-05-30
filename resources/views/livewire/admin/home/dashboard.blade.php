@@ -221,7 +221,7 @@
                 url: "{{ route('admin.chart.get-data-chart-revenue-two-week') }}",
             })
         }
-        const getDataProfit = () => {
+        const getDataContract = () => {
             return $.ajax({
                 url: "{{ route('admin.chart.get-data-chart-contract') }}",
             })
@@ -295,15 +295,15 @@
         }
 
         const renderChartPie = async () => {
-            let data = await getDataPieRevenue()
+            let data = await getDataContract()
             const options = {
-                series: data.data.revenue,
+                series: data.data.contract,
                 chart: {
                     width: 350,
                     height: 350,
                     type: 'pie',
                 },
-                labels: ['Hợp đồng chính', 'Phụ trội'],
+                labels: ['Đã đặt cọc', 'Hoàn thành', 'Đang thực thi', 'Huỷ'],
                 legend: {
                     position: 'bottom'
                 },
@@ -323,7 +323,7 @@
                     y: {
                         formatter: function (val) {
                             let num = new Intl.NumberFormat('en-US').format(parseInt(val));
-                            return num + ' VNĐ';
+                            return num + ' hợp đồng';
                         },
                     }
                 }

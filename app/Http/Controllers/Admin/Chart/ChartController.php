@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin\Chart;
 use App\Http\Controllers\Controller;
 use App\Models\Contract;
 use App\Models\StatisticRevenueDaily;
+use App\Models\StatisticRevenueMonthly;
+use App\Models\StatisticRevenueQuarterly;
 use App\Models\StatisticRevenueYearly;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -52,10 +54,10 @@ class ChartController extends Controller
             'success' => 1,
             'data' => [
                 'contract' => [
+                    count($contractDeposited),
                     count($contractSuccess),
                     count($contractCancel),
                     count($contractProcess),
-                    count($contractDeposited)
                 ]
             ],
             'message' => 'success'
@@ -99,38 +101,67 @@ class ChartController extends Controller
         }
 
         if (isset($data['start'])) {
-            $startTime = $data['start'];
+            $startTime = Carbon::make($data['start']);
         }
         if (isset($data['end'])) {
-            $endTime = $data['end'];
+            $endTime = Carbon::make($data['end']);
         }
 
         switch ($calendar) {
             case 'day':
-                $startTime = Carbon::make($startTime)->timestamp;
-                $endTime= Carbon::make($endTime)->timestamp;
+                $startTime = $startTime->timestamp;
+                $endTime = $endTime->timestamp;
+                $statistic = StatisticRevenueDaily::query()
+                    ->where('date', '>=', $startTime)
+                    ->where('date', '<=', $endTime)
+                    ->orderByDesc('date');
                 break;
             case 'quarter':
-                $startTime = Carbon::make($startTime)->firstOfQuarter()->timestamp;
-                $endTime= Carbon::make($endTime)->lastOfQuarter()->timestamp;
+                $startTime = $startTime->firstOfQuarter()->timestamp;
+                $endTime = $endTime->lastOfQuarter()->timestamp;
+                $statistic = StatisticRevenueQuarterly::query()
+                    ->where('date', '>=', $startTime)
+                    ->where('date', '<=', $endTime)
+                    ->orderByDesc('date');
+
                 break;
             case 'year':
-                $startTime = Carbon::make($startTime)->firstOfYear()->timestamp;
-                $endTime= Carbon::make($endTime)->lastOfYear()->timestamp;
+                $startTime = $startTime->firstOfYear()->timestamp;
+                $endTime = $endTime->lastOfYear()->timestamp;
+                $statistic = StatisticRevenueYearly::query()
+                    ->where('date', '>=', $startTime)
+                    ->where('date', '<=', $endTime)
+                    ->orderByDesc('date');
+
                 break;
             case 'month':
+            default:
                 $startTime = $startTime->timestamp;
-                $endTime= $endTime->timestamp;
+                $endTime = $endTime->timestamp;
+                $statistic = StatisticRevenueMonthly::query()
+                    ->where('date', '>=', $startTime)
+                    ->where('date', '<=', $endTime)
+                    ->orderByDesc('date');
                 break;
         }
 
-        $revenue['data'] = StatisticRevenueDaily::query()
-            ->where('date', '>=', $startTime)
-            ->where('date', '<=', $endTime)
-            ->orderByDesc('date')
-            ->pluck('revenue')
-            ->toArray();
-        $revenue['data'] = array_reverse($revenue['data']);
+        $revenue['data'] = $statistic->pluck('revenue')->toArray();
+        $revenue['label'] = [];
+        $labels = $statistic->pluck('date')->toArray();
 
+        foreach ($labels as $label) {
+            $revenue['label'][] =  Carbon::createFromTimestamp($label)->format('d/m/Y');
+        }
+
+        $revenue['data'] = array_reverse($revenue['data']);
+        $revenue['label'] = array_reverse($revenue['label']);
+
+        return response()->json([
+            'success' => 1,
+            'data' => [
+                'revenue' => $revenue,
+            ],
+            'message' => 'success'
+        ]);
     }
 }

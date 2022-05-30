@@ -1,5 +1,5 @@
 @section('title')
-    thống kê doanh thu
+    Thống kê doanh thu
 @endsection
 <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
     <!--begin::Toolbar-->
@@ -208,16 +208,16 @@
                             <div class="row">
                                 <div class="col-xxl-3" wire:ignore.self>
                                     <div class="label">Theo: </div>
-                                    <select name="" wire:model="byChart" class="form-select form-select-solid" id="selectByChart">
+                                    <select name="" class="form-select form-select-solid" id="selectByChart">
                                         <option value="year">Năm</option>
                                         <option value="quater">Quý</option>
-                                        <option value="month">Tháng</option>
+                                        <option selected value="month">Tháng</option>
                                         <option value="day">Ngày</option>
                                     </select>
                                 </div>
                                 <div class="col-xxl-6">
                                     <div class="label">Thời gian: </div>
-                                    <input class="form-control form-control-solid" wire:modal="orderTime"
+                                    <input class="form-control form-control-solid"
                                            placeholder="Chọn thời gian" id="orderTime"/>
                                 </div>
                                 <div class="col-xxl-3">
@@ -365,6 +365,7 @@
 
         const renderChartTotal = async (data = null) => {
             let revenue = await getDataTotalRevenue(data)
+            $("#chartTotalRevenue").empty()
             $("#orderTime").data('daterangepicker').setStartDate(revenue.data.revenue.label[0])
             $("#orderTime").data('daterangepicker').setEndDate(revenue.data.revenue.label[revenue.data.revenue.label.length - 1])
             let options = {
@@ -427,7 +428,7 @@
                 }
             };
 
-            let chart = new ApexCharts(document.querySelector("#chartTotalRevenue"), options);
+            let chart = new ApexCharts(document.querySelector("#chartTotalRevenue"), options)
             chart.render();
         }
 
