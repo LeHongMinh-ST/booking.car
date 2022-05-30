@@ -63,4 +63,13 @@ class ContractDetail extends Component
     {
         $this->dispatchBrowserEvent('downloadPdf');
     }
+
+    public function handleProcessing()
+    {
+        $this->contract->status = Contract::STATUS['processing'];
+        $this->contract->save();
+        $this->dispatchBrowserEvent('alert',
+            ['type' => 'succes', 'message' => 'Cập nhật thành công']);
+        $this->closeModal();
+    }
 }

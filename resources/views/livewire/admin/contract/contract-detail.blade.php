@@ -107,14 +107,34 @@
                     <div class="card-toolbar">
                         <!--begin::Toolbar-->
                         @if(!($contract->status == \App\Models\Contract::STATUS['complete'] || $contract->status == \App\Models\Contract::STATUS['cancel']))
-                        <button type="button" class="btn btn-light-success me-3" wire:click="openModalCheckComplete"
-                                data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end"
-                                data-kt-menu-flip="top-end">
-                            <!--begin::Svg Icon | path: icons/stockholm/Text/Filter.svg-->
-                            <!--begin::Toolbar-->
-                            <span class="svg-icon svg-icon-primary svg-icon-2"><!--begin::Svg Icon | path:/var/www/preview.keenthemes.com/metronic/releases/2021-05-14-112058/theme/html/demo1/dist/../src/media/svg/icons/General/Save.svg--><svg
-                                        xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                                        width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                            @if($contract->status == \App\Models\Contract::STATUS['deposited'])
+                            <button type="button" class="btn btn-light-warning me-3" wire:click="handleProcessing"
+                                    data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end"
+                                    data-kt-menu-flip="top-end">
+                                <!--begin::Svg Icon | path: icons/stockholm/Text/Filter.svg-->
+                                <!--begin::Toolbar-->
+                                <span class="svg-icon svg-icon-warning svg-icon-2"><!--begin::Svg Icon | path:/var/www/preview.keenthemes.com/metronic/releases/2021-05-14-112058/theme/html/demo1/dist/../src/media/svg/icons/Map/Direction2.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                        <rect x="0" y="0" width="24" height="24"/>
+                                        <path d="M14,13.381038 L14,3.47213595 L7.99460483,15.4829263 L14,13.381038 Z M4.88230018,17.2353996 L13.2844582,0.431083506 C13.4820496,0.0359007077 13.9625881,-0.12427877 14.3577709,0.0733126292 C14.5125928,0.15072359 14.6381308,0.276261584 14.7155418,0.431083506 L23.1176998,17.2353996 C23.3152912,17.6305824 23.1551117,18.1111209 22.7599289,18.3087123 C22.5664522,18.4054506 22.3420471,18.4197165 22.1378777,18.3482572 L14,15.5 L5.86212227,18.3482572 C5.44509941,18.4942152 4.98871325,18.2744737 4.84275525,17.8574509 C4.77129597,17.6532815 4.78556182,17.4288764 4.88230018,17.2353996 Z" fill="#000000" fill-rule="nonzero" transform="translate(14.000087, 9.191034) rotate(-315.000000) translate(-14.000087, -9.191034) "/>
+                                    </g>
+                                </svg><!--end::Svg Icon-->
+                                </span>
+                                <!--end::Svg Icon-->Giao xe, thực thi hợp đồng
+                            </button>
+                            @endif
+
+                            @if($contract->status == \App\Models\Contract::STATUS['processing'])
+                                <button type="button" class="btn btn-light-success me-3"
+                                        wire:click="openModalCheckComplete"
+                                        data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end"
+                                        data-kt-menu-flip="top-end">
+                                    <!--begin::Svg Icon | path: icons/stockholm/Text/Filter.svg-->
+                                    <!--begin::Toolbar-->
+                                    <span class="svg-icon svg-icon-primary svg-icon-2"><!--begin::Svg Icon | path:/var/www/preview.keenthemes.com/metronic/releases/2021-05-14-112058/theme/html/demo1/dist/../src/media/svg/icons/General/Save.svg--><svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                xmlns:xlink="http://www.w3.org/1999/xlink"
+                                                width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                                     <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                                         <polygon points="0 0 24 0 24 24 0 24"/>
                                         <path d="M17,4 L6,4 C4.79111111,4 4,4.7 4,6 L4,18 C4,19.3 4.79111111,20 6,20 L18,20 C19.2,20 20,19.3 20,18 L20,7.20710678 C20,7.07449854 19.9473216,6.94732158 19.8535534,6.85355339 L17,4 Z M17,11 L7,11 L7,4 L17,4 L17,11 Z"
@@ -123,23 +143,28 @@
                                     </g>
                                 </svg><!--end::Svg Icon-->
                             </span>
-                            <!--end::Svg Icon-->Hoàn thành
-                        </button>
-
-                        <button type="button" class="btn btn-light-danger me-3" wire:click="openModalCheckCancel"
-                                data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end"
-                                data-kt-menu-flip="top-end">
-                            <!--begin::Svg Icon | path: icons/stockholm/Text/Filter.svg-->
-                            <!--begin::Toolbar-->
-                            <span class="svg-icon svg-icon-primary svg-icon-2"><!--begin::Svg Icon | path:/var/www/preview.keenthemes.com/metronic/releases/2021-05-14-112058/theme/html/demo1/dist/../src/media/svg/icons/Home/Trash.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                    <!--end::Svg Icon-->Hoàn thành
+                                </button>
+                            @endif
+                            <button type="button" class="btn btn-light-danger me-3" wire:click="openModalCheckCancel"
+                                    data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end"
+                                    data-kt-menu-flip="top-end">
+                                <!--begin::Svg Icon | path: icons/stockholm/Text/Filter.svg-->
+                                <!--begin::Toolbar-->
+                                <span class="svg-icon svg-icon-primary svg-icon-2"><!--begin::Svg Icon | path:/var/www/preview.keenthemes.com/metronic/releases/2021-05-14-112058/theme/html/demo1/dist/../src/media/svg/icons/Home/Trash.svg--><svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px"
+                                            viewBox="0 0 24 24" version="1.1">
                                     <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                                         <rect x="0" y="0" width="24" height="24"/>
-                                        <path d="M6,8 L18,8 L17.106535,19.6150447 C17.04642,20.3965405 16.3947578,21 15.6109533,21 L8.38904671,21 C7.60524225,21 6.95358004,20.3965405 6.89346498,19.6150447 L6,8 Z M8,10 L8.45438229,14.0894406 L15.5517885,14.0339036 L16,10 L8,10 Z" fill="#000000" fill-rule="nonzero"/>
-                                        <path d="M14,4.5 L14,3.5 C14,3.22385763 13.7761424,3 13.5,3 L10.5,3 C10.2238576,3 10,3.22385763 10,3.5 L10,4.5 L5.5,4.5 C5.22385763,4.5 5,4.72385763 5,5 L5,5.5 C5,5.77614237 5.22385763,6 5.5,6 L18.5,6 C18.7761424,6 19,5.77614237 19,5.5 L19,5 C19,4.72385763 18.7761424,4.5 18.5,4.5 L14,4.5 Z" fill="#000000" opacity="0.3"/>
+                                        <path d="M6,8 L18,8 L17.106535,19.6150447 C17.04642,20.3965405 16.3947578,21 15.6109533,21 L8.38904671,21 C7.60524225,21 6.95358004,20.3965405 6.89346498,19.6150447 L6,8 Z M8,10 L8.45438229,14.0894406 L15.5517885,14.0339036 L16,10 L8,10 Z"
+                                              fill="#000000" fill-rule="nonzero"/>
+                                        <path d="M14,4.5 L14,3.5 C14,3.22385763 13.7761424,3 13.5,3 L10.5,3 C10.2238576,3 10,3.22385763 10,3.5 L10,4.5 L5.5,4.5 C5.22385763,4.5 5,4.72385763 5,5 L5,5.5 C5,5.77614237 5.22385763,6 5.5,6 L18.5,6 C18.7761424,6 19,5.77614237 19,5.5 L19,5 C19,4.72385763 18.7761424,4.5 18.5,4.5 L14,4.5 Z"
+                                              fill="#000000" opacity="0.3"/>
                                     </g>
                                 </svg><!--end::Svg Icon--></span>
-                            <!--end::Svg Icon-->Huỷ
-                        </button>
+                                <!--end::Svg Icon-->Huỷ
+                            </button>
                         @endif
 
                         <button type="button" class="btn btn-light-info me-3" wire:click="handlePrint"
@@ -165,14 +190,15 @@
                             <!--end::Svg Icon-->Tải xuống
                         </button>
                         @if(!($contract->status == \App\Models\Contract::STATUS['complete'] || $contract->status == \App\Models\Contract::STATUS['cancel']))
-                        <a type="button" class="btn btn-light-primary me-3"
-                           href="{{ route('admin.contract.edit', $contract->id) }}"
-                           data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end"
-                           data-kt-menu-flip="top-end">
-                            <!--begin::Svg Icon | path: icons/stockholm/Text/Filter.svg-->
-                            <span class="svg-icon svg-icon-primary svg-icon-2"><!--begin::Svg Icon | path:/var/www/preview.keenthemes.com/metronic/releases/2021-05-14-112058/theme/html/demo1/dist/../src/media/svg/icons/Design/Edit.svg--><svg
-                                        xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                                        width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                            <a type="button" class="btn btn-light-primary me-3"
+                               href="{{ route('admin.contract.edit', $contract->id) }}"
+                               data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end"
+                               data-kt-menu-flip="top-end">
+                                <!--begin::Svg Icon | path: icons/stockholm/Text/Filter.svg-->
+                                <span class="svg-icon svg-icon-primary svg-icon-2"><!--begin::Svg Icon | path:/var/www/preview.keenthemes.com/metronic/releases/2021-05-14-112058/theme/html/demo1/dist/../src/media/svg/icons/Design/Edit.svg--><svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            xmlns:xlink="http://www.w3.org/1999/xlink"
+                                            width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                                     <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                                         <rect x="0" y="0" width="24" height="24"/>
                                         <path
@@ -183,8 +209,8 @@
                                     </g>
                                 </svg><!--end::Svg Icon-->
                             </span>
-                            <!--end::Svg Icon-->Chỉnh sửa
-                        </a>
+                                <!--end::Svg Icon-->Chỉnh sửa
+                            </a>
                         @endif
                     </div>
                     <!--end::Card toolbar-->
@@ -229,7 +255,8 @@
                                                  viewBox="0 0 24 24" version="1.1">
                                                 <g transform="translate(12.000000, 12.000000) rotate(-45.000000) translate(-12.000000, -12.000000) translate(4.000000, 4.000000)"
                                                    fill="#000000">
-                                                    <rect fill="#000000" x="0" y="7" width="16" height="2" rx="1"></rect>
+                                                    <rect fill="#000000" x="0" y="7" width="16" height="2"
+                                                          rx="1"></rect>
                                                     <rect fill="#000000" opacity="0.5"
                                                           transform="translate(8.000000, 8.000000) rotate(-270.000000) translate(-8.000000, -8.000000)"
                                                           x="0" y="7" width="16" height="2" rx="1"></rect>
@@ -258,7 +285,8 @@
                                 <label class="fs-6 fw-bold mb-2">Số giờ phụ trội</label>
                                 <!--end::Label-->
                                 <!--begin::Input-->
-                                <input type="number" wire:model="numberOvertime" class="form-control form-control-solid">
+                                <input type="number" wire:model="numberOvertime"
+                                       class="form-control form-control-solid">
                             </div>
 
                             <div class="fv-row mb-7 fv-plugins-icon-container">
@@ -266,7 +294,8 @@
                                 <label class="fs-6 fw-bold mb-2">Tiền phụ trội</label>
                                 <!--end::Label-->
                                 <!--begin::Input-->
-                                <input type="number" wire:model="overtimePrice" disabled class="form-control form-control-solid">
+                                <input type="number" wire:model="overtimePrice" disabled
+                                       class="form-control form-control-solid">
                             </div>
                             <!--end::Modal body-->
                             <!--begin::Modal footer-->
