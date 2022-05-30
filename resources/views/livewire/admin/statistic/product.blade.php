@@ -74,6 +74,7 @@
                         </div>
                         <div class="card-body">
                             <h1>
+                                {{ number_format($countProduct) }} xe
                             </h1>
                         </div>
                     </div>
@@ -111,6 +112,7 @@
                         </div>
                         <div class="card-body">
                             <h1>
+                                {{ number_format($countProduct - $countProductHired) }} xe
                             </h1>
                         </div>
                     </div>
@@ -147,6 +149,7 @@
                         </div>
                         <div class="card-body">
                             <h1>
+                                {{ number_format($countProductHired) }} xe
                             </h1>
                         </div>
                     </div>
@@ -167,7 +170,62 @@
                             </h3>
                         </div>
                         <div class="card-body">
-                            <div id="chartRevenue"></div>
+                            <div id="kt_customers_table_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                                <div class="table-responsive">
+                                    <table
+                                            class="table align-middle table-rounded table-row-dashed fs-6 gy-5 dataTable no-footer"
+                                            id="kt_customers_table" role="grid">
+                                        <!--begin::Table head-->
+                                        <thead>
+                                        <!--begin::Table row-->
+                                        <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0" role="row">
+                                            <th style="width: 50px;">
+                                                STT
+                                            </th>
+                                            <th class="min-w-125px"
+                                                style="width: 163.734px;">Tên Xe
+                                            </th>
+
+                                            <th class="min-w-125px"
+                                                style="width: 163.734px;">Biển kiểm soát
+                                            </th>
+
+                                            <th class="min-w-125px"
+                                                style="width: 163.734px;">Doanh thu
+                                            </th>
+                                        </tr>
+                                        <!--end::Table row-->
+                                        </thead>
+                                        <!--end::Table head-->
+                                        <!--begin::Table body-->
+                                        <tbody class="fw-bold text-gray-600">
+                                        @forelse($topRevenue as $product)
+                                            <tr class="odd">
+                                                <!--begin::Name=-->
+                                                <td>
+                                                    {{ $loop->index + 1}}
+                                                </td>
+                                                <!--end::Name=-->
+                                                <!--end::Payment method=-->
+                                                <!--begin::Date=-->
+                                                <td><a href="#">{{ $product->name }}</a></td>
+                                                <td>{{ $product->license_plates }}</td>
+                                                <td>{{ number_format($product->revenue ?? 0 )}} VNĐ</td>
+
+
+                                            </tr>
+                                        @empty
+                                            <tr>
+                                                <td colspan="9" style="text-align: center">
+                                                    Không có bản ghi nào phù hợp!
+                                                </td>
+                                            </tr>
+                                        @endforelse
+                                        </tbody>
+                                        <!--end::Table body-->
+                                    </table>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <!--end::Mixed Widget 2-->
@@ -184,7 +242,62 @@
                             </h3>
                         </div>
                         <div class="card-body">
-                            <div id="chartPie"></div>
+                            <div class="dataTables_wrapper dt-bootstrap4 no-footer">
+                                <div class="table-responsive">
+                                    <table
+                                            class="table align-middle table-rounded table-row-dashed fs-6 gy-5 dataTable no-footer"
+                                            id="kt_customers_table" role="grid">
+                                        <!--begin::Table head-->
+                                        <thead>
+                                        <!--begin::Table row-->
+                                        <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0" role="row">
+                                            <th style="width: 50px;">
+                                                STT
+                                            </th>
+                                            <th class="min-w-125px"
+                                                style="width: 163.734px;">Tên Xe
+                                            </th>
+
+                                            <th class="min-w-125px"
+                                                style="width: 163.734px;">Biển kiểm soát
+                                            </th>
+
+                                            <th class="min-w-125px"
+                                                style="width: 163.734px; text-align: center">Số lượt thuê
+                                            </th>
+                                        </tr>
+                                        <!--end::Table row-->
+                                        </thead>
+                                        <!--end::Table head-->
+                                        <!--begin::Table body-->
+                                        <tbody class="fw-bold text-gray-600">
+                                        @forelse($topOrder as $product)
+                                            <tr class="odd">
+                                                <!--begin::Name=-->
+                                                <td>
+                                                    {{ $loop->index + 1}}
+                                                </td>
+                                                <!--end::Name=-->
+                                                <!--end::Payment method=-->
+                                                <!--begin::Date=-->
+                                                <td><a href="#">{{ $product->product->name }}</a></td>
+                                                <td>{{ $product->product->license_plates }}</td>
+                                                <td class="text-center">{{ number_format($product->total ?? 0 )}}</td>
+
+
+                                            </tr>
+                                        @empty
+                                            <tr>
+                                                <td colspan="9" style="text-align: center">
+                                                    Không có bản ghi nào phù hợp!
+                                                </td>
+                                            </tr>
+                                        @endforelse
+                                        </tbody>
+                                        <!--end::Table body-->
+                                    </table>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <!--end::Mixed Widget 2-->

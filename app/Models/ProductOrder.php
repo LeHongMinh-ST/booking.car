@@ -55,4 +55,14 @@ class ProductOrder extends Model
     {
         return $this->belongsTo(Brand::class);
     }
+
+    public function contract()
+    {
+        return $this->hasOne(Contract::class, 'product_order_id');
+    }
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class, 'product_id');
+    }
 }

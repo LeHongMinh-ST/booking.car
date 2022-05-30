@@ -57,7 +57,7 @@ class Product extends Model
 
     public function productOrders()
     {
-        return $this->hasMany(ProductOrder::class);
+        return $this->hasMany(ProductOrder::class)->with('contract');
     }
 
     public function scopeName($query, $search)
