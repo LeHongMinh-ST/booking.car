@@ -83,8 +83,7 @@ class ContractDetail extends Component
         $revenue = (int)$contract->price_total + (int)$contract->overtime_price;
         $over = (int)$contract->overtime_price;
 
-        $today = Carbon::today();
-        $revenueDaily = StatisticRevenueDaily::query()->where('date', Carbon::today()->timestamp)->first();
+         $revenueDaily = StatisticRevenueDaily::query()->where('date', Carbon::today()->timestamp)->first();
 
         if (!$revenueDaily) {
             $revenueDaily = new StatisticRevenueDaily();
@@ -119,7 +118,7 @@ class ContractDetail extends Component
             $revenueYearly->date = Carbon::today()->firstOfYear()->timestamp;
         }
 
-        if ($status == Order::STATUS['COMPLETE']) {
+        if ($status == Contract::STATUS['complete']) {
             $revenueDaily->revenue += $revenue;
             $revenueDaily->over += $over;
             $revenueMonthly->revenue += $revenue;

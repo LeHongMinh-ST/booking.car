@@ -12,33 +12,34 @@
                     <form class="car_search_form" method="get" action="#">
                         <div class="car_search_wrapper">
                             <div class="one_fourth themeborder">
-                                <select id="brand" name="brand">
-                                    <option value="">Nhãn hiệu bất kỳ</option>
-                                    <option value="Audi">Audi</option>
-                                    <option value="BMW">BMW</option>
-                                    <option value="Lexus">Lexus</option>
-                                    <option value="Mercedes Benz">Mercedes Benz</option>
-                                    <option value="MINI">MINI</option>
-                                    <option value="Porsche">Porsche</option>
+                                <select id="brand" name="color">
+                                    <option value="">Màu sắc bất kỳ</option>
+                                    <option value="Xanh" @if(request()->query('color') == 'Xanh') selected @endif>Xanh</option>
+                                    <option value="Đỏ" @if(request()->query('color') == 'Đỏ') selected @endif>Đỏ</option>
+                                    <option value="Vàng" @if(request()->query('color') == 'Vàng') selected @endif>Vàng</option>
+                                    <option value="Nâu" @if(request()->query('color') == 'Nâu') selected @endif>Nâu</option>
+                                    <option value="Xanh đen" @if(request()->query('color') == 'Xanh đen') selected @endif>Xanh đen</option>
+                                    <option value="Trắng" @if(request()->query('color') == 'Trắng') selected @endif>Trắng</option>
                                 </select>
                                 <span class="ti-angle-down"></span>
                             </div>
                             <div class="one_fourth themeborder">
-                                <select id="type" name="type">
-                                    <option value="">Nhãn hiệu bất kỳ</option>
-                                    <option value="Coupe">Coupe</option>
-                                    <option value="Sedan">Sedan</option>
-                                    <option value="SUV">SUV</option>
+                                <select id="type" name="category_id">
+                                    <option value="">Loại xe bất kỳ</option>
+                                    @foreach($categories as $category)
+                                        <option value="{{ $category->id }}" @if(request()->query('category_id') == $category->id) selected @endif>{{ $category->name }}</option>
+                                    @endforeach
                                 </select>
                                 <span class="ti-angle-down"></span>
                             </div>
                             <div class="one_fourth themeborder">
                                 <select id="sort_by" name="sort_by">
-                                    <option value="price_low">Giá thấp đến cao</option>
-                                    <option value="price_high">Giá cao đến thấp</option>
-                                    <option value="model">Sắp xếp theo các mẫu</option>
-                                    <option value="popular">Sắp xếp theo số người thuê</option>
-                                    <option value="review">Sắp xếp theo số điểm</option>
+                                    <option value="">Giá bất kỳ</option>
+                                    <option value="priceAsc" @if(request()->query('sort_by') =='priceAsc') selected @endif>Giá thấp đến cao</option>
+                                    <option value="priceDesc" @if(request()->query('sort_by') == 'priceDesc') selected @endif>Giá cao đến thấp</option>
+                                    {{--                        <option value="model">Sắp xếp theo các mẫu</option>--}}
+                                    {{--                        <option value="popular">Sắp xếp theo số người thuê</option>--}}
+                                    {{--                        <option value="review">Sắp xếp theo số điểm</option>--}}
                                 </select>
                                 <span class="ti-exchange-vertical"></span>
                             </div>

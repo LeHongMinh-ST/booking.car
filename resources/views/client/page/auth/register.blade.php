@@ -25,7 +25,7 @@
     <div class="bg order-1 order-md-2" style="background-image: url({{ asset('client/login/images/bg_1.jpg') }});"></div>
     <div class="contents order-2 order-md-1">
 
-        @livewire('client.login')
+        @livewire('client.register')
     </div>
 
 
@@ -37,14 +37,5 @@
 <script src="{{ asset('client/login/js/popper.min.js') }}"></script>
 <script src="{{ asset('client/login/js/bootstrap.min.js') }}js/bootstrap.min.js"></script>
 <script src="{{ asset('client/login/js/main.js') }}"></script>
-<script>
-    @if(\session()->has('success'))
-    Swal.fire({
-        icon: 'success',
-        title: '{{ session()->pull('success.title') }} ',
-        text: '{{ session()->pull('success.message') }} ',
-    })
-    @endif
-</script>
 </body>
 </html>

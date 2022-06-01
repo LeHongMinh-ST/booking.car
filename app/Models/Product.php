@@ -86,6 +86,13 @@ class Product extends Model
                 $q->where('id', $brandId);
             });
         }
+    }
+
+    public function scopeFilterColor($query, $color)
+    {
+        if ($color) {
+            $query->where('color', 'like', "%$color%");
+        }
 
         return $query;
     }

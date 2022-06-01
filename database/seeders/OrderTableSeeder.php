@@ -29,15 +29,16 @@ class OrderTableSeeder extends Seeder
             'permanent_residence' => "Hà Nội",
         ]);
 
-        $customerOrder = $customer->customerOrders()->create([
-            'name' => "Lê Nhất Đăng",
-            'phone' => "0922333555",
-            'person_id' => "0355999555",
-            'address' => "Hà Nội",
-            'permanent_residence' => "Hà Nội",
-        ]);
         foreach ($products as $product) {
             $numberLength = rand(1, 5);
+
+            $customerOrder = $customer->customerOrders()->create([
+                'name' => "Lê Nhất Đăng",
+                'phone' => "0922333555",
+                'person_id' => "0355999555",
+                'address' => "Hà Nội",
+                'permanent_residence' => "Hà Nội",
+            ]);
 
             for ($i = 0; $i < $numberLength; $i++) {
 

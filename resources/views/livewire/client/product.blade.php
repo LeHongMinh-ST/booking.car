@@ -73,29 +73,36 @@
                         </div>
                     </div>
                     <div class="single_car_attribute_wrapper themeborder">
-                        <div class="one_fourth" style="width: 20%">
+                        <div class="one_fourth" style="width: 15%">
                             <div>Biển kiểm soát</div>
                             <div class="car_attribute_content" style="font-size: 20px; font-weight: bold">
                                 {{ $product->license_plates  }}
                             </div>
                         </div>
 
-                        <div class="one_fourth" style="width: 20%">
+                        <div class="one_fourth" style="width: 15%">
                             <div>Màu sắc</div>
                             <div class="car_attribute_content" style="font-size: 20px; font-weight: bold">
                                 {{ $product->color  }}
                             </div>
                         </div>
-                        <div class="one_fourth" style="width: 20%">
+                        <div class="one_fourth" style="width: 15%">
                             <div>Năm sản xuất</div>
                             <div class="car_attribute_content" style="font-size: 20px; font-weight: bold">
                                 {{ $product->year  }}
                             </div>
                         </div>
-                        <div class="one_fourth" style="width: 20%">
+                        <div class="one_fourth" style="width: 15%">
                             <div>Đã chạy</div>
                             <div class="car_attribute_content" style="font-size: 20px; font-weight: bold">
                                 {{ number_format($product->km)  }} km
+                            </div>
+                        </div>
+
+                        <div class="one_fourth" style="width: 15%">
+                            <div>Số chỗ</div>
+                            <div class="car_attribute_content" style="font-size: 20px; font-weight: bold">
+                                {{ number_format($product->number_of_seats ?? 0)  }} chỗ
                             </div>
                         </div>
 
@@ -575,6 +582,7 @@
                             </div>
 
                             <div class="single_car_booking_wrapper themeborder book_instantly">
+                                @if(auth('web')->check())
                                 <div role="form" class="wpcf7" id="wpcf7-f5-o1" lang="en-US" dir="ltr">
                                     <div class="screen-reader-response"></div>
                                     <form action="##wpcf7-f5-o1" method="post" class="wpcf7-form"
@@ -879,6 +887,13 @@
                                             class="single_car_add_to_cart button">Đặt xe
                                     </button>
                                 </div>
+                                @else
+                                    <div class="single_car_booking_woocommerce_wrapper">
+                                        <a href="{{ route('login.form') }}"
+                                                class="single_car_add_to_cart button">Đăng nhập để đặt xe
+                                        </a>
+                                    </div>
+                                @endif
                                 <br class="clear">
                             </div>
 

@@ -111,7 +111,7 @@ class CustomerUpdate extends Component
                 'permanent_residence' => $this->permanentResidence,
             ]);
 
-            if ($customer->user) {
+            if ($customer->user_id) {
                 $customer->user()->update([
                     'name' => $this->name,
                     'email' => $this->email,
@@ -119,11 +119,13 @@ class CustomerUpdate extends Component
                 ]);
             } else {
                 if ($this->email) {
-                    $customer->user()->create([
+                    $user = User::query()->create([
                         'name' => $this->name,
                         'email' => $this->email,
                         'password' => Hash::make(env('PASSWORD_USER', 123456789)),
                     ]);
+                    $customer->user_id = $user->id;
+                    $customer->save();
                 }
             }
             session()->flash('success', 'Cập nhật thành công');

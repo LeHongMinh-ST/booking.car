@@ -42,8 +42,11 @@ use App\Http\Livewire\Admin\Contract\ContractUpdate;
 use App\Http\Livewire\Admin\Statistic\Product as StatisticProduct;
 use App\Http\Livewire\Admin\Statistic\Revenue as StatisticRevenue;
 use Illuminate\Support\Facades\Route;
+use App\Http\Livewire\Client\Login as ClientLogin;
 use App\Http\Controllers\Client\LoginController as ClientLoginController;
 use UniSharp\LaravelFilemanager\Lfm;
+use App\Http\Livewire\Client\Customer\OrderIndex as OrderClientIndex;
+use App\Http\Livewire\Client\Customer\OrderUpdate as OrderClientUpdate;
 
 /*
 |--------------------------------------------------------------------------
@@ -55,6 +58,13 @@ use UniSharp\LaravelFilemanager\Lfm;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::group(['prefix' => 'customer', 'as' => 'customer.'], function () {
+    Route::group(['middleware' => ['auth']], function () {
+        Route::get('order',OrderClientIndex::class)->name('order');
+        Route::get('order/{id}/edit',OrderClientUpdate::class)->name('order.update');
+    });
+});
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
@@ -121,6 +131,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
     });
 });
 
+
+
 Route::group(['prefix' => 'filemanager', 'middleware' => ['admin.auth']], function () {
     Lfm::routes();
 });
@@ -142,6 +154,8 @@ Route::get('/lien-he', Contact::class)->name('contact');
 
 //Route::get('/dang-ky', ClientLoginController::class)->name('register');
 Route::get('/dang-nhap', [ClientLoginController::class, 'showLoginForm'])->name('login.form');
+Route::get('/dang-ky', [ClientLoginController::class, 'showRegisterForm'])->name('register.form');
+Route::get('/logout', [ClientLoginController::class, 'logout'])->name('logout');
 Route::get('/get-social/{social}', [ClientLoginController::class, 'getSocial'])->name('get-social');
 Route::get('/check-social/{social}', [ClientLoginController::class, 'getSocial'])->name('get-social');
 

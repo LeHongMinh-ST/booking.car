@@ -9,7 +9,16 @@ class LoginController extends Controller
 {
     public function showLoginForm()
     {
+        if (auth('web')->check()) {
+            return redirect()->route('home');
+        }
+
         return view('client.page.auth.login');
+    }
+
+    public function showRegisterForm()
+    {
+        return view('client.page.auth.register');
     }
 
     public function getSocial($social)
@@ -22,4 +31,12 @@ class LoginController extends Controller
         $info = Socialite::driver($social)->user();
         dd($info);
     }
+
+    public function logout()
+    {
+        auth('web')->logout();
+
+        return redirect()->route('home');
+    }
+
 }

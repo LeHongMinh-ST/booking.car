@@ -21,30 +21,34 @@
 
     <!-- Begin content -->
     <div id="page_content_wrapper" class="hasbg withtopbar ">
-        <form id="car_search_form" name="car_search_form" method="get" action="#">
+        <form id="car_search_form" name="car_search_form" method="get" action="{{ route('products') }}">
             <div class="car_search_wrapper">
                 <div class="one_fourth themeborder">
-                    <select id="brand" wire:model="filter.brandId">
-                        <option value="">Nhãn hiệu bất kỳ</option>
-                        @foreach($brands as $brand)
-                            <option value="{{ $brand->id }}">{{ $brand->name }}</option>
-                        @endforeach
+                    <select id="brand" name="color">
+                        <option value="">Màu sắc bất kỳ</option>
+                        <option value="Xanh" @if(request()->query('color') == 'Xanh') selected @endif>Xanh</option>
+                        <option value="Đỏ" @if(request()->query('color') == 'Đỏ') selected @endif>Đỏ</option>
+                        <option value="Vàng" @if(request()->query('color') == 'Vàng') selected @endif>Vàng</option>
+                        <option value="Nâu" @if(request()->query('color') == 'Nâu') selected @endif>Nâu</option>
+                        <option value="Xanh đen" @if(request()->query('color') == 'Xanh đen') selected @endif>Xanh đen</option>
+                        <option value="Trắng" @if(request()->query('color') == 'Trắng') selected @endif>Trắng</option>
                     </select>
                     <span class="ti-angle-down"></span>
                 </div>
                 <div class="one_fourth themeborder">
-                    <select id="type" name="type" wire:model="filter.categoryId">
+                    <select id="type" name="category_id">
                         <option value="">Loại xe bất kỳ</option>
                         @foreach($categories as $category)
-                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                            <option value="{{ $category->id }}" @if(request()->query('category_id') == $category->id) selected @endif>{{ $category->name }}</option>
                         @endforeach
                     </select>
                     <span class="ti-angle-down"></span>
                 </div>
                 <div class="one_fourth themeborder">
-                    <select id="sort_by" name="sort_by" wire:model="filter.order">
-                        <option value="priceAsc">Giá thấp đến cao</option>
-                        <option value="priceDesc">Giá cao đến thấp</option>
+                    <select id="sort_by" name="sort_by">
+                        <option value="">Giá bất kỳ</option>
+                        <option value="priceAsc" @if(request()->query('sort_by') =='priceAsc') selected @endif>Giá thấp đến cao</option>
+                        <option value="priceDesc" @if(request()->query('sort_by') == 'priceDesc') selected @endif>Giá cao đến thấp</option>
 {{--                        <option value="model">Sắp xếp theo các mẫu</option>--}}
 {{--                        <option value="popular">Sắp xếp theo số người thuê</option>--}}
 {{--                        <option value="review">Sắp xếp theo số điểm</option>--}}
@@ -52,7 +56,7 @@
                     <span class="ti-exchange-vertical"></span>
                 </div>
                 <div class="one_fourth last themeborder">
-                    <button id="car_search_btn" type="button" wire:click="handleFilter" class="button" value="Tìm kiếm">
+                    <button id="car_search_btn" type="submit" class="button" value="Tìm kiếm">
                         Tìm kiếm
                     </button>
                 </div>

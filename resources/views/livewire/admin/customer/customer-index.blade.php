@@ -240,9 +240,9 @@
                                         <td>{{ $customer->person_id }}</td>
                                         <td>@if($customer->user){{ $customer->user->email }}@endif</td>
                                         <td>{{ $customer->phone }}</td>
-                                        <td>@if($customer->user) Đã có tài khoản @else Chưa có tài khoản @endif</td>
+                                        <td>@if($customer->user_id) Đã có tài khoản @else Chưa có tài khoản @endif</td>
                                         <td>
-                                            @if($customer->user)
+                                            @if($customer->user_id)
                                                 @switch($customer->user->is_active)
                                                     @case(\App\Models\User::IS_ACTIVE['active'])
                                                     <span class="badge badge-success">Hoạt động</span>

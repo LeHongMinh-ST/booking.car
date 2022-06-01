@@ -5,9 +5,9 @@
 @section('script')
     <script>
 
-        var start = '{{ $orderTime['start'] }}'
-        var end = '{{ $orderTime['end'] }}'
-        var productID = '{{ $productId }}'
+        const start = '{{ $orderTime['start'] }}'
+        const end = '{{ $orderTime['end'] }}'
+        const productID = '{{ $productId }}'
 
         $('#productId').val(productID).trigger('change')
 
@@ -231,33 +231,17 @@
                                                 data-allow-clear="true"
                                                 id="productId"
                                                 data-control="select2"
-                                                data-placeholder="Chọn nhãn hiệu">
+                                                data-placeholder="Chọn xe">
                                             <option value=""></option>
                                             @foreach($products as $product)
                                                 <option
-                                                    value="{{ $product->id }}">{{ $product->name . ' - ' . $product->license_plates }}</option>
+                                                        value="{{ $product->id }}">{{ $product->name . ' - ' . $product->license_plates }}</option>
                                             @endforeach
                                         </select>
                                     </div>
                                     @error('productId')
                                     <div class="fv-plugins-message-container">
                                         <div data-field="productId" data-validator="notEmpty"
-                                             class="fv-help-block">{{ $message }}</div>
-                                    </div>
-                                    @enderror
-                                </div>
-
-                                <div class="d-flex flex-column mb-7 fv-row fv-plugins-icon-container">
-                                    <!--begin::Label-->
-                                    <!--begin::Label-->
-                                    <label class="required fs-6 fw-bold mb-2">Tiền đặt cọc</label>
-                                    <!--end::Label-->
-                                    <!--begin::Input-->
-                                    <input type="text" wire:model="priceDeposits"
-                                           class="form-control form-control-solid">
-                                    @error('priceDeposits')
-                                    <div class="fv-plugins-message-container">
-                                        <div data-field="priceDeposits" data-validator="notEmpty"
                                              class="fv-help-block">{{ $message }}</div>
                                     </div>
                                     @enderror
@@ -330,11 +314,11 @@
                                         </button>
                                     </div>
                                     <div class="col">
-                                        <a href="{{ route('admin.order') }}" class="btn btn-warning me-3 w-100">
+                                        <a href="{{ route('customer.order') }}" class="btn btn-warning me-3 w-100">
                                             <span class="svg-icon svg-icon-primary svg-icon-2"><!--begin::Svg Icon | path:/var/www/preview.keenthemes.com/metronic/releases/2021-05-14-112058/theme/html/demo2/dist/../src/media/svg/icons/Design/Circle.svg--><svg
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
-                                                    height="24px" viewBox="0 0 24 24" version="1.1">
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                        xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
+                                                        height="24px" viewBox="0 0 24 24" version="1.1">
                                                     <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                                                         <rect x="0" y="0" width="24" height="24"/>
                                                         <circle fill="#000000" cx="12" cy="12" r="8"/>

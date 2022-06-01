@@ -142,7 +142,7 @@ class Product extends Component
             ]);
 
             DB::commit();
-            return redirect()->route('home');
+            return redirect()->route('customer.order');
         } catch (\Exception $exception) {
             DB::rollBack();
             Log::error('Error create order by user', [
