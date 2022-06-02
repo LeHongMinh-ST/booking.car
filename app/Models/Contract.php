@@ -19,6 +19,11 @@ class Contract extends Model
         'complete' => 4
     ];
 
+    const IS_CMT = [
+      'deactivate' => 0,
+      'active'  => 1
+    ];
+
     protected $fillable = [
         'name',
         'code',

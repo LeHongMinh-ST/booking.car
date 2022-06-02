@@ -2,8 +2,10 @@
 
 namespace App\Http\Livewire\Client;
 
+use App\Models\Contract;
 use App\Models\Customer;
 use App\Models\Order;
+use App\Models\Rate;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -19,11 +21,22 @@ class Product extends Component
     public $address = '';
     public $permanentResidence = '';
     public $phone = '';
-    public $startDay='';
-    public $startHour='';
-    public $endDay='';
-    public $endHour='';
+    public $startDay = '';
+    public $startHour = '';
+    public $endDay = '';
+    public $endHour = '';
     public $product;
+    public $isComment = false;
+    public $comment = "";
+    public $driving = 1;
+    public $layout = 1;
+    public $space = 1;
+    public $overAll = 1;
+    public $drivingTotal = 0;
+    public $layoutTotal = 0;
+    public $spaceTotal = 0;
+    public $overAllTotal = 0;
+    public $rates = [];
 
     public function render()
     {
@@ -37,6 +50,11 @@ class Product extends Component
             ->with(['images'])
             ->where('slug', $slug)
             ->first();
+
+        $this->checkIsComment();
+
+        $this->getRate($this->product->id);
+
     }
 
     protected function rules()
@@ -128,16 +146,16 @@ class Product extends Component
 
             $customerOrder->orders()->create([
                 'name' => 'Yêu cầu thuê xe - ' . $product->name . ' - ' . $product->license_plates . ' - ' . $this->name,
-                'code' => 'YCTX'. Carbon::now()->timestamp,
-                'pick_date' => Carbon::make($this->startDay .' ' . $this->startHour)->timestamp,
-                'drop_date' => Carbon::make($this->endDay .' ' . $this->endHour)->timestamp,
+                'code' => 'YCTX' . Carbon::now()->timestamp,
+                'pick_date' => Carbon::make($this->startDay . ' ' . $this->startHour)->timestamp,
+                'drop_date' => Carbon::make($this->endDay . ' ' . $this->endHour)->timestamp,
                 'price_deposits' => 0,
                 'product_order_id' => $productOrder->id,
-                'status' =>  Order::STATUS['no_deposit_yet']
+                'status' => Order::STATUS['no_deposit_yet']
             ]);
 
             session()->flash('success', [
-                'title'=> 'Đặt xe thành công',
+                'title' => 'Đặt xe thành công',
                 'message' => 'Vui lòng kiểm tra email để xem chi tiết!'
             ]);
 
@@ -152,6 +170,65 @@ class Product extends Component
 
             $this->dispatchBrowserEvent('alertUser',
                 ['type' => 'error', 'message' => 'Tạo mới thất bại!']);
+        }
+    }
+
+    public function rating()
+    {
+        $user = auth('web')->user();
+        $customer = $user->customer()->with('customerOrders')->first();
+        $customerOrderIds = $customer->customerOrders->pluck('id')->toArray();
+        $contract = Contract::query()->whereIn('customer_id', $customerOrderIds)
+            ->where('status', Contract::STATUS['complete'])
+            ->where('is_cmt', '<>', Contract::IS_CMT['active'])
+            ->first();
+        $contract->is_cmt = Contract::IS_CMT['active'];
+        $contract->save();
+
+        $rate = new Rate();
+        $rate->product_id = $this->product->id;
+        $rate->driving = $this->driving;
+        $rate->layout = $this->layout;
+        $rate->space = $this->space;
+        $rate->over_all = $this->overAll;
+        $rate->contract_id = $contract->id;
+        $rate->comment = $this->comment;
+        $rate->user_id = $user->id;
+        $rate->save();
+
+        $this->getRate($this->product->id);
+        $this->checkIsComment();
+        $this->comment = "";
+        $this->driving = "";
+        $this->layout = "";
+        $this->space = "";
+        $this->overAll = "";
+    }
+
+    public function checkIsComment()
+    {
+        if (auth('web')->check()) {
+            $user = auth('web')->user();
+            $customer = $user->customer()->with('customerOrders')->first();
+            $customerOrderIds = $customer->customerOrders->pluck('id')->toArray();
+            $contracts = Contract::query()->whereIn('customer_id', $customerOrderIds)
+                ->where('status', Contract::STATUS['complete'])
+                ->where('is_cmt', Contract::IS_CMT['deactivate'])
+                ->first();
+            if ($contracts) {
+                $this->isComment = true;
+            }
+        }
+    }
+
+    public function getRate($productId)
+    {
+        $this->rates = Rate::query()->where('product_id', $productId)->get();
+        if (count($this->rates) > 0) {
+            $this->drivingTotal = Rate::query()->where('product_id', $productId)->sum('driving') / count($this->rates);
+            $this->layoutTotal = Rate::query()->where('product_id', $productId)->sum('layout') / count($this->rates);
+            $this->spaceTotal = Rate::query()->where('product_id', $productId)->sum('space') / count($this->rates);
+            $this->overAllTotal = Rate::query()->where('product_id', $productId)->sum('over_all') / count($this->rates);
         }
     }
 }

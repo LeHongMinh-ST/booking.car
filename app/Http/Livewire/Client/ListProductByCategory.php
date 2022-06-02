@@ -10,21 +10,16 @@ use Livewire\Component;
 class ListProductByCategory extends Component
 {
 
-    public $categoryId = "";
-    public $brandId = "";
-    public $order = "";
-    public $filter = [
-        'categoryId' => "",
-        'brandId' => "",
-        'order' => ""
-    ];
+    public $category_id;
+    public $sort_by;
+    public $color;
 
     public function render()
     {
         $products = ProductModel::query()
-            ->filterBrand($this->brandId)
-            ->filterCategory($this->categoryId ? [$this->categoryId] : [])
-            ->filterOrderBy($this->order)
+            ->filterColor($this->color)
+            ->filterCategory($this->category_id ? [$this->category_id] : [])
+            ->filterOrderBy($this->sort_by)
             ->paginate(12);
         $categories = Category::query()->where('is_active', Category::IS_ACTIVE['active'])->get();
         $brands = Brand::query()->where('is_active', Brand::IS_ACTIVE['active'])->get();
@@ -39,13 +34,6 @@ class ListProductByCategory extends Component
     {
         $category = Category::query()->where('slug', $slug)->first();
 
-        $this->filter['categoryId'] = $this->brandId = $category->id;
     }
 
-    public function handleFilter()
-    {
-        $this->categoryId = $this->filter['categoryId'];
-        $this->brandId = $this->filter['brandId'];
-        $this->order = $this->filter['order'];
-    }
 }

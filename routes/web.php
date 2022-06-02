@@ -68,7 +68,7 @@ Route::group(['prefix' => 'customer', 'as' => 'customer.'], function () {
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
-    Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+    Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
     Route::group(['middleware' => ['admin.auth']], function () {
         Route::get('/dashboard',Dashboard::class)->middleware('permission:dashboard-index')->name('dashboard');
