@@ -87,6 +87,11 @@ class PermissionGroupSeeder extends Seeder
             'description' => 'Quản lý toàn bộ chức năng liên quan đến vai trò'
         ]);
 
+        self::checkIssetBeforeCreate([
+            'name' => 'Quản lý liên hệ',
+            'code' => 'contact',
+            'description' => 'Quản lý toàn bộ chức năng liên quan đến liên hệ'
+        ]);
 
     }
 

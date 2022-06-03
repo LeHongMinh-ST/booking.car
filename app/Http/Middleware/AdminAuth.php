@@ -19,6 +19,7 @@ class AdminAuth
         if(auth('admin')->check()){
             return $next($request);
         }
+
         return redirect()->route('admin.login');
     }
 }

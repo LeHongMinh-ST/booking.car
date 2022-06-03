@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Client;
 
+use App\Jobs\Mail\SendMailOrder;
 use App\Models\Contract;
 use App\Models\Customer;
 use App\Models\Order;
@@ -37,6 +38,7 @@ class Product extends Component
     public $spaceTotal = 0;
     public $overAllTotal = 0;
     public $rates = [];
+    public $handleProcess = true;
 
     public function render()
     {
@@ -50,6 +52,16 @@ class Product extends Component
             ->with(['images'])
             ->where('slug', $slug)
             ->first();
+
+        if (auth('web')->check()) {
+            $user = auth('web')->user();
+            $this->name = $user->name;
+            $this->email = $user->email;
+            $this->phone = $user->customer->phone;
+            $this->address = $user->customer->address;
+            $this->permanentResidence = $user->customer->permanent_residence;
+            $this->personId = $user->customer->person_id;
+        }
 
         $this->checkIsComment();
 
@@ -102,11 +114,20 @@ class Product extends Component
 
     public function store()
     {
+
         $this->validate();
+        $this->dispatchBrowserEvent('showLoading');
+
+        if (!$this->handleProcess) {
+            return false;
+        }
+
 
         DB::beginTransaction();
 
         try {
+            $this->handleProcess = false;
+
 
             $customer = Customer::query()->where('person_id', $this->personId)->first();
 
@@ -144,7 +165,7 @@ class Product extends Component
                 'brand_id' => $product->brand_id,
             ]);
 
-            $customerOrder->orders()->create([
+            $order = $customerOrder->orders()->create([
                 'name' => 'Yêu cầu thuê xe - ' . $product->name . ' - ' . $product->license_plates . ' - ' . $this->name,
                 'code' => 'YCTX' . Carbon::now()->timestamp,
                 'pick_date' => Carbon::make($this->startDay . ' ' . $this->startHour)->timestamp,
@@ -154,12 +175,16 @@ class Product extends Component
                 'status' => Order::STATUS['no_deposit_yet']
             ]);
 
+            SendMailOrder::dispatch($this->email, $order->id);
+
             session()->flash('success', [
                 'title' => 'Đặt xe thành công',
                 'message' => 'Vui lòng kiểm tra email để xem chi tiết!'
             ]);
 
             DB::commit();
+            $this->handleProcess = true;
+
             return redirect()->route('customer.order');
         } catch (\Exception $exception) {
             DB::rollBack();
@@ -167,9 +192,11 @@ class Product extends Component
                 'method' => __METHOD__,
                 'message' => $exception->getMessage()
             ]);
+            $this->handleProcess = true;
+            $this->dispatchBrowserEvent('hideLoading');
 
             $this->dispatchBrowserEvent('alertUser',
-                ['type' => 'error', 'message' => 'Tạo mới thất bại!']);
+                ['type' => 'error', 'message' => 'Đặt xe thất bại!']);
         }
     }
 

@@ -57,4 +57,22 @@
 
 
 </script>
+<script>
+    window.addEventListener('showLoading', () => {
+        jQuery('#code-spin').addClass('show-spin')
+    })
+
+    window.addEventListener('hideLoading', () => {
+        jQuery('#code-spin').removeClass('show-spin')
+    })
+    window.addEventListener('alert', (e) => {
+        Swal.fire({
+            icon: e.detail.type,
+            title: e.detail.title,
+            text: e.detail.message,
+        })
+    })
+
+
+</script>
 @yield('script')

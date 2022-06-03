@@ -102,6 +102,14 @@ class Contract extends Model
         return $query;
     }
 
+    public function scopeStatus($query, $status)
+    {
+        if ($status) {
+            $query->where('status', $status);
+        }
+        return $query;
+    }
+
     public function productOrder()
     {
         return $this->belongsTo(ProductOrder::class, 'product_order_id', 'id');

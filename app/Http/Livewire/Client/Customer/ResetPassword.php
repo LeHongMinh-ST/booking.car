@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Http\Livewire\Admin\Profile;
+namespace App\Http\Livewire\Client\Customer;
 
-use App\Models\Customer;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Livewire\Component;
 
-class ProfileResetPassword extends Component
+class ResetPassword extends Component
 {
     public $passwordOld = '';
     public $password = '';
@@ -15,7 +14,7 @@ class ProfileResetPassword extends Component
 
     public function render()
     {
-        return view('livewire.admin.profile.profile-reset-password');
+        return view('livewire.client.customer.reset-password');
     }
 
     protected $rules = [
@@ -41,8 +40,7 @@ class ProfileResetPassword extends Component
 
         try {
 
-            $admin = auth('admin')->user();
-
+            $admin = auth('web')->user();
             if (!Hash::check($this->passwordOld, $admin->password)) {
                 $this->addError('passwordOld', 'Mật khẩu cũ không chính xác!');
                 return false;
@@ -69,11 +67,11 @@ class ProfileResetPassword extends Component
                 ['type' => 'error', 'message' => 'Cập nhật thất bại!']);
         }
     }
-
     public function resetForm()
     {
         $this->passwordOld = "";
         $this->password = "";
         $this->password_confirmation = "";
     }
+
 }

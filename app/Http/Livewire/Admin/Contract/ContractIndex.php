@@ -23,6 +23,7 @@ class ContractIndex extends Component
     public function render()
     {
         $contracts = Contract::query()
+            ->status($this->status)
             ->search($this->search)
             ->paginate($this->perPage);
 

@@ -35,6 +35,7 @@
 @include('client.includes.mb')
 <!-- End mobile menu -->
 <!-- Begin template wrapper -->
+
 <div id="wrapper" class="hasbg transparent">
 
     @include('client.includes.header')
@@ -42,6 +43,10 @@
     @yield('content')
 
     @include('client.includes.footer')
+
+</div>
+<div class="load-page">
+    <div class="cover-spin position-sticky" id="code-spin"></div>
 
 </div>
 

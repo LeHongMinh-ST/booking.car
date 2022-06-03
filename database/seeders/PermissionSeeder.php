@@ -350,6 +350,20 @@ class PermissionSeeder extends Seeder
             'description' => 'Có quyền xem thống kê xe'
         ]);
 
+        self::checkIssetBeforeCreate([
+            'code' => 'contact-index',
+            'name' => 'Xem danh sách liên hệ',
+            'group_code' => 'contact',
+            'description' => 'Có quyền xem danh sách liên hệ'
+        ]);
+
+        self::checkIssetBeforeCreate([
+            'code' => 'contact-handle',
+            'name' => 'Phản hồi liên hệ',
+            'group_code' => 'contact',
+            'description' => 'Có quyền phản hồi liên hệ'
+        ]);
+
     }
     public function checkIssetBeforeCreate($data) {
         $permission = Permission::where('code', $data['code'])->first();

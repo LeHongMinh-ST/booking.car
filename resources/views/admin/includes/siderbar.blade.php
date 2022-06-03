@@ -67,7 +67,7 @@
                 @if(checkPermission('product-index') || checkPermission('category-index') || checkPermission('brand-index'))
                     <div class="menu-item">
                         <div class="menu-content pt-8 pb-2">
-                            <span class="menu-section text-muted text-uppercase fs-8 ls-1">Quản lý</span>
+                            <span class="menu-section text-muted text-uppercase fs-8 ls-1">Quản lý chung</span>
                         </div>
                     </div>
                     @if(checkPermission('product-index'))
@@ -144,10 +144,10 @@
                     @endif
                 @endif
 
-                @if(checkPermission('contract-index') || checkPermission('order-index') || checkPermission('customer-index'))
+                @if(checkPermission('contract-index') || checkPermission('order-index') || checkPermission('customer-index') || checkPermission('contact-index'))
                     <div class="menu-item">
                         <div class="menu-content pt-8 pb-2">
-                            <span class="menu-section text-muted text-uppercase fs-8 ls-1">Hợp đồng</span>
+                            <span class="menu-section text-muted text-uppercase fs-8 ls-1">Khách hàng</span>
                         </div>
                     </div>
 
@@ -218,6 +218,29 @@
                             <!--end::Svg Icon-->
                         </span>
                                 <span class="menu-title">Quản lý Khách hàng</span>
+                            </a>
+                        </div>
+                    @endif
+
+                    @if(checkPermission('contact-index'))
+                        <div class="menu-item">
+                            <a class="menu-link {{ request()->is('admin/contact*') ? 'active' : '' }}"
+                               href="{{ route('admin.contact') }}">
+                        <span class="menu-icon">
+                            <!--begin::Svg Icon | path: icons/stockholm/General/User.svg-->
+                           <span class="svg-icon svg-icon-primary svg-icon-2x"><!--begin::Svg Icon | path:/var/www/preview.keenthemes.com/metronic/releases/2021-05-14-112058/theme/html/demo1/dist/../src/media/svg/icons/Communication/Mail.svg--><svg
+                                       xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                       width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                    <rect x="0" y="0" width="24" height="24"/>
+                                    <path d="M5,6 L19,6 C20.1045695,6 21,6.8954305 21,8 L21,17 C21,18.1045695 20.1045695,19 19,19 L5,19 C3.8954305,19 3,18.1045695 3,17 L3,8 C3,6.8954305 3.8954305,6 5,6 Z M18.1444251,7.83964668 L12,11.1481833 L5.85557487,7.83964668 C5.4908718,7.6432681 5.03602525,7.77972206 4.83964668,8.14442513 C4.6432681,8.5091282 4.77972206,8.96397475 5.14442513,9.16035332 L11.6444251,12.6603533 C11.8664074,12.7798822 12.1335926,12.7798822 12.3555749,12.6603533 L18.8555749,9.16035332 C19.2202779,8.96397475 19.3567319,8.5091282 19.1603533,8.14442513 C18.9639747,7.77972206 18.5091282,7.6432681 18.1444251,7.83964668 Z"
+                                          fill="#000000"/>
+                                </g>
+                            </svg><!--end::Svg Icon-->
+                           </span>
+                            <!--end::Svg Icon-->
+                        </span>
+                                <span class="menu-title">Liên hệ</span>
                             </a>
                         </div>
                     @endif

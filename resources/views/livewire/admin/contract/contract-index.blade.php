@@ -21,7 +21,7 @@
             <!--begin::Page title-->
             <div class="d-flex align-items-center me-3">
                 <!--begin::Title-->
-                <h1 class="d-flex align-items-center text-dark fw-bolder my-1 fs-3">Danh sách khách hàng</h1>
+                <h1 class="d-flex align-items-center text-dark fw-bolder my-1 fs-3">Danh sách hợp đồng</h1>
                 <!--end::Title-->
                 <!--begin::Separator-->
                 <span class="h-20px border-gray-200 border-start mx-4"></span>
@@ -40,7 +40,7 @@
                     </li>
                     <!--end::Item-->
                     <!--begin::Item-->
-                    <li class="breadcrumb-item text-muted">Khách hàng</li>
+                    <li class="breadcrumb-item text-muted">Hợp đồng</li>
                     <!--end::Item-->
                 </ul>
                 <!--end::Breadcrumb-->
@@ -117,18 +117,6 @@
                             <div class="px-7 py-5">
                                 <!--begin::Input group-->
 
-                                <div class="mb-10">
-                                    <!--begin::Label-->
-                                    <label class="form-label fs-5 fw-bold mb-3">Phân loại tài khoản:</label>
-                                    <!--end::Label-->
-                                    <!--begin::Input-->
-                                    <select wire:model="checkUserId" class="form-select form-select-solid fw-bolder">
-                                        <option value="">Tất cả</option>
-                                        <option value="1">Đã có tài khoản</option>
-                                        <option value="2">Vãng lai</option>
-                                    </select>
-                                    <!--end::Input-->
-                                </div>
 
                                 <div class="mb-10">
                                     <!--begin::Label-->
@@ -137,12 +125,14 @@
                                     <!--begin::Input-->
                                     <select wire:model="status" class="form-select form-select-solid fw-bolder">
                                         <option value="">Tất cả</option>
-                                        <option value="1">Kích hoạt</option>
-                                        <option value="0">Khóa</option>
+                                        <option value="{{ \App\Models\Contract::STATUS['deposited'] }}">Đã đặt cọc</option>
+                                        <option value="{{ \App\Models\Contract::STATUS['processing'] }}">Đang thực hiện</option>
+                                        <option value="{{ \App\Models\Contract::STATUS['complete'] }}">Hoàn thành</option>
+                                        <option value="{{ \App\Models\Contract::STATUS['cancel'] }}">Đã huỷ</option>
                                     </select>
                                     <!--end::Input-->
                                 </div>
-                                @if($status || $checkUserId)
+                                @if($status)
                                     <div class="d-flex justify-content-end">
                                         <button type="reset" wire:click="resetFilter" class="btn btn-white btn-active-light-primary me-2" data-kt-menu-dismiss="true" data-kt-contract-table-filter="reset">Khôi phục</button>
                                     </div>
@@ -152,26 +142,6 @@
                             <!--end::Content-->
                         </div>
 
-{{--                        <div class="d-flex justify-content-end" data-kt-contract-table-toolbar="base">--}}
-{{--                            <!--begin::Add contract-->--}}
-{{--                            <a href="{{ route('admin.contract.create') }}" type="button" class="btn btn-primary">--}}
-{{--                                <!--begin::Svg Icon | path: icons/stockholm/Navigation/Plus.svg-->--}}
-{{--                                <span class="svg-icon svg-icon-2">--}}
-{{--													<svg xmlns="http://www.w3.org/2000/svg"--}}
-{{--                                                         xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"--}}
-{{--                                                         height="24px" viewBox="0 0 24 24" version="1.1">--}}
-{{--														<rect fill="#000000" x="4" y="11" width="16" height="2"--}}
-{{--                                                              rx="1"></rect>--}}
-{{--														<rect fill="#000000" opacity="0.5"--}}
-{{--                                                              transform="translate(12.000000, 12.000000) rotate(-270.000000) translate(-12.000000, -12.000000)"--}}
-{{--                                                              x="4" y="11" width="16" height="2" rx="1"></rect>--}}
-{{--													</svg>--}}
-{{--												</span>--}}
-{{--                                <!--end::Svg Icon-->Tạo mới--}}
-{{--                            </a>--}}
-{{--                            <!--end::Add contract-->--}}
-{{--                        </div>--}}
-                        <!--end::Toolbar-->
                         <!--begin::Group actions-->
                         <!--end::Group actions-->
                     </div>

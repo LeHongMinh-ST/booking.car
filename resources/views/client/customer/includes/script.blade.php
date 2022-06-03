@@ -27,7 +27,7 @@
         }
     });
     @if(\session()->has('success'))
-        toastr.success('{{ \session()->pull('success') }}'),
+        toastr.success('{{ \session()->get('success')['message'] }}', '{{ \session()->pull('success')['title'] }}'),
         toastr.options = {
             "closeButton": true,
             "progressBar": true,

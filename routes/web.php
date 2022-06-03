@@ -48,6 +48,7 @@ use UniSharp\LaravelFilemanager\Lfm;
 use App\Http\Livewire\Client\Customer\OrderIndex as OrderClientIndex;
 use App\Http\Livewire\Client\Customer\OrderUpdate as OrderClientUpdate;
 use App\Http\Livewire\Admin\Profile\ProfileSetting;
+use App\Http\Livewire\Admin\Contact\ContactIndex;
 
 /*
 |--------------------------------------------------------------------------
@@ -66,6 +67,9 @@ Route::group(['prefix' => 'customer', 'as' => 'customer.'], function () {
         Route::get('order/{id}/edit',OrderClientUpdate::class)->name('order.update');
     });
 });
+
+Route::get('profile',\App\Http\Livewire\Client\Customer\Profile::class)->middleware('auth')->name('profile');
+
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
@@ -121,6 +125,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
             Route::get('/{id}',ContractDetail::class)->middleware('permission:contract-detail')->name('contract.detail');
             Route::get('/{id}/edit',ContractUpdate::class)->middleware('permission:contract-update')->name('contract.edit');
         });
+        Route::prefix('contact')->group(function () {
+            Route::get('/',ContactIndex::class)->middleware('permission:contact-index')->name('contact');
+        });
+
 
         Route::prefix('chart')->name('chart.')->group(function () {
             Route::get('get-data-chart-revenue-two-week', [ChartController::class, 'getDataChartRevenueTwoWeek'])->name('get-data-chart-revenue-two-week');
