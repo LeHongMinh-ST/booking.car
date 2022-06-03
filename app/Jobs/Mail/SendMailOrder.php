@@ -66,8 +66,7 @@ class SendMailOrder implements ShouldQueue
             'depositPrice' => $order->productOrder->deposit_price,
         ];
 
-//        $email = $this->email;
-        $email = 'minhhl298.st@gmail.com';
+        $email = $this->email;
 
         Mail::send('mail.order', $data, function ($message) use ($email) {
             $message->to($email)->subject('Booking Car - Thông báo đặt xe thành công');

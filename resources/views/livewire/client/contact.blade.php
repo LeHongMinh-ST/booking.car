@@ -10,9 +10,7 @@
             <div class="page_title_inner">
                 <div class="page_title_content">
                     <h1 class="withtopbar">Liên hệ</h1>
-                    <div class="page_tagline">
-                        This is sample of page tagline and you can set it up using page option
-                    </div>
+
                 </div>
             </div>
         </div>
