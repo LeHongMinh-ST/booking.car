@@ -47,6 +47,7 @@ use App\Http\Controllers\Client\LoginController as ClientLoginController;
 use UniSharp\LaravelFilemanager\Lfm;
 use App\Http\Livewire\Client\Customer\OrderIndex as OrderClientIndex;
 use App\Http\Livewire\Client\Customer\OrderUpdate as OrderClientUpdate;
+use App\Http\Livewire\Admin\Profile\ProfileSetting;
 
 /*
 |--------------------------------------------------------------------------
@@ -126,6 +127,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
             Route::get('get-data-chart-contract', [ChartController::class, 'getDataChartContract'])->name('get-data-chart-contract');
             Route::get('get-data-chart-pie-revenue', [ChartController::class, 'getDataChartPieRevenue'])->name('get-data-chart-pie-revenue');
             Route::get('get-data-chart-total-revenue', [ChartController::class, 'getDataChartTotalRevenue'])->name('get-data-chart-total-revenue');
+        });
+
+        Route::prefix('profile')->name('profile.')->group(function () {
+            Route::get('setting', ProfileSetting::class)->name('setting');
         });
 
     });
