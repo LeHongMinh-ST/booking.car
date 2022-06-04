@@ -37,6 +37,7 @@
 <script src="{{ asset('client/login/js/popper.min.js') }}"></script>
 <script src="{{ asset('client/login/js/bootstrap.min.js') }}js/bootstrap.min.js"></script>
 <script src="{{ asset('client/login/js/main.js') }}"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     @if(\session()->has('success'))
     Swal.fire({

@@ -19,6 +19,9 @@
                     <p style="color: #ff7171">{{ $message }}</p>
                     @enderror
                 </div>
+                <div class="text-left">
+                    <a href="{{ route('forgot-password') }}">Quên mật khẩu</a>
+                </div>
 
                 {{--                        <div class="d-flex mb-5 align-items-center">--}}
                 {{--                            <label class="control control--checkbox mb-0"><span class="caption">Remember me</span>--}}

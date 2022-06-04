@@ -25,7 +25,7 @@
     <div class="bg order-1 order-md-2" style="background-image: url({{ asset('client/login/images/bg_1.jpg') }});"></div>
     <div class="contents order-2 order-md-1">
 
-        @livewire('client.register')
+        @livewire('client.forgot-password')
     </div>
 
 
@@ -38,5 +38,15 @@
 <script src="{{ asset('client/login/js/bootstrap.min.js') }}js/bootstrap.min.js"></script>
 <script src="{{ asset('client/login/js/main.js') }}"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+
+    window.addEventListener('alert', e => {
+        Swal.fire({
+            icon: e.detail.type,
+            title: e.detail.title,
+            text: e.detail.message,
+        })
+    })
+</script>
 </body>
 </html>

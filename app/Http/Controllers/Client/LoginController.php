@@ -40,4 +40,14 @@ class LoginController extends Controller
         return redirect()->route('home');
     }
 
+    public function showForgotPasswordForm()
+    {
+        return view('client.page.auth.forgot-password');
+    }
+
+    public function showResetPasswordForm($token)
+    {
+        return view('client.page.auth.reset-password', ['token' => $token]);
+    }
+
 }
