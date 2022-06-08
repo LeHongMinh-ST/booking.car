@@ -30,6 +30,7 @@ class ListProduct extends Component
             ->filterColor($this->color)
             ->filterCategory($this->category_id ? [$this->category_id] : [])
             ->filterOrderBy($this->sort_by)
+            ->where('status',\App\Models\Product::STATUS['normal'])
             ->paginate(12);
         $categories = Category::query()->where('is_active', Category::IS_ACTIVE['active'])->get();
 

@@ -53,6 +53,10 @@ class Product extends Component
             ->where('slug', $slug)
             ->first();
 
+        if ($this->product->status != ProductModel::STATUS['normal']) {
+            abort(404);
+        }
+
         if (auth('web')->check()) {
             $user = auth('web')->user();
             $this->name = $user->name;
