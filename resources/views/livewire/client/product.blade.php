@@ -227,7 +227,7 @@
                                                 </div>
                                             </div>
                                             <div class="comment_rating_wrapper">
-                                                <div class="comment_rating_label">Interior Layout</div>
+                                                <div class="comment_rating_label">Nội thất</div>
                                                 <div class="br-theme-fontawesome-stars-o">
                                                     <div class="br-widget">
                                                         @for($i = 0; $i<$rate->layout; $i++)
@@ -240,7 +240,7 @@
                                                 </div>
                                             </div>
                                             <div class="comment_rating_wrapper">
-                                                <div class="comment_rating_label">Space &amp; Practicality</div>
+                                                <div class="comment_rating_label">Không gian và trải nghiệm lái</div>
                                                 <div class="br-theme-fontawesome-stars-o">
                                                     <div class="br-widget">
                                                         @for($i = 0; $i<$rate->space; $i++)
@@ -253,7 +253,7 @@
                                                 </div>
                                             </div>
                                             <div class="comment_rating_wrapper">
-                                                <div class="comment_rating_label">Overall</div>
+                                                <div class="comment_rating_label">Tổng thể</div>
                                                 <div class="br-theme-fontawesome-stars-o">
                                                     <div class="br-widget">
                                                         @for($i = 0; $i<$rate->over_all; $i++)

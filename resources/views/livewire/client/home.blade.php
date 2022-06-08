@@ -70,42 +70,43 @@
                 <div id="15722572661666401717" class="portfolio_filter_wrapper gallery grid portrait three_cols" data-columns="3">
                     <div class="element grid classic3_cols animated1">
                         <div class="one_third gallery3 grid static filterable portfolio_type themeborder" style="background-image:url({{ asset('client/upload/Audi-A4-Avant-1.jpg') }});">
-                            <a class="car_image" href="#"></a>
+                            <a class="car_image" href="{{ route('products') }}"></a>
                             <div class="portfolio_info_wrapper">
                                 <h3>Audi</h3></div>
                         </div>
                     </div>
                     <div class="element grid classic3_cols animated2">
                         <div class="one_third gallery3 grid static filterable portfolio_type themeborder" style="background-image:url({{ asset('client/upload/bmw-3-series-sedan-wallpaper-1920x1200-05.jpg') }});">
-                            <a class="car_image" href="#"></a>
+                            <a class="car_image" href="{{ route('products') }}"></a>
                             <div class="portfolio_info_wrapper">
                                 <h3>BMW</h3></div>
                         </div>
                     </div>
                     <div class="element grid classic3_cols animated3">
                         <div class="one_third gallery3 grid static filterable portfolio_type themeborder" style="background-image:url({{ asset('client/upload/2016-Lexus-RX-350-BM-01.jpg') }});">
-                            <a class="car_image" href="#"></a>
+                            <a class="car_image" href="{{ route('products') }}"></a>
                             <div class="portfolio_info_wrapper">
                                 <h3>Lexus</h3></div>
                         </div>
                     </div>
                     <div class="element grid classic3_cols animated4">
                         <div class="one_third gallery3 grid static filterable portfolio_type themeborder" style="background-image:url({{ asset('client/upload/Mercedes-C-Class-Estate-1.jpg') }});">
-                            <a class="car_image" href="#"></a>
+                            <a class="car_image" href="{{ route('products') }}"></a>
+
                             <div class="portfolio_info_wrapper">
                                 <h3>Mercedes Benz</h3></div>
                         </div>
                     </div>
                     <div class="element grid classic3_cols animated5">
                         <div class="one_third gallery3 grid static filterable portfolio_type themeborder" style="background-image:url({{ asset('client/upload/2016-MINI-Cooper-S-Clubman-ALL4.jpg') }});">
-                            <a class="car_image" href="#"></a>
+                            <a class="car_image" href="{{ route('products') }}"></a>
                             <div class="portfolio_info_wrapper">
                                 <h3>MINI</h3></div>
                         </div>
                     </div>
                     <div class="element grid classic3_cols animated6">
                         <div class="one_third gallery3 grid static filterable portfolio_type themeborder" style="background-image:url({{ asset('client/upload/P14_0596_a4_rgb-1.jpg') }});">
-                            <a class="car_image" href="#"></a>
+                            <a class="car_image" href="{{ route('products') }}"></a>
                             <div class="portfolio_info_wrapper">
                                 <h3>Porsche</h3></div>
                         </div>
@@ -133,21 +134,21 @@
                 <div id="1572257266780950625" class="portfolio_filter_wrapper gallery grid portrait three_cols" data-columns="3">
                     <div class="element grid classic3_cols animated1">
                         <div class="one_third gallery3 grid static filterable portfolio_type themeborder" style="background-image:url({{ asset('client/upload/15C1119_043-1280x849.jpg') }});">
-                            <a class="car_image" href="#"></a>
+                            <a class="car_image" href="{{ route('products') }}"></a>
                             <div class="portfolio_info_wrapper">
                                 <h3>Coupe</h3></div>
                         </div>
                     </div>
                     <div class="element grid classic3_cols animated2">
                         <div class="one_third gallery3 grid static filterable portfolio_type themeborder" style="background-image:url({{ asset('client/upload/2017-lexus-ls-460-2.jpg') }});">
-                            <a class="car_image" href="#"></a>
+                            <a class="car_image" href="{{ route('products') }}"></a>
                             <div class="portfolio_info_wrapper">
                                 <h3>Sedan</h3></div>
                         </div>
                     </div>
                     <div class="element grid classic3_cols animated3">
                         <div class="one_third gallery3 grid static filterable portfolio_type themeborder" style="background-image:url({{ asset('client/upload/2015-BMW-X3-Facelift-5.jpg') }});">
-                            <a class="car_image" href="#"></a>
+                            <a class="car_image" href="{{ route('products') }}"></a>
                             <div class="portfolio_info_wrapper">
                                 <h3>SUV</h3></div>
                         </div>

@@ -25,7 +25,7 @@
     <div class="bg order-1 order-md-2" style="background-image: url({{ asset('client/login/images/bg_1.jpg') }});"></div>
     <div class="contents order-2 order-md-1">
 
-        @livewire('client.register')
+        @livewire('client.reset-password',['token' => $token])
     </div>
 
 
@@ -38,5 +38,7 @@
 <script src="{{ asset('client/login/js/bootstrap.min.js') }}js/bootstrap.min.js"></script>
 <script src="{{ asset('client/login/js/main.js') }}"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+</script>
 </body>
 </html>

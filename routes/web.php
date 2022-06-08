@@ -168,6 +168,8 @@ Route::get('/lien-he', Contact::class)->name('contact');
 //Route::get('/dang-ky', ClientLoginController::class)->name('register');
 Route::get('/dang-nhap', [ClientLoginController::class, 'showLoginForm'])->name('login.form');
 Route::get('/dang-ky', [ClientLoginController::class, 'showRegisterForm'])->name('register.form');
+Route::get('/quen-mat-khau', [ClientLoginController::class, 'showForgotPasswordForm'])->name('forgot-password');
+Route::get('/dat-lai-mat-khau/{token}', [ClientLoginController::class, 'showResetPasswordForm'])->name('reset-password');
 Route::get('/logout', [ClientLoginController::class, 'logout'])->name('logout');
 Route::get('/get-social/{social}', [ClientLoginController::class, 'getSocial'])->name('get-social');
 Route::get('/check-social/{social}', [ClientLoginController::class, 'getSocial'])->name('get-social');
