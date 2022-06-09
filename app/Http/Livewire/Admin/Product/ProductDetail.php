@@ -14,12 +14,14 @@ class ProductDetail extends Component
     public $year;
     public $licensePlates;
     public $km;
+    public $typeCar;
     public $brand;
     public $thumbnail;
     public $otherParameters = [];
     public $status;
     public $productId;
     public $images;
+    public $number;
     public $showDeleteModal = false;
 
     public function render()
@@ -46,6 +48,8 @@ class ProductDetail extends Component
             $this->status = $product->status;
             $this->productId  = $product->id;
             $this->images = $product->images;
+            $this->typeCar = $product->type_car;
+            $this->number = $product->number_of_seats;
         }
     }
 

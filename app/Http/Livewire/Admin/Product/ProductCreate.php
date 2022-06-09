@@ -23,6 +23,7 @@ class ProductCreate extends Component
     public $licensePlates;
     public $km;
     public $brandId;
+    public $typeCar = Product::TYPE_CAR['manual'];
     public $linkVideo;
     public $thumbnail;
     public $otherParameters = [];
@@ -138,6 +139,7 @@ class ProductCreate extends Component
                 'over_km_price' => $this->overKmPrice,
                 'deposit_price' => $this->depositPrice,
                 'number_of_seats' => $this->numberSeats,
+                'type_car' => $this->typeCar,
                 'slug' => Str::slug($this->name . $this->licensePlates)
             ]);
 

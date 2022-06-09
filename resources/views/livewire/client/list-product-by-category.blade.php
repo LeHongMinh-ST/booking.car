@@ -20,44 +20,78 @@
     <!-- Begin content -->
     <div id="page_content_wrapper" class="hasbg withtopbar ">
         <form id="car_search_form" name="car_search_form" method="get" action="{{ route('products') }}">
+            <div class="">
+                <div style="margin-right: 3%; margin-bottom: 2%">
+                    <input type="text" value="{{ request()->query('search') }}" style="width: 100%" name="search" placeholder="Nhập tên xe...">
+                </div>
+            </div>
             <div class="car_search_wrapper">
-                <div class="one_fourth themeborder">
+                <div class="one_fourth themeborder" style="margin-right: 1%">
                     <select id="brand" name="color">
                         <option value="">Màu sắc bất kỳ</option>
-                        <option value="Xanh" @if(request()->query('color') == 'Xanh') selected @endif>Xanh</option>
-                        <option value="Đỏ" @if(request()->query('color') == 'Đỏ') selected @endif>Đỏ</option>
-                        <option value="Vàng" @if(request()->query('color') == 'Vàng') selected @endif>Vàng</option>
-                        <option value="Nâu" @if(request()->query('color') == 'Nâu') selected @endif>Nâu</option>
-                        <option value="Xanh đen" @if(request()->query('color') == 'Xanh đen') selected @endif>Xanh đen</option>
-                        <option value="Trắng" @if(request()->query('color') == 'Trắng') selected @endif>Trắng</option>
+                        <option value="Xanh" @if(request()->query('color') == 'Xanh') selected @endif>Xanh
+                        </option>
+                        <option value="Đỏ" @if(request()->query('color') == 'Đỏ') selected @endif>Đỏ
+                        </option>
+                        <option value="Vàng" @if(request()->query('color') == 'Vàng') selected @endif>Vàng
+                        </option>
+                        <option value="Nâu" @if(request()->query('color') == 'Nâu') selected @endif>Nâu
+                        </option>
+                        <option value="Xanh đen"
+                                @if(request()->query('color') == 'Xanh đen') selected @endif>Xanh đen
+                        </option>
+                        <option value="Trắng" @if(request()->query('color') == 'Trắng') selected @endif>
+                            Trắng
+                        </option>
                     </select>
                     <span class="ti-angle-down"></span>
                 </div>
-                <div class="one_fourth themeborder">
-                    <select id="type" name="category_id">
-                        <option value="">Loại xe bất kỳ</option>
-                        @foreach($categories as $category)
-                            <option value="{{ $category->id }}" @if(request()->query('category_id') == $category->id) selected @endif>{{ $category->name }}</option>
-                        @endforeach
-                    </select>
-                    <span class="ti-angle-down"></span>
-                </div>
-                <div class="one_fourth themeborder">
+
+                <div class="one_fourth themeborder" style="margin-right: 1%">
                     <select id="sort_by" name="sort_by">
                         <option value="">Giá bất kỳ</option>
-                        <option value="priceAsc" @if(request()->query('sort_by') =='priceAsc') selected @endif>Giá thấp đến cao</option>
-                        <option value="priceDesc" @if(request()->query('sort_by') == 'priceDesc') selected @endif>Giá cao đến thấp</option>
-                        {{--                        <option value="model">Sắp xếp theo các mẫu</option>--}}
-                        {{--                        <option value="popular">Sắp xếp theo số người thuê</option>--}}
-                        {{--                        <option value="review">Sắp xếp theo số điểm</option>--}}
+                        <option value="priceAsc"
+                                @if(request()->query('sort_by') =='priceAsc') selected @endif>Giá thấp đến
+                            cao
+                        </option>
+                        <option value="priceDesc"
+                                @if(request()->query('sort_by') == 'priceDesc') selected @endif>Giá cao đến
+                            thấp
+                        </option>
                     </select>
                     <span class="ti-exchange-vertical"></span>
                 </div>
-                <div class="one_fourth last themeborder">
-                    <button id="car_search_btn" type="submit" class="button" value="Tìm kiếm">
-                        Tìm kiếm
-                    </button>
+                <div class="one_fourth  themeborder" style="margin-right: 1%">
+                    <select id="type_car" name="type_car">
+                        <option value="">Hộp số bất kỳ</option>
+                        <option value="{{ \App\Models\Product::TYPE_CAR['auto'] }}"
+                                @if(request()->query('type_car') == \App\Models\Product::TYPE_CAR['auto']) selected @endif>
+                            Số tự động
+                        </option>
+                        <option value="{{ \App\Models\Product::TYPE_CAR['manual'] }}"
+                                @if(request()->query('type_car') == \App\Models\Product::TYPE_CAR['manual']) selected @endif>
+                            Số sàn
+                        </option>
+                    </select>
+                    <span class="ti-exchange-vertical"></span>
                 </div>
+
+                <div class="one_fourth themeborder" style="margin-right: 1%">
+                    <select id="type" name="number">
+                        <option value="">Số chỗ bất kỳ</option>
+                        <option value="5" @if(request()->query('number') == 5) selected @endif>5 chỗ</option>
+                        <option value="7" @if(request()->query('number') == 7) selected @endif>7 chỗ</option>
+                        <option value="9" @if(request()->query('number') == 9) selected @endif>9 chỗ</option>
+                        <option value="16" @if(request()->query('number') == 16) selected @endif>16 chỗ</option>
+                    </select>
+                    <span class="ti-angle-down"></span>
+                </div>
+
+            </div>
+            <div style="text-align: center">
+                <button id="car_search_btn" style="margin-bottom: 20px" type="submit" class="button" value="Tìm kiếm">
+                    Tìm kiếm
+                </button>
             </div>
         </form>
 

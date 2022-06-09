@@ -34,7 +34,7 @@ class ProductUpdate extends Component
     public $overKmPrice;
     public $numberSeats;
     public $depositPrice;
-
+    public $typeCar = Product::TYPE_CAR['manual'];
     public $images = [];
 
     protected $listeners = [
@@ -101,6 +101,7 @@ class ProductUpdate extends Component
             $this->linkVideo = $product->linkVideo;
             $this->description = $product->description;
             $this->overtimePrice = $product->overtime_price;
+            $this->typeCar = $product->type_car;
             $this->overKmPrice = $product->over_km_price;
             $this->depositPrice = $product->deposit_price;
             $this->numberSeats = $product->number_of_seats;
@@ -197,6 +198,7 @@ class ProductUpdate extends Component
                 'over_km_price' => $this->overKmPrice,
                 'deposit_price' => $this->depositPrice,
                 'number_of_seats' => $this->numberSeats,
+                'type_car' => $this->typeCar,
                 'slug' => Str::slug($this->name . $this->licensePlates)
             ]);
 

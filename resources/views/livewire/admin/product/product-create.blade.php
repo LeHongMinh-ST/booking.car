@@ -384,7 +384,35 @@
                         <!--end::Body-->
                     </div>
                     <!--end::Security recent alerts-->
+                    <div class="card mb-5 mb-xl-10">
 
+                        <div class="card-header card-header-stretch">
+                            <!--begin::Title-->
+                            <div class="card-title">
+                                <h3 class="m-0 text-gray-900">Loại hộp số</h3>
+                            </div>
+                            <!--end::Title-->
+                            <!--begin::Toolbar-->
+                            <!--end::Toolbar-->
+                        </div>
+                        <!--begin::Body-->
+                        <div class="card-body pt-5">
+                            <!--begin::Carousel-->
+                            <div class="d-flex flex-column mb-10 fv-row">
+                                <!--begin::Label-->
+                                <!--end::Label-->
+                                <!--begin::Select-->
+                                <select wire:model="typeCar" class="form-select form-select-solid">
+                                    <option value="{{ \App\Models\Product::TYPE_CAR['manual'] }}">Số sàn</option>
+                                    <option value="{{ \App\Models\Product::TYPE_CAR['auto'] }}">Số tự động</option>
+
+                                </select>
+                                <!--end::Select-->
+                            </div>
+                            <!--end::Carousel-->
+                        </div>
+                        <!--end::Body-->
+                    </div>
                     <div class="card mb-5 mb-xl-10">
 
                         <div class="card-header card-header-stretch">

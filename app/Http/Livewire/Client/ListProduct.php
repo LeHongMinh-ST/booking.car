@@ -17,19 +17,28 @@ class ListProduct extends Component
     public $category_id;
     public $sort_by;
     public $color;
+    public $type_car;
+    public $search;
+    public $number;
 
     protected $queryString = [
         'sort_by',
         'category_id',
+        'number',
         'color',
+        'type_car',
+        'search'
     ];
 
     public function render()
     {
         $products = ProductModel::query()
+            ->name($this->search)
             ->filterColor($this->color)
             ->filterCategory($this->category_id ? [$this->category_id] : [])
             ->filterOrderBy($this->sort_by)
+            ->filterTypeCar($this->type_car)
+            ->filterNumber($this->number)
             ->where('status',\App\Models\Product::STATUS['normal'])
             ->paginate(12);
         $categories = Category::query()->where('is_active', Category::IS_ACTIVE['active'])->get();

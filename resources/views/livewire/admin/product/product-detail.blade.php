@@ -136,6 +136,19 @@
                             <div class="d-flex flex-wrap justify-content-start">
                                 <!--begin::Stats-->
                                 <div class="d-flex flex-wrap">
+
+                                    <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
+
+                                        <div class="fw-bold fs-6 text-gray-400">Hộp số</div>
+
+                                        <!--begin::Number-->
+                                        <div class="d-flex align-items-center">
+                                            <div class="fs-4 fw-bolder">{{ $typeCar== \App\Models\Product::TYPE_CAR['auto'] ? "Tự động" : "Sàn" }}</div>
+                                        </div>
+                                        <!--end::Number-->
+                                        <!--begin::Label-->
+                                        <!--end::Label-->
+                                    </div>
                                     <!--begin::Stat-->
                                     <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
 
@@ -170,6 +183,19 @@
                                         <!--begin::Number-->
                                         <div class="d-flex align-items-center">
                                             <div class="fs-4 fw-bolder">{{ $km }} KM</div>
+                                        </div>
+                                        <!--end::Number-->
+                                        <!--begin::Label-->
+                                        <!--end::Label-->
+                                    </div>
+
+                                    <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
+
+                                        <div class="fw-bold fs-6 text-gray-400">Số chỗ</div>
+
+                                        <!--begin::Number-->
+                                        <div class="d-flex align-items-center">
+                                            <div class="fs-4 fw-bolder">{{ $number }}</div>
                                         </div>
                                         <!--end::Number-->
                                         <!--begin::Label-->

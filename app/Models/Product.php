@@ -16,6 +16,11 @@ class Product extends Model
         'deposit' => 4
     ];
 
+    const TYPE_CAR = [
+      'auto' => 1,
+      'manual' => 2
+    ];
+
     protected $fillable = [
         'name',
         'color',
@@ -34,6 +39,7 @@ class Product extends Model
         'over_km_price',
         'deposit_price',
         'number_of_seats',
+        'type_car',
     ];
 
     protected $casts = [
@@ -92,6 +98,24 @@ class Product extends Model
     {
         if ($color) {
             $query->where('color', 'like', "%$color%");
+        }
+
+        return $query;
+    }
+
+    public function scopeFilterTypeCar($query, $typeCar)
+    {
+        if ($typeCar) {
+            $query->where('type_car', $typeCar);
+        }
+
+        return $query;
+    }
+
+    public function scopeFilterNumber($query, $number)
+    {
+        if ($number) {
+            $query->where('number_of_seats', $number);
         }
 
         return $query;
