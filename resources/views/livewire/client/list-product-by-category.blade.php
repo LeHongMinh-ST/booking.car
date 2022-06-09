@@ -8,9 +8,7 @@
         <div class="page_title_wrapper">
             <div class="page_title_inner">
                 <div class="page_title_content">
-                    <h1 class="withtopbar">Cho thuê xe và xe Limousine cao cấp</h1>
-                    <div class="page_tagline">
-                        This is sample of page tagline and you can set it up using page option </div>
+                    <h1 class="withtopbar">Danh mục: {{ $categoryName }}</h1>
                 </div>
             </div>
         </div>
@@ -127,6 +125,20 @@
                                                 <a class="car_link" href="#"><h4>{{ $product->name }}</h4></a>
                                                 <div class="car_attribute_rating">
                                                     {{ $product->license_plates }} {{ $product->color }}
+                                                </div>
+                                                <div class="car_attribute_wrapper_icon">
+                                                    <div class="one_fourth">
+                                                        <div class="car_attribute_icon ti-user"></div>
+                                                        <div class="car_attribute_content">
+                                                            {{ $product->number_of_seats }}</div>
+                                                    </div>
+
+                                                    <div class="one_fourth">
+                                                        <div class="car_attribute_icon ti-panel"></div>
+                                                        <div class="car_attribute_content">
+                                                            {{ $product->type_car == \App\Models\Product::TYPE_CAR['auto'] ? "Tự động": "Sàn" }} </div>
+                                                    </div>
+
                                                 </div>
                                                 <br class="clear"/>
                                             </div>

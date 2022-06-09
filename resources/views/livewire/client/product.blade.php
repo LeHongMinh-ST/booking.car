@@ -60,15 +60,16 @@
                         <div class="car_attribute_rating">
                             <div class="br-theme-fontawesome-stars-o">
                                 <div class="br-widget">
-                                    <a href="javascript:;" class="br-selected"></a>
-                                    <a href="javascript:;" class="br-selected"></a>
-                                    <a href="javascript:;" class="br-selected"></a>
-                                    <a href="javascript:;" class="br-selected"></a>
-                                    <a href="javascript:;"></a>
+                                    @for($i = 0; $i<$rateTotal; $i++)
+                                        <a href="javascript:;" class="br-selected"></a>
+                                    @endfor
+                                    @for($i = 0; $i<5 - $rateTotal; $i++)
+                                        <a href="javascript:;"></a>
+                                    @endfor
                                 </div>
                             </div>
                             <div class="car_attribute_rating_count">
-                                4&nbsp; đánh giá
+                                {{ $rateCount }} đánh giá
                             </div>
                         </div>
                     </div>
@@ -99,10 +100,17 @@
                             </div>
                         </div>
 
-                        <div class="one_fourth" style="width: 15%">
+                        <div class="one_fourth" style="width: 12%">
                             <div>Số chỗ</div>
                             <div class="car_attribute_content" style="font-size: 20px; font-weight: bold">
                                 {{ number_format($product->number_of_seats ?? 0)  }} chỗ
+                            </div>
+                        </div>
+
+                        <div class="one_fourth" style="width: 12%">
+                            <div>Hộp số</div>
+                            <div class="car_attribute_content" style="font-size: 20px; font-weight: bold">
+                                {{ $product->type_car == \App\Models\Product::TYPE_CAR['auto'] ? "Tự động" : "Sàn" }}
                             </div>
                         </div>
 
@@ -132,7 +140,7 @@
 
                     <div class="fullwidth_comment_wrapper sidebar">
 
-                        <h3 class="comment_title">4 Đánh giá</h3>
+                        <h3 class="comment_title">{{ $rateCount }} Đánh giá</h3>
                         <div class="avg_comment_rating_wrapper themeborder">
                             <div class="comment_rating_wrapper">
                                 <div class="comment_rating_label">Điều khiển</div>

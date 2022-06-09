@@ -13,6 +13,19 @@ class ListProductByCategory extends Component
     public $category_id;
     public $sort_by;
     public $color;
+    public $type_car;
+    public $search;
+    public $number;
+    public $categoryName;
+
+    protected $queryString = [
+        'sort_by',
+        'category_id',
+        'number',
+        'color',
+        'type_car',
+        'search'
+    ];
 
     public function render()
     {
@@ -20,6 +33,8 @@ class ListProductByCategory extends Component
             ->filterColor($this->color)
             ->filterCategory($this->category_id ? [$this->category_id] : [])
             ->filterOrderBy($this->sort_by)
+            ->filterTypeCar($this->type_car)
+            ->filterNumber($this->number)
             ->where('status',\App\Models\Product::STATUS['normal'])
             ->paginate(12);
         $categories = Category::query()->where('is_active', Category::IS_ACTIVE['active'])->get();
@@ -34,7 +49,8 @@ class ListProductByCategory extends Component
     public function mount($slug)
     {
         $category = Category::query()->where('slug', $slug)->first();
-
+        $this->category_id = $category->id;
+        $this->categoryName = $category->name;
     }
 
 }

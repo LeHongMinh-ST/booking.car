@@ -53,7 +53,7 @@ class CustomerUpdate extends Component
         return [
             'name' => 'required|string|max:255',
             'email' => [
-                'nullable',
+                'required',
                 'string',
                 'max:255',
                 'email',
@@ -118,15 +118,13 @@ class CustomerUpdate extends Component
                     'is_active' => $this->isActive,
                 ]);
             } else {
-                if ($this->email) {
-                    $user = User::query()->create([
-                        'name' => $this->name,
-                        'email' => $this->email,
-                        'password' => Hash::make(env('PASSWORD_USER', 123456789)),
-                    ]);
-                    $customer->user_id = $user->id;
-                    $customer->save();
-                }
+                $user = User::query()->create([
+                    'name' => $this->name,
+                    'email' => $this->email,
+                    'password' => Hash::make(env('PASSWORD_USER', 123456789)),
+                ]);
+                $customer->user_id = $user->id;
+                $customer->save();
             }
             session()->flash('success', 'Cập nhật thành công');
 

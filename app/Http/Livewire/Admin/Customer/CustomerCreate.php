@@ -33,7 +33,7 @@ class CustomerCreate extends Component
         return [
             'name' => 'required|string|max:255',
             'email' => [
-                'nullable',
+                'required',
                 'string',
                 'max:255',
                 'email',

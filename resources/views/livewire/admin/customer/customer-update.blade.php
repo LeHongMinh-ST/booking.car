@@ -93,10 +93,7 @@
                                 <div class="d-flex flex-column mb-7 fv-row fv-plugins-icon-container">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
-                                        <span @if($userID) class="required"@endif>Email</span>
-                                        @if(!$userID)
-                                        <span style="font-weight: 100;font-size: 12px;font-style: italic;">(Nhập email để tạo tài khoản)</span>
-                                        @endif
+                                        <span class="required">Email</span>
                                     </label>
                                     <!--end::Label-->
                                     <input type="text" wire:model="email" class="form-control form-control-solid" placeholder="">

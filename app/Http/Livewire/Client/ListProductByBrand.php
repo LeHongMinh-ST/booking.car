@@ -9,12 +9,23 @@ use Livewire\Component;
 
 class ListProductByBrand extends Component
 {
-
-
-
     public $category_id;
     public $sort_by;
     public $color;
+    public $type_car;
+    public $search;
+    public $number;
+    public $brandId;
+    public $brandName;
+
+    protected $queryString = [
+        'sort_by',
+        'category_id',
+        'number',
+        'color',
+        'type_car',
+        'search'
+    ];
 
     public function render()
     {
@@ -22,6 +33,9 @@ class ListProductByBrand extends Component
             ->filterColor($this->color)
             ->filterCategory($this->category_id ? [$this->category_id] : [])
             ->filterOrderBy($this->sort_by)
+            ->filterTypeCar($this->type_car)
+            ->filterNumber($this->number)
+            ->filterBrand($this->brandId)
             ->where('status',\App\Models\Product::STATUS['normal'])
 
             ->paginate(12);
@@ -38,6 +52,7 @@ class ListProductByBrand extends Component
     {
         $brand = Brand::query()->where('slug', $slug)->first();
 
-        $this->filter['brandId'] = $this->brandId = $brand->id;
+        $this->brandId = $brand->id;
+        $this->brandName = $brand->name;
     }
 }

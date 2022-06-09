@@ -6,12 +6,12 @@ use App\Jobs\Mail\SendMailOrder;
 use App\Models\Contract;
 use App\Models\Customer;
 use App\Models\Order;
+use App\Models\Product as ProductModel;
 use App\Models\Rate;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Livewire\Component;
-use App\Models\Product as ProductModel;
 
 class Product extends Component
 {
@@ -39,6 +39,8 @@ class Product extends Component
     public $overAllTotal = 0;
     public $rates = [];
     public $handleProcess = true;
+    public $rateCount;
+    public $rateTotal;
 
     public function render()
     {
@@ -255,11 +257,14 @@ class Product extends Component
     public function getRate($productId)
     {
         $this->rates = Rate::query()->where('product_id', $productId)->get();
+        $this->rateCount = count($this->rates);
         if (count($this->rates) > 0) {
             $this->drivingTotal = Rate::query()->where('product_id', $productId)->sum('driving') / count($this->rates);
             $this->layoutTotal = Rate::query()->where('product_id', $productId)->sum('layout') / count($this->rates);
             $this->spaceTotal = Rate::query()->where('product_id', $productId)->sum('space') / count($this->rates);
             $this->overAllTotal = Rate::query()->where('product_id', $productId)->sum('over_all') / count($this->rates);
         }
+
+        $this->rateTotal = ($this->drivingTotal + $this->layoutTotal + $this->spaceTotal + $this->overAllTotal) / 4;
     }
 }
