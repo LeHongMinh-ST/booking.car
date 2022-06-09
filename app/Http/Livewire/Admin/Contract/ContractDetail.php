@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Admin\Contract;
 
 use App\Models\Contract;
+use App\Models\Product;
 use App\Models\StatisticRevenueDaily;
 use App\Models\StatisticRevenueMonthly;
 use App\Models\StatisticRevenueQuarterly;
@@ -59,6 +60,12 @@ class ContractDetail extends Component
         $this->contract->overtime = $this->numberOvertime;
         $this->contract->overtime_price = $this->overtimePrice;
         $this->contract->save();
+        $productOrder = $this->contract->productOrder;
+        $product = $productOrder->product;
+        $product->status = Product::STATUS['normal'];
+        $product->save();
+
+        $this->updateStatisticRevenue(Contract::STATUS['complete'], $this->contract);
         $this->dispatchBrowserEvent('alert',
             ['type' => 'succes', 'message' => 'Cập nhật thành công']);
         $this->closeModal();
@@ -78,11 +85,23 @@ class ContractDetail extends Component
         $this->closeModal();
     }
 
+    public function handleDestroyContract()
+    {
+        $this->contract->status = Contract::STATUS['cancel'];
+        $this->contract->note_cancel = $this->noteCancel;
+        $this->contract->save();
+
+        $productOrder = $this->contract->productOrder;
+        $product = $productOrder->product;
+        $product->status = Product::STATUS['normal'];
+        $product->save();
+        $this->dispatchBrowserEvent('alert',
+            ['type' => 'succes', 'message' => 'Cập nhật thành công']);
+        $this->closeModal();
+    }
+
     private function updateStatisticRevenue($status, $contract)
     {
-        $revenue = (int)$contract->price_total + (int)$contract->overtime_price;
-        $over = (int)$contract->overtime_price;
-
          $revenueDaily = StatisticRevenueDaily::query()->where('date', Carbon::today()->timestamp)->first();
 
         if (!$revenueDaily) {
@@ -119,6 +138,21 @@ class ContractDetail extends Component
         }
 
         if ($status == Contract::STATUS['complete']) {
+            $revenue = (int)$contract->price_total + (int)$contract->overtime_price;
+            $over = (int)$contract->overtime_price;
+            $revenueDaily->revenue += $revenue;
+            $revenueDaily->over += $over;
+            $revenueMonthly->revenue += $revenue;
+            $revenueMonthly->over += $over;
+            $revenueQuarter->revenue += $revenue;
+            $revenueQuarter->over += $over;
+            $revenueYearly->revenue += $revenue;
+            $revenueYearly->over += $over;
+        }
+
+        if ($status == Contract::STATUS['cancel']) {
+            $revenue = (int)$contract->price_deposits;
+            $over = 0;
             $revenueDaily->revenue += $revenue;
             $revenueDaily->over += $over;
             $revenueMonthly->revenue += $revenue;
@@ -132,6 +166,5 @@ class ContractDetail extends Component
         $revenueMonthly->save();
         $revenueQuarter->save();
         $revenueYearly->save();
-
     }
 }
