@@ -46,6 +46,8 @@ use App\Http\Livewire\Client\Login as ClientLogin;
 use App\Http\Controllers\Client\LoginController as ClientLoginController;
 use UniSharp\LaravelFilemanager\Lfm;
 use App\Http\Livewire\Client\Customer\OrderIndex as OrderClientIndex;
+use App\Http\Livewire\Client\Customer\ContractIndex as ContractClientIndex;
+use App\Http\Livewire\Client\Customer\ContractDetail as ContractDetailIndex;
 use App\Http\Livewire\Client\Customer\OrderUpdate as OrderClientUpdate;
 use App\Http\Livewire\Admin\Profile\ProfileSetting;
 use App\Http\Livewire\Admin\Contact\ContactIndex;
@@ -64,6 +66,8 @@ use App\Http\Livewire\Admin\Contact\ContactIndex;
 Route::group(['prefix' => 'customer', 'as' => 'customer.'], function () {
     Route::group(['middleware' => ['auth']], function () {
         Route::get('order',OrderClientIndex::class)->name('order');
+        Route::get('contract',ContractClientIndex::class)->name('contract');
+        Route::get('contract/{id}',ContractDetailIndex::class)->name('contract.detail');
         Route::get('order/{id}/edit',OrderClientUpdate::class)->name('order.update');
     });
 });

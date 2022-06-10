@@ -134,21 +134,11 @@ class Product extends Component
         try {
             $this->handleProcess = false;
 
+            $user = auth('user')->user();
 
-            $customer = Customer::query()->where('person_id', $this->personId)->first();
+            $customer = $user->customer;
 
             $product = ProductModel::query()->find($this->product->id);
-
-            if (!$customer) {
-                $customer = Customer::create([
-                    'name' => $this->name,
-                    'email' => $this->email,
-                    'phone' => $this->phone,
-                    'person_id' => $this->personId,
-                    'address' => $this->address,
-                    'permanent_residence' => $this->permanentResidence,
-                ]);
-            }
 
             $customerOrder = $customer->customerOrders()->create([
                 'name' => $this->name,

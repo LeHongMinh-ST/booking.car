@@ -15,7 +15,7 @@ class ContractIndex extends Component
 
     protected $paginationTheme = 'bootstrap';
 
-    public $status = 1;
+    public $status;
     public $perPage = 10;
     public $search = '';
     public $selectId;
@@ -29,8 +29,7 @@ class ContractIndex extends Component
 
         return view('livewire.admin.contract.contract-index', [
             'contracts' => $contracts
-        ])
-            ->extends('admin.layouts.master')->section('content');
+        ])->extends('admin.layouts.master')->section('content');
     }
 
     public function openDeleteModal($id)

@@ -315,8 +315,7 @@
                                         <!--end::Date=-->
                                         <!--begin::Action=-->
                                         <td class="text-center btnAction">
-                                            <span
-                                                    wire:click="openDetailModal({{ $order->id }})"
+                                            <span wire:click="openDetailModal({{ $order->id }})"
                                                     class="btn btn-sm btn-clean btn-icon mr-2"
                                                     style="cursor: pointer" title="Chi tiết">
                                                   <span class="svg-icon svg-icon-2">
