@@ -7,6 +7,7 @@ use App\Models\Contract;
 use App\Models\Customer;
 use App\Models\Order;
 use App\Models\Product as ProductModel;
+use App\Models\ProductOrder;
 use App\Models\Rate;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -148,7 +149,7 @@ class Product extends Component
                 'address' => $this->address,
                 'permanent_residence' => $this->permanentResidence,
             ]);
-            $productOrder = $product->productOrders()->create([
+            $productOrder =   ProductOrder::create([
                 'name' => $product->name,
                 'color' => $product->color,
                 'km' => $product->km,
@@ -158,6 +159,10 @@ class Product extends Component
                 'other_parameters' => $product->other_parameters,
                 'license_plates' => $product->license_plates,
                 'brand_id' => $product->brand_id,
+                'overtime_price' => $product->overtime_price,
+                'over_km_price' => $product->over_km_price,
+                'deposit_price' => $product->deposit_price,
+                'product_id' => $product->id
             ]);
 
             $order = $customerOrder->orders()->create([

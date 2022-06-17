@@ -22,17 +22,14 @@
 
                         <div class="one_third " style=""><span class="ti-car" style="display: block; font-size: 50px; margin-bottom: 20px;"> </span>
                             <h4 style="color: #fff;">Nhiều nhãn hiệu xe hơi</h4>
-                            <p>Lorem ipsum dolor sit amet, consectadipiscing elit. Aenean commodo ligula eget dolor.</p>
                         </div>
                         <div class="one_third " style="">
                             <span class="ti-face-smile" style="display: block; font-size: 50px; margin-bottom: 20px;"> </span>
                             <h4 style="color: #fff;">Đảm bảo giá tốt nhất</h4>
-                            <p>Lorem ipsum dolor sit amet, consectadipiscing elit. Aenean commodo ligula eget dolor.</p>
                         </div>
                         <div class="one_third last " style=""><span class="ti-heart" style="display: block; font-size: 50px; margin-bottom: 20px;"> </span>
                             <h4 style="color: #fff;">
                                 Hỗ trợ khách hàng tuyệt vời</h4>
-                            <p>Lorem ipsum dolor sit amet, consectadipiscing elit. Aenean commodo ligula eget dolor.</p>
                         </div>
                         <p>
                             <br class="clear" />
