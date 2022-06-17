@@ -228,6 +228,25 @@
                     </div>
                 </div>
             </div>
+            @if($contract->overtime)
+                <div class="card">
+                    <div class="card-header">
+                        <h4> Ghi chú:
+                        </h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="container">
+                            <div>
+                                <h5>Số giờ phụ trội: {{ $contract->overtime }} giờ</h5>
+                            </div>
+                            <div>
+                                <h5>Tổng tiền phải thanh toán thêm: {{ number_format($contract->overtime_price) }}
+                                    VNĐ</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endif
         </div>
         <!--end::Container-->
     </div>
