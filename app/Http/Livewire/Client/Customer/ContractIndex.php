@@ -27,6 +27,7 @@ class ContractIndex extends Component
             ->whereIn('customer_id', $customerIds)
             ->status($this->status)
             ->search($this->search)
+            ->orderByDesc('created_at')
             ->paginate($this->perPage);
 
         return view('livewire.client.customer.contract-index', [
