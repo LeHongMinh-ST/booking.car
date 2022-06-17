@@ -120,8 +120,8 @@ class Product extends Component
 
     public function store()
     {
-
         $this->validate();
+
         $this->dispatchBrowserEvent('showLoading');
 
         if (!$this->handleProcess) {
@@ -134,7 +134,7 @@ class Product extends Component
         try {
             $this->handleProcess = false;
 
-            $user = auth('user')->user();
+            $user = auth('web')->user();
 
             $customer = $user->customer;
 
@@ -148,7 +148,6 @@ class Product extends Component
                 'address' => $this->address,
                 'permanent_residence' => $this->permanentResidence,
             ]);
-
             $productOrder = $product->productOrders()->create([
                 'name' => $product->name,
                 'color' => $product->color,
@@ -170,7 +169,6 @@ class Product extends Component
                 'product_order_id' => $productOrder->id,
                 'status' => Order::STATUS['no_deposit_yet']
             ]);
-
             SendMailOrder::dispatch($this->email, $order->id);
 
             session()->flash('success', [
