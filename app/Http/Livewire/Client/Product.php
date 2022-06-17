@@ -169,6 +169,7 @@ class Product extends Component
                 'product_order_id' => $productOrder->id,
                 'status' => Order::STATUS['no_deposit_yet']
             ]);
+
             SendMailOrder::dispatch($this->email, $order->id);
 
             session()->flash('success', [

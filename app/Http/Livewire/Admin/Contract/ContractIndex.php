@@ -25,6 +25,7 @@ class ContractIndex extends Component
         $contracts = Contract::query()
             ->status($this->status)
             ->search($this->search)
+            ->orderByDesc('created_at')
             ->paginate($this->perPage);
 
         return view('livewire.admin.contract.contract-index', [
