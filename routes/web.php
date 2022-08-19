@@ -72,7 +72,7 @@ Route::group(['prefix' => 'customer', 'as' => 'customer.'], function () {
     });
 });
 
-Route::get('ar',[\App\Http\Controllers\ArController::class, 'index']);
+Route::get('ar-camera',[\App\Http\Controllers\ArController::class, 'index']);
 
 Route::get('profile',\App\Http\Livewire\Client\Customer\Profile::class)->middleware('auth')->name('profile');
 
