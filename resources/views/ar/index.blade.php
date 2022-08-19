@@ -14,6 +14,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ar.js/2.2.2/aframe-ar.min.js"
         integrity="sha512-Vwmkm1QOtdVNLuwkxaXXyB/aBY0lZvI4NTv+83gs+pU0HuZ2j3inyfgpMpJHYRS0O3PoHEhO6mKomMYBKXRMWw=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="{{asset('public/ar/ar.js')}}"></script>
+<script src="{{asset('ar/ar.js')}}"></script>
 </body>
 </html>
